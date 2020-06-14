@@ -1,4 +1,5 @@
 const Joi = require('joi');
+Joi.objectId = require('joi-objectid')(Joi);
 const mongoose = require('mongoose');
 
 const categorySchema = new mongoose.Schema({
@@ -14,6 +15,7 @@ const Category =  mongoose.model('Category' , categorySchema);
 
 function validateCategory(category) {
     const schema = {
+        _id: Joi.objectId() ,
         name: Joi.string().min(2).max(255).required()
     };
 
