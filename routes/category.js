@@ -3,11 +3,6 @@ var router = express.Router();
 var categoryController = require('../controller/category')
 
 /* GET category listing. */
-router.get('/', (req , res , next)=> {
-    res.send('here is the response');
-}
-);
-
 router.post('/categories', categoryController.insert);
 router.get('/categories', categoryController.findAll);
 router.get('/categories/:id', categoryController.findById);
