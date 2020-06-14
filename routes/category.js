@@ -7,6 +7,9 @@ router.get('/', (req , res , next)=> {
     res.send('here is the response');
 }
 );
-router.get('/category', categoryController.list);
-router.post('/category', categoryController.insert);
+
+router.post('/categorys', categoryController.insert);
+router.get('/categorys', categoryController.findAll);
+router.get('/categorys/:id', categoryController.findById);
+router.put('/categorys', categoryController.updateById);
 module.exports = router;
