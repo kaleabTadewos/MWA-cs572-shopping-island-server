@@ -8,8 +8,8 @@ router.get('/', (req , res , next)=> {
 }
 );
 
-router.post('/categorys', categoryController.insert);
-router.get('/categorys', categoryController.findAll);
-router.get('/categorys/:id', categoryController.findById);
-router.put('/categorys', categoryController.updateById);
+router.post('/categories', categoryController.insert);
+router.get('/categories', categoryController.findAll);
+router.get('/categories/:id', categoryController.findById);
+router.put('/categories', categoryController.updateById);
 module.exports = router;
