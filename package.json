@@ -1,5 +1,4 @@
 {
-<<<<<<< HEAD
     "name": "shopping-island-server",
     "version": "0.0.0",
     "private": true,
@@ -8,6 +7,7 @@
     },
     "dependencies": {
         "cookie-parser": "~1.4.4",
+        "cors": "^2.8.5",
         "debug": "~2.6.9",
         "ejs": "~2.6.1",
         "express": "~4.16.1",
@@ -17,21 +17,3 @@
         "morgan": "~1.9.1"
     }
 }
-=======
-  "name": "shopping-island-server",
-  "version": "0.0.0",
-  "private": true,
-  "scripts": {
-    "start": "node ./bin/www"
-  },
-  "dependencies": {
-    "cookie-parser": "~1.4.4",
-    "debug": "~2.6.9",
-    "ejs": "~2.6.1",
-    "express": "~4.16.1",
-    "http-errors": "~1.6.3",
-    "joi": "^14.3.1",
-    "morgan": "~1.9.1"
-  }
-}
->>>>>>> d6a70846ab4a6bdef8f027d8b129d92aeeff2443
