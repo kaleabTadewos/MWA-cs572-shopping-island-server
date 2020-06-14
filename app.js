@@ -1,5 +1,4 @@
-const mongoConnect = require('./util/database').mongoConnect;
-
+const mongoose = require('mongoose');
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -39,12 +38,6 @@ app.use(function(err, req, res, next) {
     res.status(err.status || 500);
     res.render('error');
 });
-
-//module.exports = app;
-
-// mongoConnect(() => {
-//   app.listen(3000);
-// })
 
 mongoose.connect('mongodb://localhost:27017/Island-shopping', { useUnifiedTopology: true, useNewUrlParser: true })
     .then(() => {
