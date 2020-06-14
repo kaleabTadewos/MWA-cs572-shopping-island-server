@@ -4,20 +4,25 @@ const _ = require('lodash');
 const mongoose = require('mongoose');
 const { User, validate } = require('../models/User');
 
-/* GET users listing. */
-exports.registerUser = async function(req, res, next) {
-    const { error } = validate(req.body);
-    if (error) return res.status(400).send(error.details[0].message);
+/* get a user. */
+exports.getUser = async function(request, response) {
+        const user = await User.findById(request.user._id).select('-password');
+        response.send(user);
+    }
+    /* register users. */
+exports.registerUser = async function(request, response) {
+    const { error } = validate(request.body);
+    if (error) return response.status(400).send(error.details[0].message);
 
 
-    let user = await User.findOne({ email: req.body.email });
-    if (user) return res.status(400).send('user already exist')
+    let user = await User.findOne({ email: request.body.email });
+    if (user) return response.status(400).send('user already exist')
 
     user = new User({
-        email: req.body.email,
-        password: req.body.password,
-        status: req.body.status,
-        role: req.body.role
+        email: request.body.email,
+        password: request.body.password,
+        status: request.body.status,
+        role: request.body.role
     })
 
     const salt = await bcrypt.genSalt(10);
@@ -26,5 +31,5 @@ exports.registerUser = async function(req, res, next) {
     await user.save();
 
     const token = user.generateAuthToken();
-    res.header('x-auth-token', token).send(_.pick(user, ['email', 'role', 'status']));
+    response.header('x-auth-token', token).send(_.pick(user, ['email', 'role', 'status']));
 }

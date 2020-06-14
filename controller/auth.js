@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 const { User, validate } = require('../models/User');
 
 /* GET users listing. */
-exports.login = async function(req, res, next) {
+exports.login = async function(req, res) {
     const { error } = validateLogin(req.body);
     if (error) return res.status(400).send(error.details[0].message);
 

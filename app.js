@@ -17,6 +17,8 @@ if (!config.get('jwtPrivateKey')) {
     process.exit(1);
 }
 console.log("config.get('jwtPrivateKey')", config.get('jwtPrivateKey'))
+
+app.use(express.json())
 app.use(cors());
 app.use(bodyParser.json());
 app.use(userRoutes);

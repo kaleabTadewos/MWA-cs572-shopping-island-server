@@ -1,7 +1,11 @@
-var express = require('express');
-var router = express.Router();
-var userController = require('../controller/User')
+const express = require('express');
+const auth = require('../middleware/auth');
+const router = express.Router();
+const userController = require('../controller/User');
+const admin = require('../middleware/admin');
 
-/* GET users listing. */
-router.post('/user', userController.registerUser)
+/* Get a user. */
+router.get('/user/me', [auth, admin], userController.getUser);
+/* Register a user user. */
+router.post('/user', auth, userController.registerUser);
 module.exports = router;
