@@ -27,6 +27,7 @@ const userSchema = new mongoose.Schema({
 
 });
 
+//user created successfully 
 const User = mongoose.model('User', userSchema);
 
 function validateUser(user) {
