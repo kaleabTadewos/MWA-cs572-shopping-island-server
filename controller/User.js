@@ -25,6 +25,6 @@ exports.registerUser = async function(req, res, next) {
 
     await user.save();
 
-
-    res.send(_.pick(user, ['email', 'role', 'status']));
+    const token = user.generateAuthToken();
+    res.header('x-auth-token', token).send(_.pick(user, ['email', 'role', 'status']));
 }

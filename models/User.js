@@ -1,5 +1,7 @@
 const Joi = require('joi');
 const mongoose = require('mongoose');
+const jwt = require('jsonwebtoken');
+const config = require('config');
 
 const userSchema = new mongoose.Schema({
     email: {
@@ -17,15 +19,20 @@ const userSchema = new mongoose.Schema({
     },
     status: {
         type: String,
-        enum: ['Active', 'Pending', 'Inactive'],
-        default: 'Pending'
+        enum: ['ACTIVE ', 'PENDING', 'INACTIVE'],
+        default: 'PENDING'
     },
     role: {
         type: String,
-        enum: ['Admin', 'Seller', 'Buyer']
+        enum: ['ADMIN', 'SELLER', 'BUYER']
     }
 
 });
+
+userSchema.methods.generateAuthToken = function() {
+    const token = jwt.sign({ _id: this._id }, config.get('jwtPrivateKey'))
+    return token;
+}
 
 //user created successfully 
 const User = mongoose.model('User', userSchema);

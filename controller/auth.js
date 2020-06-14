@@ -15,8 +15,8 @@ exports.login = async function(req, res, next) {
     if (!user) return res.status(400).send('user or password is not correct');
     const isvalid = await bcrypt.compare(req.body.password, user.password);
     if (!isvalid) return res.status(400).send('not authorized');
-
-    res.send(true);
+    const token = user.generateAuthToken();
+    res.send(token);
 }
 
 function validateLogin(user) {
