@@ -17,12 +17,12 @@ const userSchema = new mongoose.Schema({
     },
     status: {
         type: String,
-        enum: ['Active', 'Pending', 'Inactive'],
-        default: 'Pending'
+        enum: ['ACTIVE ', 'PENDING', 'INACTIVE'],
+        default: 'PENDING'
     },
     role: {
         type: String,
-        enum: ['Admin', 'Seller', 'Buyer']
+        enum: ['ADMIN', 'SELLER', 'BUYER']
     }
 
 });
