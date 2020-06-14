@@ -1,4 +1,6 @@
 var express = require('express');
+const bcrypt = require('bcrypt');
+var _ = require('lodash');
 const mongoose = require('mongoose');
 const { User, validate } = require('../models/User');
 
@@ -18,7 +20,11 @@ exports.registerUser = async function(req, res, next) {
         role: req.body.role
     })
 
+    const salt = await bcrypt.genSalt(10);
+    user.password = await bcrypt.hash(user.password, salt);
+
     await user.save();
 
-    res.send(user);
+
+    res.send(_.pick(user, ['email', 'role', 'status']));
 }
