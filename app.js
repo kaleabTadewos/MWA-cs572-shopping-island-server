@@ -6,9 +6,15 @@ const cors = require('cors');
 const userRoutes = require('./routes/users');
 const loginRoutes = require('./routes/login');
 const categoryRoutes = require('./routes/category');
-
+const config = require('config');
 const app = express();
 
+if (!config.get('jwtPrivateKey')) {
+    console.log(config.get('jwtPrivateKey'))
+    console.error('jwtPrivateKey is not defined')
+    process.exit(1);
+}
+console.log("config.get('jwtPrivateKey')", config.get('jwtPrivateKey'))
 app.use(cors());
 app.use(bodyParser.json());
 app.use(userRoutes);

@@ -3,7 +3,6 @@ const bcrypt = require('bcrypt');
 const _ = require('lodash');
 const Joi = require('joi');
 const mongoose = require('mongoose');
-const jwt = require('jsonwebtoken');
 const { User, validate } = require('../models/User');
 
 /* GET users listing. */
@@ -16,7 +15,7 @@ exports.login = async function(req, res, next) {
     if (!user) return res.status(400).send('user or password is not correct');
     const isvalid = await bcrypt.compare(req.body.password, user.password);
     if (!isvalid) return res.status(400).send('not authorized');
-    const token = jwt.sign({ _id: user._id }, 'jwtPrivateKey')
+    const token = user.generateAuthToken();
     res.send(token);
 }
 
