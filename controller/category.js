@@ -25,9 +25,9 @@ exports.findAll = async (req, res, next) => {
 
 //Update Operation
 exports.updateById = async (req, res, next) => {
-       const { error } = validate(req.body);
-    console.log(error);
-       if (error) return res.status(400).send(error.details[0].message);
+    //    const { error } = validate(req.body);
+    // console.log(error);
+    //    if (error) return res.status(400).send(error.details[0].message);
         const category = await Category.findOneAndUpdate(req.params.id,
             { 
               name: req.body.name
