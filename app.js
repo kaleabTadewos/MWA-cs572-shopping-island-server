@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const ApiResponse = require('./models/api-response');
+const ErrorResponse = require('./models/errorResponse');
 
 const userRoutes = require('./routes/users');
 const loginRoutes = require('./routes/login');
@@ -28,18 +29,18 @@ app.use('/user', [auth, admin], userRoutes);
 app.use(loginRoutes);
 app.use(categoryRoutes);
 
-app.use('/', (req , res , next)=> {
+app.get('/', (req , res , next)=> {
     res.sendFile(__dirname + '/views/index.html');
 }
 );
 
 app.use((req, res, next) => {
-    return res.status(404).send(new ApiResponse(404, 'Page Not Found!', {}));
+    return res.status(404).send(new ErrorResponse(400 , 'no content found!'));
 });
 
-// app.use((err, req, res, next) => {
-//     return res.status(500).send(new ApiResponse(500, 'Something Brokee!', err));
-// });
+app.use((err, req, res, next) => {
+    return res.status(500).send(new ErrorResponse(500 , err));
+});
 
 
 mongoose.connect('mongodb://localhost:27017/Island-shopping', { useUnifiedTopology: true, useNewUrlParser: true })
