@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const unitController = require('../controller/unit.controller');
+const shippingAddressController = require('../controller/shippingAddress.controller');
 const subCategoryController = require('../controller/subCategory.controller');
 
-/* User Routes */
+/* units Routes */
 router.get('/units', unitController.findAll);
 router.post('/units', unitController.insert);
 router.put('/units/', unitController.updateById);
@@ -16,4 +17,14 @@ router.post('/sub-categories', subCategoryController.insert);
 router.put('/sub-categories/', subCategoryController.updateById);
 router.get('/sub-categories/:id', subCategoryController.findById);
 router.delete('/sub-categories/:id', subCategoryController.removeById);
+
+/* Shipping Address Routes*/
+router.get('/shipping-address', shippingAddressController.findAll);
+router.post('/shipping-address', shippingAddressController.insert);
+router.put('/shipping-address/', shippingAddressController.updateById);
+router.get('/shipping-address/:id', shippingAddressController.findById);
+router.delete('/shipping-address/:id', shippingAddressController.removeById);
+
+
+
 module.exports = router;
