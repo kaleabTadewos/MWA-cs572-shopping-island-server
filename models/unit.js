@@ -16,7 +16,7 @@ const unitSchema = new mongoose.Schema({
 });
 
 
-function validateUnit(unit) {
+function validateUnitWithId(unit) {
     const schema = {
         _id: Joi.objectId(),
         name: Joi.string().required(),
@@ -26,5 +26,24 @@ function validateUnit(unit) {
     return Joi.validate(unit, schema);
 }
 
+function validateUnitId(unit) {
+    const schema = {
+        _id: Joi.objectId().required()
+    };
+
+    return Joi.validate(unit, schema);
+}
+
+function validateUnitWithOutId(unit) {
+    const schema = {
+        name: Joi.string().required(),
+        quantity: Joi.number().required(),
+    };
+
+    return Joi.validate(unit, schema);
+}
+
 exports.Unit = mongoose.model('Unit', unitSchema);
-exports.validate = validateUnit;
+exports.validateWithId = validateUnitWithId;
+exports.validateId = validateUnitId;
+exports.validateWithOutId = validateUnitWithOutId;
