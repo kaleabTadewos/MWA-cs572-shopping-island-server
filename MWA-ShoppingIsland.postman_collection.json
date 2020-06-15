@@ -9,42 +9,13 @@
 			"name": "1.category",
 			"item": [
 				{
-					"name": "1. update category",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"_id\": \"5ee6a66eaac52f3ef4dc4310\",\n    \"name\": \"Electronicss\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:3000/categories/",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"categories",
-								""
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "1. create category",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"Electronicss\"\n}",
+							"raw": "{\n    \"name\": \"Electronicssss\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -52,13 +23,14 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/categories/",
+							"raw": "http://localhost:3000/admin/categories/",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
+								"admin",
 								"categories",
 								""
 							]
@@ -84,15 +56,16 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/categories/5ee6a67aaac52f3ef4dc4311",
+							"raw": "http://localhost:3000/admin/categories/5ee6a66eaac52f3ef4dc4310",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
+								"admin",
 								"categories",
-								"5ee6a67aaac52f3ef4dc4311"
+								"5ee6a66eaac52f3ef4dc4310"
 							]
 						}
 					},
@@ -131,6 +104,36 @@
 					"response": []
 				},
 				{
+					"name": "1. update category",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"_id\": \"5ee6a66eaac52f3ef4dc4310\",\n    \"name\": \"Electronicss12\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/admin/categories/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"admin",
+								"categories",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "1. delete category",
 					"request": {
 						"method": "DELETE",
@@ -145,15 +148,16 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/categories/5ee6a67aaac52f3ef4dc4311",
+							"raw": "http://localhost:3000/admin/categories/5ee6f57e2f358a3c8487ad2e",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
+								"admin",
 								"categories",
-								"5ee6a67aaac52f3ef4dc4311"
+								"5ee6f57e2f358a3c8487ad2e"
 							]
 						}
 					},
@@ -164,7 +168,164 @@
 		},
 		{
 			"name": "2.subcategory",
-			"item": [],
+			"item": [
+				{
+					"name": "1. get subcategory",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"NewSubCatogry-2\",\r\n    \"categoryId\": \"5ee6a66eaac52f3ef4dc4310\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/admin/sub-categories/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"admin",
+								"sub-categories",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "1. create subcategory",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"NewSubCatogry-6\",\r\n    \"categoryId\": \"5ee6a66eaac52f3ef4dc4310\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/admin/sub-categories/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"admin",
+								"sub-categories",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "1. update subcategory",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"_id\": \"5ee7e26f1b2e862b9c896ad6\",\r\n    \"name\": \"NewSubCatogry-10\",\r\n    \"categoryId\": \"5ee6a66eaac52f3ef4dc4310\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/admin/sub-categories/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"admin",
+								"sub-categories",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "1. get subcategory by id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"_id\": \"5ee7e26f1b2e862b9c896ad6\",\r\n    \"name\": \"NewSubCatogry-3\",\r\n    \"categoryId\": \"5ee6a66eaac52f3ef4dc4310\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/admin/sub-categories/5ee7e26f1b2e862b9c896ad6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"admin",
+								"sub-categories",
+								"5ee7e26f1b2e862b9c896ad6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "1. delete subcategory",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"_id\": \"5ee7e26f1b2e862b9c896ad6\",\r\n    \"name\": \"NewSubCatogry-3\",\r\n    \"categoryId\": \"5ee6a66eaac52f3ef4dc4310\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/admin/sub-categories/5ee7f06ccdd5eb0e3ca0e9b4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"admin",
+								"sub-categories",
+								"5ee7f06ccdd5eb0e3ca0e9b4"
+							]
+						}
+					},
+					"response": []
+				}
+			],
 			"protocolProfileBehavior": {}
 		}
 	],
