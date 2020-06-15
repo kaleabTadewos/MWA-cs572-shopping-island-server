@@ -13,7 +13,7 @@ exports.insert = async (req, res, next) => {
 
 //Retrive Operations
 exports.findById = async (req, res, next) => {
-    const { error } = validate(req.params.id);
+    const { error } = validate(new ObjectId(req.params.id));
     if (error) return res.status(400).send(new ErrorResponse('400' , error.details[0].message));
     const subCategory = await SubCategory.findById(req.params.id)
         .populate('categoryId')
@@ -47,7 +47,7 @@ exports.updateById = async (req, res, next) => {
 
 //Delete Operation
 exports.removeById = async (req, res, next) => {
-    const { error } = validate(req.params.id);
+    const { error } = validate(new ObjectId(req.params.id));
     if (error) return res.status(400).send(new ErrorResponse('400' , error.details[0].message));
     const subCategory = await SubCategory.findByIdAndRemove(req.params.id);
     if (!subCategory) return res.status(404).send(new ErrorResponse('400' , 'no content found!'));
