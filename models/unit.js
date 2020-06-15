@@ -24,5 +24,5 @@ function validateUnit(unit) {
     return Joi.validate(unit, schema);
 }
 
-exports.unit = mongoose.model('Unit', unitSchema);
-exports.validateUnit = validateUnit;
+exports.Unit = mongoose.model('Unit', unitSchema);
+exports.validate = validateUnit;
