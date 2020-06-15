@@ -17,7 +17,7 @@ const productSchema = new mongoose.Schema({
         ref: 'User',
         required: true
     },
-    desctiption: {
+    description: {
         type: String,
         required: true
     },
@@ -41,8 +41,7 @@ const productSchema = new mongoose.Schema({
             }
         }
 
-    },
-    require: true
+    }
 
 });
 

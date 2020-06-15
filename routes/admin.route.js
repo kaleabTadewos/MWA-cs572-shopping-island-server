@@ -4,6 +4,7 @@ const unitController = require('../controller/unit.controller');
 const shippingAddressController = require('../controller/shippingAddress.controller');
 const pointCalculatorControler = require('../controller/pointCalculator.controller');
 const subCategoryController = require('../controller/subCategory.controller');
+const categoryController = require('../controller/category.controller');
 
 /* units Routes */
 router.get('/units', unitController.findAll);
@@ -11,6 +12,13 @@ router.post('/units', unitController.insert);
 router.put('/units/', unitController.updateById);
 router.get('/units/:id', unitController.findById);
 router.delete('/units/:id', unitController.removeById);
+
+/* Category Routes*/
+router.get('/categories', categoryController.findAll);
+router.post('/categories', categoryController.insert);
+router.put('/categories/', categoryController.updateById);
+router.get('/categories/:id', categoryController.findById);
+router.delete('/categories/:id', categoryController.removeById);
 
 /* SubCategory Routes*/
 router.get('/sub-categories', subCategoryController.findAll);
