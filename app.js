@@ -3,7 +3,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const ApiResponse = require('./models/api-response');
+const ApiResponse = require('./models/apiResponse');
 const ErrorResponse = require('./models/errorResponse');
 const adminRoutes = require('./routes/admin')
 

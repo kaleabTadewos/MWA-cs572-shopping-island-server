@@ -1,4 +1,4 @@
-const { Category, validate } = require('../models/category');
+const { Category, validate } = require('../models/subCategory');
 const ApiResponse = require('../models/apiResponse');
 const ErrorResponse = require('../models/errorResponse');
 
