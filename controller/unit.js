@@ -1,5 +1,5 @@
 const { Unit, validate } = require('../models/unit');
-const ApiResponse = require('../models/api-response');
+const ApiResponse = require('../models/apiResponse');
 const ErrorResponse = require('../models/errorResponse');
 
 //CRUD Operations
@@ -13,8 +13,8 @@ exports.insert = async(req, res, next) => {
 
 //Retrive Operations
 exports.findById = async(req, res, next) => {
-    const { error } = validate(req.params.id);
-    if (error) return res.status(400).send(new ErrorResponse('400', error.details[0].message));
+    // const { error } = validate(req.params.id);
+    // if (error) return res.status(400).send(new ErrorResponse('400', error.details[0].message));
     const unit = await Unit.findById(req.params.id);
     if (!unit) return res.status(404).send(new ErrorResponse('400', 'no content found!'));
     res.status(200).send(new ApiResponse(200, 'success', unit));

@@ -1,4 +1,5 @@
 const Joi = require('joi');
+Joi.objectId = require('joi-objectid')(Joi);
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const config = require('config');
@@ -17,6 +18,7 @@ const unitSchema = new mongoose.Schema({
 
 function validateUnit(unit) {
     const schema = {
+        _id: Joi.objectId(),
         name: Joi.string().required(),
         quantity: Joi.number().required(),
     };
