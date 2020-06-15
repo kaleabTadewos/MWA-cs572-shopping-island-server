@@ -9,7 +9,6 @@ const adminRoutes = require('./routes/admin.route')
 
 const userRoutes = require('./routes/user.route');
 const loginRoutes = require('./routes/login.route');
-const categoryRoutes = require('./routes/category.route');
 const admin = require('./middleware/admin');
 const auth = require('./middleware/auth');
 const config = require('config');
@@ -28,7 +27,6 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use('/user', [auth, admin], userRoutes);
 app.use(loginRoutes);
-app.use(categoryRoutes);
 app.use('/admin', adminRoutes);
 
 app.get('/', (req, res, next) => {

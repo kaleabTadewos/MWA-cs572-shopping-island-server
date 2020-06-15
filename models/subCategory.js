@@ -1,52 +1,28 @@
 const Joi = require('joi');
 Joi.objectId = require('joi-objectid')(Joi);
 const mongoose = require('mongoose');
-const {Category} = require('./category');
+const { Category } = require('./category');
 
 const subCategorySchema = new mongoose.Schema({
-    name : {
-        type: String , 
-        required : true,
-        minlength: 2, 
+    name: {
+        type: String,
+        required: true,
+        minlength: 2,
         maxlength: 255
-    } , 
-    categorId: {
-        type: mongoose.Types.ObjectId,
-        ref: 'Category',
-        required: true
+    },
+    category: {
+        _id: {
+            type: mongoose.Types.ObjectId,
+            required: true
+        }, name: {
+            type: String,
+            required: true,
+            minlength: 2,
+            maxlength: 255
+        }
     }
 });
 
-const SubCategory =  mongoose.model('SubCategory' , subCategorySchema); 
-
-function validateSubCategoryWithId(subCategory) {
-    const schema = {
-        _id: Joi.objectId().required() ,
-        name: Joi.string().min(2).max(255).required() , 
-        category: Joi.objectId().required()
-    };
-
-    return Joi.validate(subCategory, schema);
-}
-
-function validateSubCategoryId(subCategory) {
-    const schema = {
-        _id: Joi.objectId().required()
-    };
-
-    return Joi.validate(subCategory, schema);
-}
-
-function validateSubCategoryWithOutId(subCategory) {
-    const schema = {
-        name: Joi.string().min(2).max(255).required() , 
-        category: Joi.objectId().required()
-    };
-
-    return Joi.validate(subCategory, schema);
-}
+const SubCategory = mongoose.model('SubCategoryy', subCategorySchema);
 
 exports.SubCategory = SubCategory;
-exports.validateWithId = validateSubCategoryWithId;
-exports.validateId = validateSubCategoryId;
-exports.validateWithOutId = validateSubCategoryWithOutId;
