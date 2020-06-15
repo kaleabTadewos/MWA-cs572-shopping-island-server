@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var categoryController = require('../controller/category')
+var categoryController = require('../controller/category.controller')
 
 /* GET category listing. */
 router.post('/categories', categoryController.insert);

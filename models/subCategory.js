@@ -1,6 +1,7 @@
 const Joi = require('joi');
 Joi.objectId = require('joi-objectid')(Joi);
 const mongoose = require('mongoose');
+const {Category} = require('./category');
 
 const subCategorySchema = new mongoose.Schema({
     name : {
@@ -9,7 +10,7 @@ const subCategorySchema = new mongoose.Schema({
         minlength: 2, 
         maxlength: 255
     } , 
-    categoryId: {
+    categorId: {
         type: mongoose.Types.ObjectId,
         ref: 'Category',
         required: true
@@ -22,7 +23,7 @@ function validateSubCategoryWithId(subCategory) {
     const schema = {
         _id: Joi.objectId().required() ,
         name: Joi.string().min(2).max(255).required() , 
-        categoryId: Joi.objectId().required()
+        category: Joi.objectId().required()
     };
 
     return Joi.validate(subCategory, schema);
@@ -39,7 +40,7 @@ function validateSubCategoryId(subCategory) {
 function validateSubCategoryWithOutId(subCategory) {
     const schema = {
         name: Joi.string().min(2).max(255).required() , 
-        categoryId: Joi.objectId().required()
+        category: Joi.objectId().required()
     };
 
     return Joi.validate(subCategory, schema);

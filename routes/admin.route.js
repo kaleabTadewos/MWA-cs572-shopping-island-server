@@ -1,8 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const unitController = require('../controller/unit');
-const subCategoryController = require('../controller/subCategory');
-//const admin = require('../middleware/admin');
+const unitController = require('../controller/unit.controller');
+const subCategoryController = require('../controller/subCategory.controller');
 
 /* User Routes */
 router.get('/units', unitController.findAll);
