@@ -28,6 +28,10 @@ app.use('/user', [auth, admin], userRoutes);
 app.use(loginRoutes);
 app.use(categoryRoutes);
 
+app.use('/', (req , res , next)=> {
+    res.sendFile(__dirname + '/views/index.html');
+}
+);
 
 app.use((req, res, next) => {
     return res.status(404).send(new ApiResponse(404, 'Page Not Found!', {}));
