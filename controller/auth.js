@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const _ = require('lodash');
 const Joi = require('joi');
 const mongoose = require('mongoose');
-const { User, validate } = require('../models/User');
+const { User, validate } = require('../models/user');
 
 /* GET users listing. */
 exports.login = async function(req, res) {

@@ -2,7 +2,7 @@ const express = require('express');
 const bcrypt = require('bcrypt');
 const _ = require('lodash');
 const mongoose = require('mongoose');
-const { User, validate } = require('../models/User');
+const { User, validate } = require('../models/user');
 
 /* get a user. */
 exports.getUser = async function(request, response) {
