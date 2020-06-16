@@ -534,7 +534,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Anker Soundcore2\",\r\n    \"userId\": \"5ee8029163abd363779e7a09\",\r\n    \"description\": \"Anker Soundcore 2 Portable Bluetooth Speaker with 12W Stereo Sound\",\r\n    \"imageUrl\": \"https://image.shutterstock.com/image-photo/white-transparent-leaf-on-mirror-260nw-1029171697.jpg\" ,\r\n    \"subCategoryId\": \"5ee7e26f1b2e862b9c896ad6\"\r\n}",
+							"raw": "{\r\n    \"name\": \"Anker Soundcore 4\",\r\n    \"userId\": \"5ee8029163abd363779e7a09\",\r\n    \"description\": \"Anker Soundcore 2 Portable Bluetooth Speaker with 12W Stereo Sound\",\r\n    \"imageUrl\": \"https://image.shutterstock.com/image-photo/white-transparent-leaf-on-mirror-260nw-1029171697.jpg\" ,\r\n    \"subCategoryId\": \"5ee7e26f1b2e862b9c896ad6\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -694,7 +694,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"state\": \"Iowa\",\r\n    \"city\": \"FairField\",\r\n    \"street\": \"1000 N 4th.\",\r\n    \"zipCode\": \"52557\"\r\n}",
+							"raw": "{\r\n    \"state\": \"Iowa2\",\r\n    \"city\": \"FairField\",\r\n    \"street\": \"1000 N 4th.\",\r\n    \"zipCode\": \"52556\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -805,6 +805,135 @@
 								"admin",
 								"address",
 								"5ee853797344e21de8f08e61"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "6.item",
+			"item": [
+				{
+					"name": "get all items",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/admin/items/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"admin",
+								"items",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create item",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productId\": \"5ee83fb17e12ea22b87b7d46\" , \r\n    \"unitId\": \"5ee7f2eee219ec29ccaffb6d\" , \r\n    \"price\": 45 , \r\n    \"stockQuantity\": 20\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/admin/items/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"admin",
+								"items",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get item by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/admin/items/5ee86d91e1d1b52e0c7fb10b",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"admin",
+								"items",
+								"5ee86d91e1d1b52e0c7fb10b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update item",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"_id\": \"5ee86d91e1d1b52e0c7fb10b\" ,\r\n    \"price\": 45 , \r\n    \"stockQuantity\": 30\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/admin/items/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"admin",
+								"items",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete item",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/admin/items/5ee86d91e1d1b52e0c7fb10b",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"admin",
+								"items",
+								"5ee86d91e1d1b52e0c7fb10b"
 							]
 						}
 					},
