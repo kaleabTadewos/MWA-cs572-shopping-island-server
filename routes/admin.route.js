@@ -21,6 +21,7 @@ router.get('/items', itemController.findAll);
 router.post('/items', itemController.insert);
 router.put('/items/', itemController.updateById);
 router.get('/items/:id', itemController.findById);
+router.get('/items/product/:id', itemController.findByProductId);
 router.delete('/items/:id', itemController.removeById);
 
 
