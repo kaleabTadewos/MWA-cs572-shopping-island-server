@@ -7,6 +7,7 @@ const subCategoryController = require('../controller/subCategory.controller');
 const categoryController = require('../controller/category.controller');
 const productController = require('../controller/product.controller');
 const itemController = require('../controller/item.controller');
+const userController = require('../controller/user.controller');
 
 
 /* products Routes */
@@ -54,12 +55,15 @@ router.put('/address/', addressController.updateById);
 router.get('/address/:id', addressController.findById);
 router.delete('/address/:id', addressController.removeById);
 
-/* Shipping Address Routes*/
+/* Point calculator Routes*/
 router.get('/point-calculator', pointCalculatorControler.findAll);
 router.post('/point-calculator', pointCalculatorControler.insert);
 router.put('/point-calculator', pointCalculatorControler.updateById);
 router.get('/point-calculator/:id', pointCalculatorControler.findById);
 router.delete('/point-calculator/:id', pointCalculatorControler.removeById);
+
+//user Routes
+router.post('/users', userController.insert);
 
 
 

@@ -3,33 +3,88 @@ const bcrypt = require('bcrypt');
 const _ = require('lodash');
 const mongoose = require('mongoose');
 const { User, validate } = require('../models/user');
-
-/* get a user. */
-exports.getUser = async function(request, response) {
-        const user = await User.findById(request.user._id).select('-password');
-        response.send(user);
-    }
-    /* register users. */
-exports.registerUser = async function(request, response) {
-    const { error } = validate(request.body);
-    if (error) return response.status(400).send(error.details[0].message);
+const { OrderDetail } = require('../models/orderDetail');
+const { Item } = require('../models/item');
+const ApiResponse = require('../models/apiResponse');
+const ErrorResponse = require('../models/errorResponse');
+const { validateId, validateWithOutId, validateWithId } = require('../models/request/user.request');
 
 
-    let user = await User.findOne({ email: request.body.email });
-    if (user) return response.status(400).send('user already exist')
+exports.insert = async(req, res, next) => {
+    const { error } = validateWithOutId(req.body);
+    if (error) return res.status(400).send(new ErrorResponse('400', error.details[0].message));
+    let userExist = await User.findOne({ email: request.body.email });
+    if (userExist) return response.status(400).send('user already exist')
+    const user = await user.create(req.body);
+    res.status(201).send(new ApiResponse(201, 'success', user));
+};
 
-    user = new User({
-        email: request.body.email,
-        password: request.body.password,
-        status: request.body.status,
-        role: request.body.role
-    })
+//Retrive Operations
+exports.findById = async(req, res, next) => {
+    const { error } = validateId({ _id: req.params.id });
+    if (error) return res.status(400).send(new ErrorResponse('400', error.details[0].message));
+    const product = await Product.findById(req.params.id);
+    if (!product) return res.status(404).send(new ErrorResponse('400', 'no content found!'));
+    res.status(200).send(new ApiResponse(200, 'success', product));
+};
 
-    const salt = await bcrypt.genSalt(10);
-    user.password = await bcrypt.hash(user.password, salt);
-
-    await user.save();
-
-    const token = user.generateAuthToken();
-    response.header('x-auth-token', token).send(_.pick(user, ['email', 'role', 'status']));
+exports.findAll = async(req, res, next) => {
+    const products = await Product.find();
+    if (!products) return res.status(404).send(new ErrorResponse('400', 'no content found!'));
+    res.status(200).send(new ApiResponse(200, 'success', products));
 }
+
+//Update Operation
+exports.updateById = async(req, res, next) => {
+    const { error } = validateWithId(req.body);
+    if (error) return res.status(400).send(new ErrorResponse('400', error.details[0].message));
+    const subCategory = await SubCategory.findById(req.body.subCategoryId);
+    if (!subCategory) res.status(400).send(new ErrorResponse('400', 'Invalid Sub Category Id!'));
+    const product = await Product.findOneAndUpdate(req.params.id, {
+        name: req.body.name,
+        userId: userId,
+        description: description,
+        imageUrl: imageUrl,
+        subCategory: subCategory
+    }, { new: true, useFindAndModify: true });
+    Product.save();
+    res.status(200).send(new ApiResponse(200, 'success', product));
+};
+
+//Delete Operation
+exports.removeById = async(req, res, next) => {
+    const { error } = validateId({ _id: req.params.id });
+    if (error) return res.status(400).send(new ErrorResponse('400', error.details[0].message));
+    const product = await Product.findByIdAndRemove(req.params.id);
+    if (!product) return res.status(404).send(new ErrorResponse('400', 'no content found!'));
+    res.status(200).send(new ApiResponse(200, 'success', product));
+};
+/* get a user. */
+// exports.getUser = async function(request, response) {
+//         const user = await User.findById(request.user._id).select('-password');
+//         response.send(user);
+//     }
+//     /* register users. */
+// exports.registerUser = async function(request, response) {
+//     const { error } = validate(request.body);
+//     if (error) return response.status(400).send(error.details[0].message);
+
+
+//     let user = await User.findOne({ email: request.body.email });
+//     if (user) return response.status(400).send('user already exist')
+
+//     user = new User({
+//         email: request.body.email,
+//         password: request.body.password,
+//         status: request.body.status,
+//         role: request.body.role
+//     })
+
+//     const salt = await bcrypt.genSalt(10);
+//     user.password = await bcrypt.hash(user.password, salt);
+
+//     await user.save();
+
+//     const token = user.generateAuthToken();
+//     response.header('x-auth-token', token).send(_.pick(user, ['email', 'role', 'status']));
+// }
