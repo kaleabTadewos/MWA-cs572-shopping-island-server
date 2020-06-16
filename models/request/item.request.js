@@ -5,7 +5,6 @@ function validateItemWithId(item) {
     const schema = {
         _id: Joi.objectId().required(),
         price: Joi.number().required(),
-        isPurchased: Joi.boolean(),
         stockQuantity: Joi.number().required()
 
     };
