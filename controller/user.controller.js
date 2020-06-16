@@ -58,17 +58,28 @@ exports.findAll = async(req, res, next) => {
 exports.updateById = async(req, res, next) => {
     const { error } = validateWithId(req.body);
     if (error) return res.status(400).send(new ErrorResponse('400', error.details[0].message));
-    const subCategory = await SubCategory.findById(req.body.subCategoryId);
-    if (!subCategory) res.status(400).send(new ErrorResponse('400', 'Invalid Sub Category Id!'));
-    const product = await Product.findOneAndUpdate(req.params.id, {
-        name: req.body.name,
-        userId: userId,
-        description: description,
-        imageUrl: imageUrl,
-        subCategory: subCategory
+    //const subCategory = await SubCategory.findById(req.body.subCategoryId);
+    //if (!subCategory) res.status(400).send(new ErrorResponse('400', 'Invalid Sub Category Id!'));
+    const user = await User.findOneAndUpdate(req.params.id, {
+        email: req.body.email,
+        password: req.body.password,
+        role: req.body.role,
+        status: req.body.status,
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        phoneNumber: req.body.phoneNumber,
+        'billingInformation.state': req.body.state,
+        'billingInformation.city': req.body.city,
+        'billingInformation.street': req.body.street,
+        'billingInformation.zipCode': req.body.zipCode,
+        'billingInformation.phoneNumber': req.body.phoneNumber,
+        'billingInformation.accountNumber': req.body.accountNumber,
+        'billingInformation.expiryDate': req.body.expiryDate,
+        'billingInformation.nameOntheCard': req.body.nameOntheCard,
+        'billingInformation.ccv': req.body.ccv
     }, { new: true, useFindAndModify: true });
     Product.save();
-    res.status(200).send(new ApiResponse(200, 'success', product));
+    res.status(200).send(new ApiResponse(200, 'success', user));
 };
 
 //Delete Operation
