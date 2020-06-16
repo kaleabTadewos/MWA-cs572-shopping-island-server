@@ -57,7 +57,7 @@ const itemSchema = new mongoose.Schema({
     },
     isPurchased: {
         type: Boolean,
-        required: true,
+        default: false,
     },
     stockQuantity: {
         type: Number,
