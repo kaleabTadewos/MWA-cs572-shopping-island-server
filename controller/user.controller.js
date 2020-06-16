@@ -31,7 +31,10 @@ exports.insert = async(req, res, next) => {
         'billingInformation.street': req.body.street,
         'billingInformation.zipCode': req.body.zipCode,
         'billingInformation.phoneNumber': req.body.phoneNumber,
-        'billingInformation.accountNumber': req.body.accountNumber
+        'billingInformation.accountNumber': req.body.accountNumber,
+        'billingInformation.expiryDate': req.body.expiryDate,
+        'billingInformation.nameOntheCard': req.body.nameOntheCard,
+        'billingInformation.ccv': req.body.ccv
     });
     res.status(201).send(new ApiResponse(201, 'success', user));
 };
