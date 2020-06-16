@@ -5,6 +5,16 @@ const shippingAddressController = require('../controller/shippingAddress.control
 const pointCalculatorControler = require('../controller/pointCalculator.controller');
 const subCategoryController = require('../controller/subCategory.controller');
 const categoryController = require('../controller/category.controller');
+const productController = require('../controller/product.controller');
+
+
+/* products Routes */
+router.get('/products', productController.findAll);
+router.post('/products', productController.insert);
+router.put('/products/', productController.updateById);
+router.get('/products/:id', productController.findById);
+router.delete('/products/:id', productController.removeById);
+
 
 /* units Routes */
 router.get('/units', unitController.findAll);

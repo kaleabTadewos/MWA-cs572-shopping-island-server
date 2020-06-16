@@ -20,12 +20,11 @@ if (!config.get('jwtPrivateKey')) {
     process.exit(1);
 }
 
-
-
 app.use(express.json())
 app.use(cors());
 app.use(bodyParser.json());
-app.use('/user', [auth, admin], userRoutes);
+//app.use('/user', [auth, admin], userRoutes);
+app.use('/users', userRoutes);
 app.use(loginRoutes);
 app.use('/admin', adminRoutes);
 

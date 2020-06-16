@@ -19,13 +19,14 @@ const productSchema = new mongoose.Schema({
     },
     description: {
         type: String,
-        required: true
+        required: true ,
+        minlength: 10,
+        maxlength: 500
     },
     imageUrl: {
-        type: String,
-        required: true
+        type: String
     },
-    sub_Category: {
+    subCategory: {
         name: {
             type: String,
             required: true,
@@ -40,47 +41,8 @@ const productSchema = new mongoose.Schema({
                 maxlength: 255
             }
         }
-
     }
 
 });
 
-
-function validateProductWithId(product) {
-    const schema = {
-        _id: Joi.objectId(),
-        name: Joi.string().min(2).max(255).required(),
-        city: Joi.string().required(),
-        street: Joi.string().required(),
-        zipCode: Joi.string().required(),
-        isDefault: Joi.boolean().required(),
-
-    };
-
-    return Joi.validate(product, schema);
-}
-
-function validateProductId(product) {
-    const schema = {
-        _id: Joi.objectId().required()
-    };
-
-    return Joi.validate(product, schema);
-}
-
-function validateProductWithOutId(product) {
-    const schema = {
-        state: Joi.string().required(),
-        city: Joi.string().required(),
-        street: Joi.string().required(),
-        zipCode: Joi.string().required(),
-        isDefault: Joi.boolean().required(),
-    };
-
-    return Joi.validate(product, schema);
-}
-
-exports.Product = mongoose.model('ShippingAddress', productSchema);
-exports.validateWithId = validateProductWithId;
-exports.validateId = validateProductId;
-exports.validateWithOutId = validateProductWithOutId;
+exports.Product = mongoose.model('Product', productSchema);

@@ -59,15 +59,3 @@ exports.removeById = async (req, res, next) => {
     if (!subCategory) return res.status(404).send(new ErrorResponse('400' , 'no content found!'));
     res.status(200).send(new ApiResponse(200, 'success', subCategory));
 };
-
-// exports.getNoOfUsersInRole = (req, res, next) => {
-//     User.aggregate([
-//         { $group: { _id: "$role", sum_users: { $sum: 1 } } }
-//     ])
-//         .then(result => {
-//             res.status(200).send(new ApiResponse(200, 'success', result));
-//         })
-//         .catch(err => {
-//             res.status(500).send(new ApiResponse(500, 'error', err));
-//         });
-// };
