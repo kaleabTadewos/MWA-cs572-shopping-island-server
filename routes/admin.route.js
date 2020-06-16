@@ -38,7 +38,6 @@ router.get('/categories', categoryController.findAll);
 router.post('/categories', categoryController.insert);
 router.put('/categories/', categoryController.updateById);
 router.get('/categories/:id', categoryController.findById);
-router.get('/categories/product/:id', categoryController.findByProductId);
 router.delete('/categories/:id', categoryController.removeById);
 
 /* SubCategory Routes*/
@@ -46,6 +45,7 @@ router.get('/sub-categories', subCategoryController.findAll);
 router.post('/sub-categories', subCategoryController.insert);
 router.put('/sub-categories/', subCategoryController.updateById);
 router.get('/sub-categories/:id', subCategoryController.findById);
+router.get('/sub-categories/category/:id', subCategoryController.findByCategoryId);
 router.delete('/sub-categories/:id', subCategoryController.removeById);
 
 /* Shipping Address Routes*/

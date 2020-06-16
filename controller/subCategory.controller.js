@@ -33,7 +33,7 @@ exports.findById = async (req, res, next) => {
 exports.findByCategoryId = async (req, res, next) => {
     const { error } = validateId({_id:req.params.id});
     if (error) return res.status(400).send(new ErrorResponse('400' , error.details[0].message));
-    const subCategory = await SubCategory.findAll({"category._id": req.params.id});
+    const subCategory = await SubCategory.find({"category._id": req.params.id});
     if (!subCategory) return res.status(404).send(new ErrorResponse('400' , 'no content found!'));
     res.status(200).send(new ApiResponse(200, 'success', subCategory));
 };
