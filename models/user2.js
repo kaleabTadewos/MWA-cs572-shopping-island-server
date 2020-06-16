@@ -27,11 +27,11 @@ const userSchema = new mongoose.Schema({
         enum: ['ADMIN', 'SELLER', 'BUYER']
     },
     shoppingCart: {
-        items: [{
+        item: [{
             _id: {
                 type: mongoose.Types.ObjectId,
                 required: true
-            },
+            } ,
             product: {
                 _id: {
                     type: mongoose.Types.ObjectId,
@@ -62,7 +62,7 @@ const userSchema = new mongoose.Schema({
                     _id: {
                         type: mongoose.Types.ObjectId,
                         required: true
-                    },
+                    } ,
                     name: {
                         type: String,
                         required: true,
@@ -73,7 +73,7 @@ const userSchema = new mongoose.Schema({
                         _id: {
                             type: mongoose.Types.ObjectId,
                             required: true
-                        },
+                        } ,
                         name: {
                             type: String,
                             required: true,
@@ -82,12 +82,13 @@ const userSchema = new mongoose.Schema({
                         }
                     }
                 }
+
             },
             unit: {
                 _id: {
                     type: mongoose.Types.ObjectId,
                     required: true
-                },
+                } ,
                 name: {
                     type: String,
                     required: true,
@@ -113,103 +114,96 @@ const userSchema = new mongoose.Schema({
             }
         }]
     },
-    order: {
-        orderDetail: [{
-            items: {
+    order: [{
+        item: {
+            _id: {
+                type: mongoose.Types.ObjectId,
+                required: true
+            } ,
+            product: {
                 _id: {
                     type: mongoose.Types.ObjectId,
                     required: true
                 },
-                product: {
+                name: {
+                    type: String,
+                    required: true,
+                    minlength: 2,
+                    maxlength: 255,
+                    required: true
+                },
+                userId: {
+                    type: mongoose.Types.ObjectId,
+                    ref: 'User',
+                    required: true
+                },
+                description: {
+                    type: String,
+                    required: true,
+                    minlength: 10,
+                    maxlength: 500
+                },
+                imageUrl: {
+                    type: String
+                },
+                subCategory: {
                     _id: {
                         type: mongoose.Types.ObjectId,
                         required: true
-                    },
-                    _id: {
-                        type: mongoose.Types.ObjectId,
-                        required: true
-                    },
+                    } ,
                     name: {
                         type: String,
                         required: true,
                         minlength: 2,
-                        maxlength: 255,
-                        required: true
+                        maxlength: 255
                     },
-                    userId: {
-                        type: mongoose.Types.ObjectId,
-                        ref: 'User',
-                        required: true
-                    },
-                    description: {
-                        type: String,
-                        required: true,
-                        minlength: 10,
-                        maxlength: 500
-                    },
-                    imageUrl: {
-                        type: String
-                    },
-                    subCategory: {
+                    category: {
                         _id: {
                             type: mongoose.Types.ObjectId,
                             required: true
-                        },
+                        } ,
                         name: {
                             type: String,
                             required: true,
                             minlength: 2,
                             maxlength: 255
-                        },
-                        category: {
-                            _id: {
-                                type: mongoose.Types.ObjectId,
-                                required: true
-                            },
-                            name: {
-                                type: String,
-                                minlength: 2,
-                                maxlength: 255
-                            }
                         }
                     }
-                },
-                unit: {
-                    _id: {
-                        type: mongoose.Types.ObjectId,
-                        required: true
-                    },
-                    name: {
-                        type: String,
-                        required: true
-                    },
-                    quantity: {
-                        type: Number,
-                        required: true
-                    }
-                },
-                price: {
-                    type: Number,
-                    required: true
-                },
-                isPurchased: {
-                    type: Boolean,
-                    required: true,
-                },
-                stockQuantity: {
-                    type: Number,
-                    required: true
-                },
-                orderStatus: {
-                    type: String,
-                    enum: ['CANCELLED', 'APPROVED', 'DELIVERED', 'SHIPPED', 'ON THE WAY', 'ORDERED'],
-                    defualt: 'ORDERED'
                 }
+
+            },
+            unit: {
+                _id: {
+                    type: mongoose.Types.ObjectId,
+                    required: true
+                } ,
+                name: {
+                    type: String,
+                    required: true,
+                    minlength: 2,
+                    maxlength: 255
+                },
+                quantity: {
+                    type: Number,
+                    required: true
+                }
+            },
+            price: {
+                type: Number,
+                required: true
+            },
+            isPurchased: {
+                type: Boolean,
+                required: true,
+            },
+            stockQuantity: {
+                type: Number,
+                required: true
             }
-        }],
+        } ,
         orderDate: {
-            type: Date,
-        },
+            type: Date
+        } ,
         shippingAddress: {
             state: {
                 type: String,
@@ -235,9 +229,9 @@ const userSchema = new mongoose.Schema({
         payment: {
             type: String,
             enum: ['PENDING', 'PAYED', 'VOID'],
-            defualt: 'PENDING'
+            default: 'PENDING'
         }
-    },
+    }] ,
     firstName: {
         type: String,
         required: true,
@@ -252,7 +246,7 @@ const userSchema = new mongoose.Schema({
     },
     phoneNumber: {
         type: String,
-        required: true,
+        //required: true,
         minlength: 2,
         maxlength: 255
     },
@@ -297,24 +291,21 @@ const userSchema = new mongoose.Schema({
             minlength: 5,
             maxlength: 5
         },
-        accountNumber: {
-            type: String,
+        cardNumber: {
+            type: Number,
             required: true
-        },
+        } , 
+        ccv: {
+            type: Number,
+            required: true
+        }, 
         expiryDate: {
             type: Date,
             required: true
-        },
-        nameOntheCard: {
+        }, 
+        nameOnCard: {
             type: String,
-            required: true,
-            minlength: 2,
-            maxlength: 255
-        },
-        ccv: {
-            type: Number,
-            required: true,
-            maxlength: 3
+            required: true
         }
     }
 
