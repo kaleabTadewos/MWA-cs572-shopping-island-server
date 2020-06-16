@@ -37,6 +37,7 @@ router.get('/categories', categoryController.findAll);
 router.post('/categories', categoryController.insert);
 router.put('/categories/', categoryController.updateById);
 router.get('/categories/:id', categoryController.findById);
+router.get('/categories/product/:id', categoryController.findByProductId);
 router.delete('/categories/:id', categoryController.removeById);
 
 /* SubCategory Routes*/
