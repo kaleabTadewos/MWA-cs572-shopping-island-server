@@ -14,7 +14,10 @@ function validateUserWithId(user) {
         firstName: Joi.string().min(5).max(255).required(),
         lastName: Joi.string().min(5).max(255).required(),
         phoneNumber: Joi.string().min(10).max(10).required(),
-        accountNumber: Joi.number().required()
+        accountNumber: Joi.number().required(),
+        expiryDate: Joi.date().required(),
+        nameOntheCard: Joi.string().min(5).max(255).required(),
+        ccv: Joi.number().required()
     };
 
     return Joi.validate(user, schema);
@@ -41,7 +44,10 @@ function validateUserWithOutId(user) {
         firstName: Joi.string().min(5).max(255).required(),
         lastName: Joi.string().min(5).max(255).required(),
         phoneNumber: Joi.string().min(10).max(10).required(),
-        accountNumber: Joi.number().required()
+        accountNumber: Joi.number().required(),
+        expiryDate: Joi.date().required(),
+        nameOntheCard: Joi.string().min(5).max(255).required(),
+        ccv: Joi.number().required()
     };
 
     return Joi.validate(user, schema);
