@@ -7,7 +7,14 @@ function validateUserWithId(user) {
         password: Joi.string().min(5).max(1024).required(),
         status: Joi.string(),
         role: Joi.string(),
-
+        state: Joi.string().min(5).max(255).required(),
+        city: Joi.string().min(5).max(255).required(),
+        street: Joi.string().min(5).max(255).required(),
+        zipCode: Joi.string().min(5).max(255).required(),
+        firstName: Joi.string().min(5).max(255).required(),
+        lastName: Joi.string().min(5).max(255).required(),
+        phoneNumber: Joi.string().min(10).max(10).required(),
+        accountNumber: Joi.number().required(),
     };
 
     return Joi.validate(user, schema);

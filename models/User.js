@@ -238,6 +238,37 @@ const userSchema = new mongoose.Schema({
         }
     },
 
+    billingInformation: {
+        state: {
+            type: String,
+            required: true,
+            minlength: 2,
+            maxlength: 255
+        },
+        city: {
+            type: String,
+            required: true,
+            minlength: 2,
+            maxlength: 255
+        },
+        street: {
+            type: String,
+            required: true,
+            minlength: 2,
+            maxlength: 255
+        },
+        zipCode: {
+            type: String,
+            required: true,
+            minlength: 5,
+            maxlength: 5
+        },
+        accountNumber: {
+            type: String,
+            required: true
+        }
+    }
+
 });
 
 userSchema.methods.generateAuthToken = function() {
