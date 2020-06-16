@@ -2,7 +2,7 @@ const express = require('express');
 const bcrypt = require('bcrypt');
 const _ = require('lodash');
 const mongoose = require('mongoose');
-const { User, validate } = require('../models/user');
+const { User } = require('../models/user');
 const { OrderDetail } = require('../models/orderDetail');
 const { Item } = require('../models/item');
 const ApiResponse = require('../models/apiResponse');
@@ -13,9 +13,25 @@ const { validateId, validateWithOutId, validateWithId } = require('../models/req
 exports.insert = async(req, res, next) => {
     const { error } = validateWithOutId(req.body);
     if (error) return res.status(400).send(new ErrorResponse('400', error.details[0].message));
-    let userExist = await User.findOne({ email: request.body.email });
-    if (userExist) return response.status(400).send('user already exist')
-    const user = await user.create(req.body);
+    console.log("one");
+    let userExist = await User.findOne({ email: req.body.email });
+    console.log("Two");
+    if (userExist) return res.status(400).send('user already exist');
+
+    const user = await User.create({
+        email: req.body.email,
+        password: req.body.password,
+        role: req.body.role,
+        status: req.body.status,
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        'billingInformation.state': req.body.state,
+        'billingInformation.city': req.body.city,
+        'billingInformation.street': req.body.street,
+        'billingInformation.zipCode': req.body.zipCode,
+        'billingInformation.phoneNumber': req.body.phoneNumber,
+        'billingInformation.accountNumber': req.body.accountNumber
+    });
     res.status(201).send(new ApiResponse(201, 'success', user));
 };
 
