@@ -5,7 +5,7 @@ const userController = require('../controller/user.controller');
 //const admin = require('../middleware/admin');
 
 /* Get a user. */
-router.get('/me', userController.getUser);
+//router.get('/me', userController.getUser);
 /* Register a user user. */
-router.post('/', userController.registerUser);
-module.exports = router;
+// router.post('/', userController.registerUser);
+// module.exports = router;
