@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const unitController = require('../controller/unit.controller');
-const shippingAddressController = require('../controller/shippingAddress.controller');
+const addressController = require('../controller/address.controller');
 const pointCalculatorControler = require('../controller/pointCalculator.controller');
 const subCategoryController = require('../controller/subCategory.controller');
 const categoryController = require('../controller/category.controller');
@@ -46,11 +46,11 @@ router.get('/sub-categories/:id', subCategoryController.findById);
 router.delete('/sub-categories/:id', subCategoryController.removeById);
 
 /* Shipping Address Routes*/
-router.get('/shipping-address', shippingAddressController.findAll);
-router.post('/shipping-address', shippingAddressController.insert);
-router.put('/shipping-address/', shippingAddressController.updateById);
-router.get('/shipping-address/:id', shippingAddressController.findById);
-router.delete('/shipping-address/:id', shippingAddressController.removeById);
+router.get('/address', addressController.findAll);
+router.post('/address', addressController.insert);
+router.put('/address/', addressController.updateById);
+router.get('/address/:id', addressController.findById);
+router.delete('/address/:id', addressController.removeById);
 
 /* Shipping Address Routes*/
 router.get('/point-calculator', pointCalculatorControler.findAll);
