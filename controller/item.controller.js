@@ -38,9 +38,9 @@ exports.findById = async (req, res, next) => {
 };
 
 exports.findAll = async (req, res, next) => {
-    const subCategories = await Item.find();
-    if (!subCategories) return res.status(404).send(new ErrorResponse('400' , 'no content found!'));
-    res.status(200).send(new ApiResponse(200, 'success', subCategories));
+    const items = await Item.find();
+    if (!items) return res.status(404).send(new ErrorResponse('400' , 'no content found!'));
+    res.status(200).send(new ApiResponse(200, 'success', items));
 }
 
 //Update Operation
