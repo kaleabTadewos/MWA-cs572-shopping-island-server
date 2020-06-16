@@ -6,7 +6,15 @@ const pointCalculatorControler = require('../controller/pointCalculator.controll
 const subCategoryController = require('../controller/subCategory.controller');
 const categoryController = require('../controller/category.controller');
 const productController = require('../controller/product.controller');
+const itemController = require('../controller/item.controller');
 
+
+/* products Routes */
+router.get('/items', itemController.findAll);
+router.post('/items', itemController.insert);
+router.put('/items/', itemController.updateById);
+router.get('/items/:id', itemController.findById);
+router.delete('/items/:id', itemController.removeById);
 
 /* products Routes */
 router.get('/products', productController.findAll);

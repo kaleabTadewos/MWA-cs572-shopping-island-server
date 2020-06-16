@@ -1,8 +1,8 @@
 const { Item } = require('../models/item');
 const ApiResponse = require('../models/apiResponse');
-const {validateId , validateWithOutId , validateWithId} = require('../models/request/product.request');
+const {validateId , validateWithOutId , validateWithId} = require('../models/request/item.request');
 const ErrorResponse = require('../models/errorResponse');
-const { SubCategory } = require('../models/subCategory');
+//const { SubCategory } = require('../models/subCategory');
 
 //CRUD Operations
 //Create Operation
