@@ -71,7 +71,9 @@ const userSchema = new mongoose.Schema({
             unit: {
                 name: {
                     type: String,
-                    required: true
+                    required: true,
+                    minlength: 2,
+                    maxlength: 255
                 },
                 quantity: {
                     type: Number,
@@ -93,75 +95,148 @@ const userSchema = new mongoose.Schema({
         }]
     },
     order: {
-        item: [{
-            product: {
-                name: {
-                    type: String,
-                    required: true,
-                    minlength: 2,
-                    maxlength: 255,
-                    required: true
-                },
-                userId: {
-                    type: mongoose.Types.ObjectId,
-                    ref: 'User',
-                    required: true
-                },
-                description: {
-                    type: String,
-                    required: true,
-                    minlength: 10,
-                    maxlength: 500
-                },
-                imageUrl: {
-                    type: String
-                },
-                subCategory: {
+        orderDetail: {
+            items: [{
+                product: {
                     name: {
                         type: String,
                         required: true,
                         minlength: 2,
-                        maxlength: 255
+                        maxlength: 255,
+                        required: true
                     },
-                    category: {
+                    userId: {
+                        type: mongoose.Types.ObjectId,
+                        ref: 'User',
+                        required: true
+                    },
+                    description: {
+                        type: String,
+                        required: true,
+                        minlength: 10,
+                        maxlength: 500
+                    },
+                    imageUrl: {
+                        type: String
+                    },
+                    subCategory: {
                         name: {
                             type: String,
                             required: true,
                             minlength: 2,
                             maxlength: 255
+                        },
+                        category: {
+                            name: {
+                                type: String,
+                                required: true,
+                                minlength: 2,
+                                maxlength: 255
+                            }
                         }
                     }
-                }
 
-            },
-            unit: {
-                name: {
-                    type: String,
-                    required: true
                 },
-                quantity: {
+                unit: {
+                    name: {
+                        type: String,
+                        required: true
+                    },
+                    quantity: {
+                        type: Number,
+                        required: true
+                    }
+                },
+                price: {
                     type: Number,
                     required: true
+                },
+                isPurchased: {
+                    type: Boolean,
+                    required: true,
+                },
+                stockQuantity: {
+                    type: Number,
+                    required: true
+                },
+                orderStatus: {
+                    type: String,
+                    enum: ['CANCELLED', 'APPROVED', 'DELIVERED', 'SHIPPED', 'ON THE WAY', 'ORDERED'],
+                    defualt: 'ORDERED'
                 }
-            },
-            price: {
-                type: Number,
-                required: true
-            },
-            isPurchased: {
-                type: Boolean,
+            }]
+        },
+        orderDate: {
+            type: Date,
+            required: true
+        },
+        shippingAddress: {
+            state: {
+                type: String,
                 required: true,
+                minlength: 2,
+                maxlength: 255
             },
-            stockQuantity: {
-                type: Number,
-                required: true
+            city: {
+                type: String,
+                required: true,
+                minlength: 2,
+                maxlength: 255
+            },
+            street: {
+                type: String,
+                required: true,
+                minlength: 2,
+                maxlength: 255
+            },
+            zipCode: {
+                type: String,
+                required: true,
+                minlength: 5,
+                maxlength: 5
             }
-        }],
-        orderStatus: {
+        },
+        payment: {
             type: String,
-            enum: ['']
+            enum: ['PENDING', 'PAYED', 'VOID'],
+            defualt: 'PENDING'
         }
-    }
+    },
+    firstName: {
+        type: String,
+        required: true,
+        minlength: 2,
+        maxlength: 255
+    },
+    lastName: {
+        type: String,
+        required: true,
+        minlength: 2,
+        maxlength: 255
+    },
+    phoneNumber: {
+        type: String,
+        required: true,
+        minlength: 2,
+        maxlength: 255
+    },
+    point: {
+        type: Number,
+        default: 0
+    },
+    coupon: {
+        grade: {
+            type: String,
+            required: true,
+            minlength: 2,
+            maxlength: 255,
+            default: 'YELLOW'
+        },
+        value: {
+            type: Number,
+            required: true
+        }
+    },
 
 });
 
