@@ -10,18 +10,18 @@ const itemController = require('../controller/item.controller');
 
 
 /* products Routes */
-router.get('/items', itemController.findAll);
-router.post('/items', itemController.insert);
-router.put('/items/', itemController.updateById);
-router.get('/items/:id', itemController.findById);
-router.delete('/items/:id', itemController.removeById);
-
-/* products Routes */
 router.get('/products', productController.findAll);
 router.post('/products', productController.insert);
 router.put('/products/', productController.updateById);
 router.get('/products/:id', productController.findById);
 router.delete('/products/:id', productController.removeById);
+
+/* items Routes */
+router.get('/items', itemController.findAll);
+router.post('/items', itemController.insert);
+router.put('/items/', itemController.updateById);
+router.get('/items/:id', itemController.findById);
+router.delete('/items/:id', itemController.removeById);
 
 
 /* units Routes */
