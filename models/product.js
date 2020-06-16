@@ -1,5 +1,3 @@
-const Joi = require('joi');
-Joi.objectId = require('joi-objectid')(Joi);
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const config = require('config');
@@ -27,6 +25,10 @@ const productSchema = new mongoose.Schema({
         type: String
     },
     subCategory: {
+        _id: {
+            type: mongoose.Types.ObjectId,
+            required: true
+        } ,
         name: {
             type: String,
             required: true,
@@ -41,6 +43,22 @@ const productSchema = new mongoose.Schema({
                 maxlength: 255
             }
         }
+    } , 
+    minPrice: {
+        type:Number , 
+        default: 0
+    } ,
+    maxPrice: {
+        type:Number ,
+        default: 0
+    } , 
+    itemCount: {
+        type:Number , 
+        default : 0
+    } , 
+    searchCriteria: {
+        type:String ,
+        required: true
     }
 
 });

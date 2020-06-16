@@ -1,11 +1,11 @@
+const Joi = require('joi');
+Joi.objectId = require('joi-objectid')(Joi);
+
 function validateItemWithId(item) {
     const schema = {
         _id: Joi.objectId().required(),
-        name: Joi.string().min(2).max(255).required(),
-        userId: Joi.objectId().required(),
-        description: Joi.string().min(10).max(500).required(),
-        imageUrl: Joi.string(),
-        subCategoryId: Joi.objectId().required()
+        price: Joi.number().required(),
+        stockQuantity: Joi.number().required()
 
     };
 
@@ -22,11 +22,11 @@ function validateItemId(item) {
 
 function validateItemWithOutId(item) {
     const schema = {
-        name: Joi.string().min(2).max(255).required(),
-        userId: Joi.objectId().required(),
-        description: Joi.string().min(10).max(500).required(),
-        imageUrl: Joi.string(),
-        subCategoryId: Joi.objectId().required()
+        productId: Joi.objectId().required(),
+        unitId: Joi.objectId().required(),
+        price: Joi.number().required(),
+        isPurchased: Joi.boolean(),
+        stockQuantity: Joi.number().required()
     };
 
     return Joi.validate(item, schema);

@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const config = require('config');
 
-const shippingAddressSchema = new mongoose.Schema({
+const addressSchema = new mongoose.Schema({
     state: {
         type: String,
         required: true
@@ -20,49 +20,43 @@ const shippingAddressSchema = new mongoose.Schema({
     zipCode: {
         type: String,
         required: true
-    },
-    isDefault: {
-        type: Boolean,
-        required: true
     }
 });
 
 
-function validateUnitWithId(shippingAddress) {
+function validateUnitWithId(address) {
     const schema = {
         _id: Joi.objectId(),
         state: Joi.string().required(),
         city: Joi.string().required(),
         street: Joi.string().required(),
-        zipCode: Joi.string().required(),
-        isDefault: Joi.boolean().required(),
+        zipCode: Joi.string().required()
 
     };
 
-    return Joi.validate(shippingAddress, schema);
+    return Joi.validate(address, schema);
 }
 
-function validateUnitId(shippingAddress) {
+function validateUnitId(address) {
     const schema = {
         _id: Joi.objectId().required()
     };
 
-    return Joi.validate(shippingAddress, schema);
+    return Joi.validate(address, schema);
 }
 
-function validateUnitWithOutId(shippingAddress) {
+function validateUnitWithOutId(address) {
     const schema = {
         state: Joi.string().required(),
         city: Joi.string().required(),
         street: Joi.string().required(),
-        zipCode: Joi.string().required(),
-        isDefault: Joi.boolean().required(),
+        zipCode: Joi.string().required()
     };
 
-    return Joi.validate(shippingAddress, schema);
+    return Joi.validate(address, schema);
 }
 
-exports.ShippingAddress = mongoose.model('ShippingAddress', shippingAddressSchema);
+exports.Address = mongoose.model('ShippingAddress', addressSchema);
 exports.validateWithId = validateUnitWithId;
 exports.validateId = validateUnitId;
 exports.validateWithOutId = validateUnitWithOutId;

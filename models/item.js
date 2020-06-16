@@ -2,6 +2,10 @@ const mongoose = require('mongoose');
 
 const itemSchema = new mongoose.Schema({
     product: {
+        _id: {
+            type: mongoose.Types.ObjectId,
+            required: true
+        } ,
         name: {
             type: String,
             required: true,
@@ -24,6 +28,10 @@ const itemSchema = new mongoose.Schema({
             type: String
         },
         subCategory: {
+            _id: {
+                type: mongoose.Types.ObjectId,
+                required: true
+            } ,
             name: {
                 type: String,
                 required: true,
@@ -42,6 +50,10 @@ const itemSchema = new mongoose.Schema({
 
     },
     unit: {
+        _id: {
+            type: mongoose.Types.ObjectId,
+            required: true
+        } ,
         name: {
             type: String,
             required: true
@@ -57,7 +69,7 @@ const itemSchema = new mongoose.Schema({
     },
     isPurchased: {
         type: Boolean,
-        required: true,
+        default: false,
     },
     stockQuantity: {
         type: Number,
