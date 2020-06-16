@@ -27,8 +27,16 @@ const userSchema = new mongoose.Schema({
         enum: ['ADMIN', 'SELLER', 'BUYER']
     },
     shoppingCart: {
-        item: [{
+        items: [{
+            _id: {
+                type: mongoose.Types.ObjectId,
+                required: true
+            },
             product: {
+                _id: {
+                    type: mongoose.Types.ObjectId,
+                    required: true
+                },
                 name: {
                     type: String,
                     required: true,
@@ -51,6 +59,10 @@ const userSchema = new mongoose.Schema({
                     type: String
                 },
                 subCategory: {
+                    _id: {
+                        type: mongoose.Types.ObjectId,
+                        required: true
+                    },
                     name: {
                         type: String,
                         required: true,
@@ -58,6 +70,10 @@ const userSchema = new mongoose.Schema({
                         maxlength: 255
                     },
                     category: {
+                        _id: {
+                            type: mongoose.Types.ObjectId,
+                            required: true
+                        },
                         name: {
                             type: String,
                             required: true,
@@ -69,6 +85,10 @@ const userSchema = new mongoose.Schema({
 
             },
             unit: {
+                _id: {
+                    type: mongoose.Types.ObjectId,
+                    required: true
+                },
                 name: {
                     type: String,
                     required: true,
@@ -95,9 +115,21 @@ const userSchema = new mongoose.Schema({
         }]
     },
     order: {
-        orderDetail: {
-            items: [{
+        orderDetail: [{
+            items: {
+                _id: {
+                    type: mongoose.Types.ObjectId,
+                    required: true
+                },
                 product: {
+                    _id: {
+                        type: mongoose.Types.ObjectId,
+                        required: true
+                    },
+                    _id: {
+                        type: mongoose.Types.ObjectId,
+                        required: true
+                    },
                     name: {
                         type: String,
                         required: true,
@@ -120,6 +152,10 @@ const userSchema = new mongoose.Schema({
                         type: String
                     },
                     subCategory: {
+                        _id: {
+                            type: mongoose.Types.ObjectId,
+                            required: true
+                        },
                         name: {
                             type: String,
                             required: true,
@@ -127,6 +163,10 @@ const userSchema = new mongoose.Schema({
                             maxlength: 255
                         },
                         category: {
+                            _id: {
+                                type: mongoose.Types.ObjectId,
+                                required: true
+                            },
                             name: {
                                 type: String,
                                 minlength: 2,
@@ -137,6 +177,10 @@ const userSchema = new mongoose.Schema({
 
                 },
                 unit: {
+                    _id: {
+                        type: mongoose.Types.ObjectId,
+                        required: true
+                    },
                     name: {
                         type: String,
                         required: true
@@ -163,8 +207,8 @@ const userSchema = new mongoose.Schema({
                     enum: ['CANCELLED', 'APPROVED', 'DELIVERED', 'SHIPPED', 'ON THE WAY', 'ORDERED'],
                     defualt: 'ORDERED'
                 }
-            }]
-        },
+            }
+        }],
         orderDate: {
             type: Date,
         },
@@ -258,6 +302,21 @@ const userSchema = new mongoose.Schema({
         accountNumber: {
             type: String,
             required: true
+        },
+        expiryDate: {
+            type: Date,
+            required: true
+        },
+        nameOntheCard: {
+            type: String,
+            required: true,
+            minlength: 2,
+            maxlength: 255
+        },
+        ccv: {
+            type: Number,
+            required: true,
+            maxlength: 3
         }
     }
 
