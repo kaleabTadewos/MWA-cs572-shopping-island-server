@@ -7,7 +7,7 @@ function validateItemWithId(item) {
         productId: Joi.objectId().required(),
         unitId: Joi.objectId().required(),
         price: Joi.number().required(),
-        isPurchased: Joi.boolean().required(),
+        isPurchased: Joi.boolean(),
         stockQuantity: Joi.number().required()
 
     };
@@ -28,7 +28,7 @@ function validateItemWithOutId(item) {
         productId: Joi.objectId().required(),
         unitId: Joi.objectId().required(),
         price: Joi.number().required(),
-        isPurchased: Joi.boolean().required(),
+        isPurchased: Joi.boolean(),
         stockQuantity: Joi.number().required()
     };
 

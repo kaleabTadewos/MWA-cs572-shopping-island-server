@@ -10,14 +10,21 @@ const { Unit } = require('../models/unit');
 exports.insert = async (req, res, next) => {
     const { error } = validateWithOutId(req.body);
     if (error) return res.status(400).send(new ErrorResponse('400' , error.details[0].message));
-    const category = await Category.findById(req.body.categoryId);
-    if(!category) res.status(400).send(new ErrorResponse('400' , 'Invalid Category Id!'));
+
+    const product = await Product.findById(req.body.productId);
+    if(!product) res.status(400).send(new ErrorResponse('400' , 'Invalid Product Id!'));
+
+    const unit = await Unit.findById(req.body.unitId);
+    if(!unit) res.status(400).send(new ErrorResponse('400' , 'Invalid Product Id!'));
  
-    let newSubCategory = new Item({
-        name: req.body.name , 
-        category : category
+    let newItem = new Item({
+        product: product , 
+        unit : unit , 
+        price: req.body.price ,
+        stockQuantity: req.body.stockQuantity
     });
-    const item = await Item.create(newSubCategory);
+
+    const item = await Item.create(newItem);
     res.status(201).send(new ApiResponse(201, 'success', item));
 };
 
@@ -60,5 +67,3 @@ exports.removeById = async (req, res, next) => {
     if (!item) return res.status(404).send(new ErrorResponse('400' , 'no content found!'));
     res.status(200).send(new ApiResponse(200, 'success', item));
 };
-//test commit
-//test commit 2
