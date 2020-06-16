@@ -325,6 +325,40 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "1. get subcategory by categoryId",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"NewSubCatogry-2\",\r\n    \"categoryId\": \"5ee6a66eaac52f3ef4dc4310\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/admin/sub-categories/category/5ee6a66eaac52f3ef4dc4310",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"admin",
+								"sub-categories",
+								"category",
+								"5ee6a66eaac52f3ef4dc4310"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"protocolProfileBehavior": {}
@@ -838,6 +872,49 @@
 					"response": []
 				},
 				{
+					"name": "get item by productId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/admin/items/product/5ee878032f953807d87279f4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"admin",
+								"items",
+								"product",
+								"5ee878032f953807d87279f4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get item by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/admin/items/5ee86d91e1d1b52e0c7fb10b",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"admin",
+								"items",
+								"5ee86d91e1d1b52e0c7fb10b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "create item",
 					"request": {
 						"method": "POST",
@@ -862,27 +939,6 @@
 								"admin",
 								"items",
 								""
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get item by id",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/admin/items/5ee86d91e1d1b52e0c7fb10b",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"admin",
-								"items",
-								"5ee86d91e1d1b52e0c7fb10b"
 							]
 						}
 					},
