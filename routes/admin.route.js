@@ -45,6 +45,7 @@ router.get('/sub-categories', subCategoryController.findAll);
 router.post('/sub-categories', subCategoryController.insert);
 router.put('/sub-categories/', subCategoryController.updateById);
 router.get('/sub-categories/:id', subCategoryController.findById);
+router.get('/sub-categories/category/:id', subCategoryController.findByCategoryId);
 router.delete('/sub-categories/:id', subCategoryController.removeById);
 
 /* Shipping Address Routes*/
