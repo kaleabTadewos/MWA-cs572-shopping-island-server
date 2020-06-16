@@ -129,7 +129,6 @@ const userSchema = new mongoose.Schema({
                         category: {
                             name: {
                                 type: String,
-                                required: true,
                                 minlength: 2,
                                 maxlength: 255
                             }
@@ -168,30 +167,25 @@ const userSchema = new mongoose.Schema({
         },
         orderDate: {
             type: Date,
-            required: true
         },
         shippingAddress: {
             state: {
                 type: String,
-                required: true,
                 minlength: 2,
                 maxlength: 255
             },
             city: {
                 type: String,
-                required: true,
                 minlength: 2,
                 maxlength: 255
             },
             street: {
                 type: String,
-                required: true,
                 minlength: 2,
                 maxlength: 255
             },
             zipCode: {
                 type: String,
-                required: true,
                 minlength: 5,
                 maxlength: 5
             }
@@ -227,14 +221,12 @@ const userSchema = new mongoose.Schema({
     coupon: {
         grade: {
             type: String,
-            required: true,
             minlength: 2,
             maxlength: 255,
             default: 'YELLOW'
         },
         value: {
             type: Number,
-            required: true
         }
     },
 

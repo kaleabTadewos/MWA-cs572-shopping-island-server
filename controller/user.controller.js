@@ -25,6 +25,7 @@ exports.insert = async(req, res, next) => {
         status: req.body.status,
         firstName: req.body.firstName,
         lastName: req.body.lastName,
+        phoneNumber: req.body.phoneNumber,
         'billingInformation.state': req.body.state,
         'billingInformation.city': req.body.city,
         'billingInformation.street': req.body.street,
