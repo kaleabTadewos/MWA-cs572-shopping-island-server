@@ -61,7 +61,7 @@ exports.updateById = async(req, res, next) => {
     //const subCategory = await SubCategory.findById(req.body.subCategoryId);
     //if (!subCategory) res.status(400).send(new ErrorResponse('400', 'Invalid Sub Category Id!'));
     const user = await User.findOneAndUpdate(req.params.id, {
-        email: req.body.email,
+        //email: req.body.email,
         password: req.body.password,
         role: req.body.role,
         status: req.body.status,
@@ -78,7 +78,7 @@ exports.updateById = async(req, res, next) => {
         'billingInformation.nameOntheCard': req.body.nameOntheCard,
         'billingInformation.ccv': req.body.ccv
     }, { new: true, useFindAndModify: true });
-    Product.save();
+    user.save();
     res.status(200).send(new ApiResponse(200, 'success', user));
 };
 
@@ -89,6 +89,10 @@ exports.removeById = async(req, res, next) => {
     const product = await Product.findByIdAndRemove(req.params.id);
     if (!product) return res.status(404).send(new ErrorResponse('400', 'no content found!'));
     res.status(200).send(new ApiResponse(200, 'success', product));
+};
+
+exports.addToCart = async(req, res, next) => {
+
 };
 /* get a user. */
 // exports.getUser = async function(request, response) {
