@@ -1,3 +1,6 @@
+const Joi = require('joi');
+Joi.objectId = require('joi-objectid')(Joi);
+
 function validateProductWithId(product) {
     const schema = {
         _id: Joi.objectId().required(),
@@ -5,7 +8,7 @@ function validateProductWithId(product) {
         userId: Joi.objectId().required(),
         description: Joi.string().min(10).max(500).required(),
         imageUrl: Joi.string(),
-        subCategoryId: Joi.objectId().required()
+        subCategoryId: Joi.objectId().required(),
 
     };
 
