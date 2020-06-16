@@ -63,7 +63,10 @@ router.get('/point-calculator/:id', pointCalculatorControler.findById);
 router.delete('/point-calculator/:id', pointCalculatorControler.removeById);
 
 //user Routes
+router.get('/users', userController.findAll);
 router.post('/users', userController.insert);
+router.get('/users/:id', userController.findById);
+
 
 
 
