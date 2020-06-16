@@ -16,15 +16,22 @@ exports.insert = async (req, res, next) => {
 
     const unit = await Unit.findById(req.body.unitId);
     if(!unit) res.status(400).send(new ErrorResponse('400' , 'Invalid Product Id!'));
+    
+    product.itemCount += 1;
+    if(req.body.price < product.minPrice ) product.minPrice = req.body.price; 
+    if(req.body.price > product.maxPrice ) product.maxPrice = req.body.price; 
+    
+    const updatedProduct = await product.save();
  
     let newItem = new Item({
-        product: product , 
+        product: updatedProduct , 
         unit : unit , 
         price: req.body.price ,
         stockQuantity: req.body.stockQuantity
     });
 
     const item = await Item.create(newItem);
+
     res.status(201).send(new ApiResponse(201, 'success', item));
 };
 
