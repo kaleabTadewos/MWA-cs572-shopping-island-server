@@ -44,6 +44,14 @@ exports.findById = async (req, res, next) => {
     res.status(200).send(new ApiResponse(200, 'success', item));
 };
 
+exports.findByProductId = async (req, res, next) => {
+    const { error } = validateId({_id:req.params.id});
+    if (error) return res.status(400).send(new ErrorResponse('400' , error.details[0].message));
+    const item = await Item.find({"product._id" : req.params.id});
+    if (!item) return res.status(404).send(new ErrorResponse('400' , 'no content found!'));
+    res.status(200).send(new ApiResponse(200, 'success', item));
+};
+
 exports.findAll = async (req, res, next) => {
     const items = await Item.find();
     if (!items) return res.status(404).send(new ErrorResponse('400' , 'no content found!'));
