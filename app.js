@@ -9,9 +9,9 @@ const adminRoutes = require('./routes/admin.route')
 
 const userRoutes = require('./routes/user.route');
 const loginRoutes = require('./routes/login.route');
-const adminOnlyRoutes = require('./routes/adminOnly');
-const allUsersRoutes = require('./routes/allRoles');
-const adminSellerRoutes = require('./routes/admin-seller');
+const adminOnlyRoutes = require('./routes/adminOnly.route');
+const allUsersRoutes = require('./routes/allRoles.route');
+const adminSellerRoutes = require('./routes/admin-seller.route');
 const admin = require('./middleware/admin');
 const adminSeller = require('./middleware/admin-seller');
 const adminOnly = require('./middleware/adminOnly');
