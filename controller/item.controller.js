@@ -62,7 +62,7 @@ exports.findAll = async(req, res, next) => {
 exports.updateById = async(req, res, next) => {
     const { error } = validateWithId(req.body);
     if (error) return res.status(400).send(new ErrorResponse('400', error.details[0].message));
-    const item = await Item.findOneAndUpdate(req.params.id, {
+    const item = await Item.findByIdAndUpdate(req.params.id, {
         price: req.body.price,
         stockQuantity: req.body.stockQuantity
     }, { new: true, useFindAndModify: true });

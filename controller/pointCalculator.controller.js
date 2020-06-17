@@ -30,7 +30,7 @@ exports.findAll = async(req, res, next) => {
 exports.updateById = async(req, res, next) => {
     const { error } = validateWithId(req.body);
     if (error) return res.status(400).send(new ErrorResponse('400', error.details[0].message));
-    const pointCalculator = await PointCalculator.findOneAndUpdate(req.params.id, {
+    const pointCalculator = await PointCalculator.findByIdAndUpdate(req.params.id, {
         totalPerchasedAmount: req.body.totalPerchasedAmount,
         point: req.body.point
     }, { new: true, useFindAndModify: true });

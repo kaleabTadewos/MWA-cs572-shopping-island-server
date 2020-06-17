@@ -202,6 +202,11 @@ const userSchema = new mongoose.Schema({
                     type: String,
                     enum: ['CANCELLED', 'APPROVED', 'DELIVERED', 'SHIPPED', 'ON THE WAY', 'ORDERED'],
                     defualt: 'ORDERED'
+                },
+                payment: {
+                    type: String,
+                    enum: ['PENDING', 'PAYED', 'VOID'],
+                    defualt: 'PENDING'
                 }
             }
         }],
@@ -229,11 +234,6 @@ const userSchema = new mongoose.Schema({
                 minlength: 5,
                 maxlength: 5
             }
-        },
-        payment: {
-            type: String,
-            enum: ['PENDING', 'PAYED', 'VOID'],
-            defualt: 'PENDING'
         }
     },
     firstName: {
@@ -314,7 +314,42 @@ const userSchema = new mongoose.Schema({
             required: true,
             maxlength: 3
         }
-    }
+    },
+    addresses: [{
+        _id: {
+            type: mongoose.Types.ObjectId,
+            required: true
+        },
+        state: {
+            type: String,
+            required: true,
+            minlength: 2,
+            maxlength: 255
+        },
+        city: {
+            type: String,
+            required: true,
+            minlength: 2,
+            maxlength: 255
+        },
+        street: {
+            type: String,
+            required: true,
+            minlength: 2,
+            maxlength: 255
+        },
+        zipCode: {
+            type: String,
+            required: true,
+            minlength: 5,
+            maxlength: 5
+        },
+        addressString: {
+            type: String,
+            required: true
+        }
+
+    }]
 
 });
 

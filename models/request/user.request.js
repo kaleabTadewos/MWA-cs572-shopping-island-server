@@ -7,6 +7,7 @@ function validateUserWithId(user) {
         password: Joi.string().min(5).max(1024).required(),
         status: Joi.string(),
         role: Joi.string(),
+        addressId: Joi.objectId().required(),
         state: Joi.string().min(2).max(255).required(),
         city: Joi.string().min(5).max(255).required(),
         street: Joi.string().min(5).max(255).required(),
@@ -37,6 +38,7 @@ function validateUserWithOutId(user) {
         password: Joi.string().min(5).max(1024).required(),
         status: Joi.string(),
         role: Joi.string(),
+        addressId: Joi.objectId().required(),
         state: Joi.string().min(2).max(255).required(),
         city: Joi.string().min(5).max(255).required(),
         street: Joi.string().min(5).max(255).required(),
@@ -62,7 +64,18 @@ function validateUserNewShppingCart(userShoppingCart) {
     return Joi.validate(userShoppingCart, schema);
 }
 
+function validateUserOrderPlacement(userShoppingCart) {
+    const schema = {
+        userId: Joi.objectId().required(),
+        itemId: [Joi.objectId().required()],
+        addressId: Joi.objectId().required()
+    };
+
+    return Joi.validate(userShoppingCart, schema);
+}
+
 exports.validateWithId = validateUserWithId;
 exports.validateId = validateUserId;
 exports.validateWithOutId = validateUserWithOutId;
 exports.validateShoppingCart = validateUserNewShppingCart;
+exports.validateOrderPlacement = validateUserOrderPlacement;

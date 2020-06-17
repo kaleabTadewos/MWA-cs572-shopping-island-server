@@ -534,7 +534,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Anker Soundcore 4\",\r\n    \"userId\": \"5ee71a8cc1e2b132dcf48610\",\r\n    \"description\": \"Anker Soundcore 2 Portable Bluetooth Speaker with 12W Stereo Sound\",\r\n    \"imageUrl\": \"https://image.shutterstock.com/image-photo/white-transparent-leaf-on-mirror-260nw-1029171697.jpg\" ,\r\n    \"subCategoryId\": \"5ee9784cbb6923095c812f00\"\r\n}",
+							"raw": "{\r\n    \"name\": \"Anker Soundcore 4\",\r\n    \"userId\": \"5ee9906c51c8f942582bac05\",\r\n    \"description\": \"Anker Soundcore 2 Portable Bluetooth Speaker with 12W Stereo Sound\",\r\n    \"imageUrl\": \"https://image.shutterstock.com/image-photo/white-transparent-leaf-on-mirror-260nw-1029171697.jpg\" ,\r\n    \"subCategoryId\": \"5ee9784cbb6923095c812f00\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -854,7 +854,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"productId\": \"5ee919695edacd33a4c0e75b\" , \r\n    \"unitId\": \"5ee91a25a63db53fb8785c1d\" , \r\n    \"price\": 45 , \r\n    \"stockQuantity\": 20\r\n}",
+							"raw": "{\r\n    \"productId\": \"5ee991af51c8f942582bac06\" , \r\n    \"unitId\": \"5ee91a25a63db53fb8785c1d\" , \r\n    \"price\": 45 , \r\n    \"stockQuantity\": 20\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -962,7 +962,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\"itemId\": \"5ee979e3bb6923095c812f02\",\r\n\"userId\": \"5ee96072dae5b439bcec8fff\"}",
+							"raw": "{\"itemId\": \"5ee9924096201337846dc930\",\r\n\"userId\": \"5ee9906c51c8f942582bac05\"}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1003,7 +1003,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/admin/users/5ee96072dae5b439bcec8fff",
+							"raw": "http://localhost:3000/admin/users/",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1012,7 +1012,7 @@
 							"path": [
 								"admin",
 								"users",
-								"5ee96072dae5b439bcec8fff"
+								""
 							]
 						}
 					},
@@ -1058,7 +1058,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n\t\"email\": \"test13@gmail.com\",\r\n\t\"password\": \"alemu\",\r\n    \"role\": \"ADMIN\",\r\n    \"status\": \"PENDING\",\r\n    \"firstName\": \"Ashenafi\",\r\n    \"lastName\": \"Gemechu\",\r\n    \"state\": \"Iowa\",\r\n    \"city\": \"Fairfield\",\r\n    \"street\": \"1000 N 4th St.\",\r\n    \"zipCode\": \"52557\",\r\n    \"phoneNumber\": \"3333333333\",\r\n    \"accountNumber\": \"3333333333\",\r\n    \"expiryDate\": \"3333333333\",\r\n    \"nameOntheCard\": \"Ashenafi A. Gemechu\",\r\n    \"ccv\": \"333\"\r\n}",
+							"raw": "{\r\n\t\"email\": \"test15@gmail.com\",\r\n\t\"password\": \"alemu\",\r\n    \"role\": \"ADMIN\",\r\n    \"status\": \"PENDING\",\r\n    \"firstName\": \"Ashenafi\",\r\n    \"lastName\": \"Gemechu\",\r\n    \"state\": \"Iowa\",\r\n    \"city\": \"Fairfield\",\r\n    \"street\": \"1000 N 4th St.\",\r\n    \"zipCode\": \"52557\",\r\n    \"phoneNumber\": \"3333333333\",\r\n    \"accountNumber\": \"3333333333\",\r\n    \"expiryDate\": \"3333333333\",\r\n    \"nameOntheCard\": \"Ashenafi A. Gemechu\",\r\n    \"ccv\": \"333\",\r\n    \"addressId\": \"5ee9a71e44336b24605b542d\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1142,6 +1142,11 @@
 					"response": []
 				}
 			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "order placement",
+			"item": [],
 			"protocolProfileBehavior": {}
 		}
 	],

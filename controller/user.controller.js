@@ -3,21 +3,24 @@ const bcrypt = require('bcrypt');
 const _ = require('lodash');
 const mongoose = require('mongoose');
 const { User } = require('../models/user');
+const { Address } = require('../models/address');
 const { OrderDetail } = require('../models/orderDetail');
 const { Item } = require('../models/item');
 const ApiResponse = require('../models/apiResponse');
 const ErrorResponse = require('../models/errorResponse');
-const { validateId, validateWithOutId, validateWithId, validateShoppingCart } = require('../models/request/user.request');
+const { validateId, validateWithOutId, validateWithId, validateShoppingCart, validateOrderPlacement } = require('../models/request/user.request');
 
 
 exports.insert = async(req, res, next) => {
     const { error } = validateWithOutId(req.body);
     if (error) return res.status(400).send(new ErrorResponse('400', error.details[0].message));
-    console.log("one");
     let userExist = await User.findOne({ email: req.body.email });
-    console.log("Two");
     if (userExist) return res.status(400).send('user already exist');
 
+    const newAddress = await Address.findById(req.body.addressId);
+
+    if (!newAddress) return res.status(400).send('invalid address id!');
+    let address = [newAddress];
     const user = await User.create({
         email: req.body.email,
         password: req.body.password,
@@ -26,6 +29,7 @@ exports.insert = async(req, res, next) => {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         phoneNumber: req.body.phoneNumber,
+        addresses: address,
         'billingInformation.state': req.body.state,
         'billingInformation.city': req.body.city,
         'billingInformation.street': req.body.street,
@@ -96,11 +100,34 @@ exports.addToCart = async(req, res, next) => {
     if (error) return res.status(400).send(new ErrorResponse('400', error.details[0].message));
     const item = await Item.findById(req.body.itemId);
     if (!item) res.status(400).send(new ErrorResponse('400', 'no content found!'));
-    const user = await User.findOneAndUpdate(req.body.userId, {
+    console.log(req.body.userId);
+    const user = await User.findByIdAndUpdate(req.body.userId, {
         $push: { shoppingCart: item }
     }, { new: true, useFindAndModify: true });
     res.status(200).send(new ApiResponse(200, 'success', user.shoppingCart));
 };
+
+exports.placeOrder = async(req, res, next) => {
+    const { error } = validateOrderPlacement(req.body);
+    if (error) return res.status(400).send(new ErrorResponse('400', error.details[0].message));
+    let items = [];
+    req.body.itemIds.forEach(async(itemId) => {
+        const item = await Item.findById(itemId);
+        if (!item) res.status(400).send(new ErrorResponse('400', 'no content found!'));
+        items.push(item);
+    });
+    let newAddress = Address.findById(req.body.addressId);
+    const user = await User.findByIdAndUpdate(req.body.userId, {
+        'order.orderDetail.items': items,
+        'order.orderDate': Date.now(),
+        $addToSet: { addresses: newAddress },
+        'order.shippingAddress': newAddress
+
+    }, { new: true, useFindAndModify: true });
+    res.status(200).send(new ApiResponse(200, 'success', user.shoppingCart));
+
+}
+
 /* get a user. */
 // exports.getUser = async function(request, response) {
 //         const user = await User.findById(request.user._id).select('-password');

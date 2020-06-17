@@ -7,7 +7,15 @@ const ErrorResponse = require('../models/errorResponse');
 exports.insert = async(req, res, next) => {
     const { error } = validateWithOutId(req.body);
     if (error) return res.status(400).send(new ErrorResponse('400', error.details[0].message));
-    const address = await Address.create(req.body);
+    console.log('here');
+    let newAddress = new Address({
+        state: req.body.state,
+        city: req.body.city,
+        street: req.body.street,
+        zipCode: req.body.zipCode,
+        addressString: `${req.body.street} ${req.body.state} ${req.body.city} ${req.body.zipCode}`
+    });
+    const address = await Address.create(newAddress);
     res.status(201).send(new ApiResponse(201, 'success', address));
 };
 
@@ -30,11 +38,12 @@ exports.findAll = async(req, res, next) => {
 exports.updateById = async(req, res, next) => {
     const { error } = validateWithId(req.body);
     if (error) return res.status(400).send(new ErrorResponse('400', error.details[0].message));
-    const address = await Address.findOneAndUpdate(req.params.id, {
+    const address = await Address.findByIdAndUpdate(req.params.id, {
         state: req.body.state,
         city: req.body.city,
         street: req.body.street,
-        zipCode: req.body.zipCode
+        zipCode: req.body.zipCode,
+        addressString: `${req.body.street} ${req.body.state} ${req.body.city} ${req.body.zipCode}`
     }, { new: true, useFindAndModify: true });
     console.log(address);
     address.save();
