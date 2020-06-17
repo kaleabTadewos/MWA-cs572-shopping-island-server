@@ -111,7 +111,7 @@ const userSchema = new mongoose.Schema({
             required: true
         }
     }],
-    order: {
+    order: [{
         orderDetail: [{
             items: {
                 _id: {
@@ -207,16 +207,17 @@ const userSchema = new mongoose.Schema({
                     type: String,
                     enum: ['PENDING', 'PAYED', 'VOID'],
                     defualt: 'PENDING'
-                }
-            }
+                } 
+            } 
+            ,
+            required: false
         }],
         orderDate: {
             type: Date,
         },
         shippingAddress: {
             _id: {
-                type: mongoose.Types.ObjectId,
-                required: true
+                type: mongoose.Types.ObjectId
             },
             state: {
                 type: String,
@@ -239,11 +240,11 @@ const userSchema = new mongoose.Schema({
                 maxlength: 5
             },
             addressString: {
-                type: String,
-                required: true
-            }
+                type: String
+            },
+            required: false
         }
-    },
+    }],
     firstName: {
         type: String,
         required: true,
