@@ -1200,6 +1200,36 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "user remove from cart",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"shoppingCartId\": \"5eea7be845cf001e2c12f131\",\r\n\"userId\": \"5eea7bd245cf001e2c12f130\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/admin/users/removeCart",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"admin",
+								"users",
+								"removeCart"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"protocolProfileBehavior": {}
