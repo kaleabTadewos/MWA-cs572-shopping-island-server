@@ -108,6 +108,16 @@ exports.addToCart = async (req, res, next) => {
     res.status(200).send(new ApiResponse(200, 'success', user.shoppingCart));
 };
 
+//Retrive Operations
+exports.findShoppingCarts = async (req, res, next) => {
+    const { error } = validateId({ _id: req.params.id });
+    if (error) return res.status(400).send(new ErrorResponse('400', error.details[0].message));
+    const user = await User.findById(req.params.id);
+    if (!user) return res.status(404).send(new ErrorResponse('400', 'no content found!'));
+    const shoppingCarts = user.shoppingCart;
+    res.status(200).send(new ApiResponse(200, 'success', shoppingCarts));
+};
+
 exports.removeFromCart = async (req, res, next) => {
     const { error } = validateRemoveShoppingCart(req.body);
     if (error) return res.status(400).send(new ErrorResponse('400', error.details[0].message));
@@ -134,34 +144,14 @@ exports.placeOrder = async (req, res, next) => {
 
     const items = await fncc(req.body.itemIds);
 
-    // await req.body.itemIds.forEach(async(itemId) => {
-    //     const item = await Item.findById(itemId);
-    //     console.log("One inside");
-    //     if (!item) res.status(400).send(new ErrorResponse('400', 'no content found!'));
-    //     console.log("One inside");
-    //     items.push(item);
-    //     console.log("One inside");
-    //     console.log(items);
-    // });
-
     const newAddress = await Address.findById(req.body.addressId);
    // let newOrderDetail = items; 
     let newOrder = {orderDetail : items , shippingAddress : newAddress , orderDate : Date.now()};
 
     // //console.log(items);
     const user = await User.findByIdAndUpdate(req.body.userId, {
-        // 'order.orderDetail': items,
-        // 'order.orderDate': Date.now(),
         $addToSet: { addresses: newAddress },
-        $push: {order: newOrder},
-        //order: newOrder 
-        // ,
-        // 'order.shippingAddress.state': newAddress.state,
-        // 'order.shippingAddress.city': newAddress.city,
-        // 'order.shippingAddress.zipCode': newAddress.zipCode,
-        // 'order.shippingAddress.street': newAddress.street,
-        // 'order.shippingAddress._id': newAddress._id,
-        // 'order.shippingAddress.addressString': newAddress.addressString
+        $push: {order: newOrder}
 
     }, { new: true, useFindAndModify: true });
     res.status(200).send(new ApiResponse(200, 'success', items));
