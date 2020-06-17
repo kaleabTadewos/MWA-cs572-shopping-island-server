@@ -74,12 +74,9 @@ router.put('/users/removeCart', userController.removeFromCart);
 router.put('/users/placeOrder', userController.placeOrder);
 router.put('/users/placeSingleOrder', userController.placeSingleOrder);
 
-<<<<<<< HEAD
-=======
 
 
 
 
 
->>>>>>> develop
 module.exports = router;
