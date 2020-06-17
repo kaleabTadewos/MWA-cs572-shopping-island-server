@@ -17,7 +17,7 @@ const productSchema = new mongoose.Schema({
     },
     description: {
         type: String,
-        required: true ,
+        required: true,
         minlength: 10,
         maxlength: 500
     },
@@ -28,7 +28,7 @@ const productSchema = new mongoose.Schema({
         _id: {
             type: mongoose.Types.ObjectId,
             required: true
-        } ,
+        },
         name: {
             type: String,
             required: true,
@@ -36,6 +36,10 @@ const productSchema = new mongoose.Schema({
             maxlength: 255
         },
         category: {
+            _id: {
+                type: mongoose.Types.ObjectId,
+                required: true
+            },
             name: {
                 type: String,
                 required: true,
@@ -43,21 +47,21 @@ const productSchema = new mongoose.Schema({
                 maxlength: 255
             }
         }
-    } , 
+    },
     minPrice: {
-        type:Number , 
+        type: Number,
         default: 0
-    } ,
+    },
     maxPrice: {
-        type:Number ,
+        type: Number,
         default: 0
-    } , 
+    },
     itemCount: {
-        type:Number , 
-        default : 0
-    } , 
+        type: Number,
+        default: 0
+    },
     searchCriteria: {
-        type:String ,
+        type: String,
         required: true
     }
 
