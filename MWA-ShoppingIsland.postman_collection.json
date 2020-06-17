@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "7e9aed9b-32f0-40fc-826d-ba6ea281d94d",
+		"_postman_id": "3959765f-076e-4c4d-a6f6-d25b36a32256",
 		"name": "MWA-ShoppingIsland",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -210,7 +210,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"NewSubCatogry-6\",\r\n    \"categoryId\": \"5ee6a66eaac52f3ef4dc4310\"\r\n}",
+							"raw": "{\r\n    \"name\": \"NewSubCatogry-6\",\r\n    \"categoryId\": \"5ee9193c5edacd33a4c0e759\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -372,7 +372,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"_id\": \"5ee7f2eee219ec29ccaffb6d\",\r\n    \"name\": \"dozen\" , \r\n    \"quantity\" : 12\r\n}",
+							"raw": "{\r\n    \"name\": \"dozen\" , \r\n    \"quantity\" : 12\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -483,6 +483,659 @@
 								"admin",
 								"units",
 								"5ee7f2e5e219ec29ccaffb6c"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "4.Product",
+			"item": [
+				{
+					"name": "get products",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Anker Soundcore\",\r\n    \"userId\": \"5ee8029163abd363779e7a09\",\r\n    \"description\": \"Anker Soundcore 2 Portable Bluetooth Speaker with 12W Stereo Sound\",\r\n    \"imageUrl\": \"https://image.shutterstock.com/image-photo/white-transparent-leaf-on-mirror-260nw-1029171697.jpg\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/admin/products/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"admin",
+								"products",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create product",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Anker Soundcore 4\",\r\n    \"userId\": \"5ee71a8cc1e2b132dcf48610\",\r\n    \"description\": \"Anker Soundcore 2 Portable Bluetooth Speaker with 12W Stereo Sound\",\r\n    \"imageUrl\": \"https://image.shutterstock.com/image-photo/white-transparent-leaf-on-mirror-260nw-1029171697.jpg\" ,\r\n    \"subCategoryId\": \"5ee9784cbb6923095c812f00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/admin/products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"admin",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update product",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"_id\": \"5ee83fb17e12ea22b87b7d46\",\r\n    \"name\": \"Anker Soundcore2\",\r\n    \"userId\": \"5ee8029163abd363779e7a09\",\r\n    \"description\": \"Anker Soundcore 2 Portable Bluetooth Speaker with 12W Stereo Sound\",\r\n    \"imageUrl\": \"https://image.shutterstock.com/image-photo/white-transparent-leaf-on-mirror-260nw-1029171697.jpg\" ,\r\n    \"subCategoryId\": \"5ee7e26f1b2e862b9c896ad6\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/admin/products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"admin",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete products",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Anker Soundcore\",\r\n    \"userId\": \"5ee8029163abd363779e7a09\",\r\n    \"description\": \"Anker Soundcore 2 Portable Bluetooth Speaker with 12W Stereo Sound\",\r\n    \"imageUrl\": \"https://image.shutterstock.com/image-photo/white-transparent-leaf-on-mirror-260nw-1029171697.jpg\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/admin/products/5ee8413b4ea9bf3e28e0b24c",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"admin",
+								"products",
+								"5ee8413b4ea9bf3e28e0b24c"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get products by id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Anker Soundcore\",\r\n    \"userId\": \"5ee8029163abd363779e7a09\",\r\n    \"description\": \"Anker Soundcore 2 Portable Bluetooth Speaker with 12W Stereo Sound\",\r\n    \"imageUrl\": \"https://image.shutterstock.com/image-photo/white-transparent-leaf-on-mirror-260nw-1029171697.jpg\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/admin/products/5ee83fb17e12ea22b87b7d46",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"admin",
+								"products",
+								"5ee83fb17e12ea22b87b7d46"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "5.address",
+			"item": [
+				{
+					"name": "get address",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Anker Soundcore\",\r\n    \"userId\": \"5ee8029163abd363779e7a09\",\r\n    \"description\": \"Anker Soundcore 2 Portable Bluetooth Speaker with 12W Stereo Sound\",\r\n    \"imageUrl\": \"https://image.shutterstock.com/image-photo/white-transparent-leaf-on-mirror-260nw-1029171697.jpg\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/admin/address/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"admin",
+								"address",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create address",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"state\": \"Iowa2\",\r\n    \"city\": \"FairField\",\r\n    \"street\": \"1000 N 4th.\",\r\n    \"zipCode\": \"52556\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/admin/address/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"admin",
+								"address",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get address by id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Anker Soundcore\",\r\n    \"userId\": \"5ee8029163abd363779e7a09\",\r\n    \"description\": \"Anker Soundcore 2 Portable Bluetooth Speaker with 12W Stereo Sound\",\r\n    \"imageUrl\": \"https://image.shutterstock.com/image-photo/white-transparent-leaf-on-mirror-260nw-1029171697.jpg\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/admin/address/5ee852bd7344e21de8f08e60",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"admin",
+								"address",
+								"5ee852bd7344e21de8f08e60"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update address",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"_id\": \"5ee852bd7344e21de8f08e60\",\r\n    \"state\": \"Iowa\",\r\n    \"city\": \"FairField\",\r\n    \"street\": \"1000 N 4th.\",\r\n    \"zipCode\": \"52557\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/admin/address/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"admin",
+								"address",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete address",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Anker Soundcore\",\r\n    \"userId\": \"5ee8029163abd363779e7a09\",\r\n    \"description\": \"Anker Soundcore 2 Portable Bluetooth Speaker with 12W Stereo Sound\",\r\n    \"imageUrl\": \"https://image.shutterstock.com/image-photo/white-transparent-leaf-on-mirror-260nw-1029171697.jpg\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/admin/address/5ee853797344e21de8f08e61",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"admin",
+								"address",
+								"5ee853797344e21de8f08e61"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "6.item",
+			"item": [
+				{
+					"name": "get all items",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/admin/items/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"admin",
+								"items",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create item",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productId\": \"5ee919695edacd33a4c0e75b\" , \r\n    \"unitId\": \"5ee91a25a63db53fb8785c1d\" , \r\n    \"price\": 45 , \r\n    \"stockQuantity\": 20\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/admin/items/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"admin",
+								"items",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get item by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/admin/items/5ee86d91e1d1b52e0c7fb10b",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"admin",
+								"items",
+								"5ee86d91e1d1b52e0c7fb10b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update item",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"_id\": \"5ee86d91e1d1b52e0c7fb10b\" ,\r\n    \"price\": 45 , \r\n    \"stockQuantity\": 30\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/admin/items/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"admin",
+								"items",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete item",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/admin/items/5ee86d91e1d1b52e0c7fb10b",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"admin",
+								"items",
+								"5ee86d91e1d1b52e0c7fb10b"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "user add to cart",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"itemId\": \"5ee979e3bb6923095c812f02\",\r\n\"userId\": \"5ee96072dae5b439bcec8fff\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/admin/users/addCart",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"admin",
+								"users",
+								"addCart"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get users",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"itemId\": \"5ee979e3bb6923095c812f02\",\r\n\"userId\": \"5ee96072dae5b439bcec8fff\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/admin/users/5ee96072dae5b439bcec8fff",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"admin",
+								"users",
+								"5ee96072dae5b439bcec8fff"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get user by Id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"itemId\": \"5ee979e3bb6923095c812f02\",\r\n\"userId\": \"5ee96072dae5b439bcec8fff\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/admin/users/5ee96072dae5b439bcec8fff",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"admin",
+								"users",
+								"5ee96072dae5b439bcec8fff"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"email\": \"test13@gmail.com\",\r\n\t\"password\": \"alemu\",\r\n    \"role\": \"ADMIN\",\r\n    \"status\": \"PENDING\",\r\n    \"firstName\": \"Ashenafi\",\r\n    \"lastName\": \"Gemechu\",\r\n    \"state\": \"Iowa\",\r\n    \"city\": \"Fairfield\",\r\n    \"street\": \"1000 N 4th St.\",\r\n    \"zipCode\": \"52557\",\r\n    \"phoneNumber\": \"3333333333\",\r\n    \"accountNumber\": \"3333333333\",\r\n    \"expiryDate\": \"3333333333\",\r\n    \"nameOntheCard\": \"Ashenafi A. Gemechu\",\r\n    \"ccv\": \"333\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/admin/users/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"admin",
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete user",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"email\": \"test13@gmail.com\",\r\n\t\"password\": \"alemu\",\r\n    \"role\": \"ADMIN\",\r\n    \"status\": \"PENDING\",\r\n    \"firstName\": \"Ashenafi\",\r\n    \"lastName\": \"Gemechu\",\r\n    \"state\": \"Iowa\",\r\n    \"city\": \"Fairfield\",\r\n    \"street\": \"1000 N 4th St.\",\r\n    \"zipCode\": \"52557\",\r\n    \"phoneNumber\": \"3333333333\",\r\n    \"accountNumber\": \"3333333333\",\r\n    \"expiryDate\": \"3333333333\",\r\n    \"nameOntheCard\": \"Ashenafi A. Gemechu\",\r\n    \"ccv\": \"333\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/admin/users/5ee9817e6a939735084a8c73",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"admin",
+								"users",
+								"5ee9817e6a939735084a8c73"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update user",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"_id\": \"5ee96072dae5b439bcec8fff\",\r\n\t\"password\": \"alemu\",\r\n    \"role\": \"ADMIN\",\r\n    \"status\": \"PENDING\",\r\n    \"firstName\": \"Ashenafi\",\r\n    \"lastName\": \"Alemu\",\r\n    \"state\": \"Iowa\",\r\n    \"city\": \"Fairfield\",\r\n    \"street\": \"1000 N 4th St.\",\r\n    \"zipCode\": \"52557\",\r\n    \"phoneNumber\": \"3333333333\",\r\n    \"accountNumber\": \"3333333333\",\r\n    \"expiryDate\": \"3333333333\",\r\n    \"nameOntheCard\": \"Ashenafi A. Gemechu\",\r\n    \"ccv\": \"333\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/admin/users/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"admin",
+								"users",
+								""
 							]
 						}
 					},
