@@ -8,13 +8,13 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
         unique: true,
-        minlength: 5,
+       // minlength: 5,
         maxlength: 255
     },
     password: {
         type: String,
         required: true,
-        minlength: 5,
+       // minlength: 5,
         maxlength: 1024
     },
     status: {
@@ -303,15 +303,15 @@ const userSchema = new mongoose.Schema({
         zipCode: {
             type: String,
             required: true,
-            minlength: 5,
-            maxlength: 5
+           // minlength: 5,
+            //maxlength: 5
         },
         accountNumber: {
             type: String,
             required: true
         },
         expiryDate: {
-            type: Date,
+          //  type: Date,
             required: true
         },
         nameOntheCard: {
@@ -322,8 +322,8 @@ const userSchema = new mongoose.Schema({
         },
         ccv: {
             type: Number,
-            required: true,
-            maxlength: 3
+            required: true//,
+           // maxlength: 3
         }
     },
     addresses: [{
@@ -352,8 +352,8 @@ const userSchema = new mongoose.Schema({
         zipCode: {
             type: String,
             required: true,
-            minlength: 5,
-            maxlength: 5
+          //  minlength: 5,
+           // maxlength: 5
         },
         addressString: {
             type: String,

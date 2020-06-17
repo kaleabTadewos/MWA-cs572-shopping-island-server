@@ -66,7 +66,7 @@ exports.updateById = async (req, res, next) => {
     //const subCategory = await SubCategory.findById(req.body.subCategoryId);
     //if (!subCategory) res.status(400).send(new ErrorResponse('400', 'Invalid Sub Category Id!'));
     const user = await User.findOneAndUpdate(req.params.id, {
-        //email: req.body.email,
+        email: req.body.email,
         password: req.body.password,
         role: req.body.role,
         firstName: req.body.firstName,
