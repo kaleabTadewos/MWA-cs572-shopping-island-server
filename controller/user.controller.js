@@ -7,7 +7,7 @@ const { OrderDetail } = require('../models/orderDetail');
 const { Item } = require('../models/item');
 const ApiResponse = require('../models/apiResponse');
 const ErrorResponse = require('../models/errorResponse');
-const { validateId, validateWithOutId, validateWithId } = require('../models/request/user.request');
+const { validateId, validateWithOutId, validateWithId, validateShoppingCart } = require('../models/request/user.request');
 
 
 exports.insert = async(req, res, next) => {
@@ -86,13 +86,20 @@ exports.updateById = async(req, res, next) => {
 exports.removeById = async(req, res, next) => {
     const { error } = validateId({ _id: req.params.id });
     if (error) return res.status(400).send(new ErrorResponse('400', error.details[0].message));
-    const product = await Product.findByIdAndRemove(req.params.id);
-    if (!product) return res.status(404).send(new ErrorResponse('400', 'no content found!'));
-    res.status(200).send(new ApiResponse(200, 'success', product));
+    const user = await User.findByIdAndRemove(req.params.id);
+    if (!user) return res.status(404).send(new ErrorResponse('400', 'no content found!'));
+    res.status(200).send(new ApiResponse(200, 'success', user));
 };
 
 exports.addToCart = async(req, res, next) => {
-
+    const { error } = validateShoppingCart(req.body);
+    if (error) return res.status(400).send(new ErrorResponse('400', error.details[0].message));
+    const item = await Item.findById(req.body.itemId);
+    if (!item) res.status(400).send(new ErrorResponse('400', 'no content found!'));
+    const user = await User.findOneAndUpdate(req.body.userId, {
+        $push: { shoppingCart: item }
+    }, { new: true, useFindAndModify: true });
+    res.status(200).send(new ApiResponse(200, 'success', user.shoppingCart));
 };
 /* get a user. */
 // exports.getUser = async function(request, response) {
