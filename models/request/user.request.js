@@ -64,14 +64,24 @@ function validateUserNewShppingCart(userShoppingCart) {
     return Joi.validate(userShoppingCart, schema);
 }
 
-function validateUserOrderPlacement(userShoppingCart) {
+function validateUserOrderPlacement(userPlaceOrder) {
     const schema = {
         userId: Joi.objectId().required(),
-        itemIds: [Joi.objectId().required()],
+        itemIds: Joi.array().items(Joi.objectId()) ,
         addressId: Joi.objectId().required()
     };
 
-    return Joi.validate(userShoppingCart, schema);
+    return Joi.validate(userPlaceOrder, schema);
+} 
+
+function validateUserSingleOrderPlacement(userPlaceSingleOrder) {
+    const schema = {
+        userId: Joi.objectId().required(),
+        itemId: Joi.objectId().required() ,
+        addressId: Joi.objectId().required()
+    };
+
+    return Joi.validate(userPlaceSingleOrder, schema);
 }
 
 exports.validateWithId = validateUserWithId;
@@ -79,3 +89,4 @@ exports.validateId = validateUserId;
 exports.validateWithOutId = validateUserWithOutId;
 exports.validateShoppingCart = validateUserNewShppingCart;
 exports.validateOrderPlacement = validateUserOrderPlacement;
+exports.validateSingleOrderPlacement = validateUserSingleOrderPlacement;
