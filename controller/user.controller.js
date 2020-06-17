@@ -8,7 +8,7 @@ const { OrderDetail } = require('../models/orderDetail');
 const { Item } = require('../models/item');
 const ApiResponse = require('../models/apiResponse');
 const ErrorResponse = require('../models/errorResponse');
-const { validateId, validateWithOutId, validateWithId, validateShoppingCart, validateOrderPlacement , validateSingleOrderPlacement} = require('../models/request/user.request');
+const { validateId, validateWithOutId, validateWithId, validateShoppingCart, validateOrderPlacement , validateSingleOrderPlacement , validateRemoveShoppingCart} = require('../models/request/user.request');
 
 
 exports.insert = async (req, res, next) => {
@@ -21,11 +21,12 @@ exports.insert = async (req, res, next) => {
     console.log(newAddress);
     if (!newAddress) return res.status(400).send('invalid address id!');
     let address = [newAddress];
+    const userStatus = (req.body.role == "SELLER") ? "PENDING" : "ACTIVE";
     const user = await User.create({
         email: req.body.email,
         password: req.body.password,
         role: req.body.role,
-        status: req.body.status,
+        status: userStatus,
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         phoneNumber: req.body.phoneNumber,
@@ -68,7 +69,6 @@ exports.updateById = async (req, res, next) => {
         //email: req.body.email,
         password: req.body.password,
         role: req.body.role,
-        status: req.body.status,
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         phoneNumber: req.body.phoneNumber,
@@ -99,10 +99,20 @@ exports.addToCart = async (req, res, next) => {
     const { error } = validateShoppingCart(req.body);
     if (error) return res.status(400).send(new ErrorResponse('400', error.details[0].message));
     const item = await Item.findById(req.body.itemId);
+    console.log()
+    const newShoppingCart = {item: item};
     if (!item) res.status(400).send(new ErrorResponse('400', 'no content found!'));
-    console.log(req.body.userId);
     const user = await User.findByIdAndUpdate(req.body.userId, {
-        $push: { shoppingCart: item }
+        $push: { shoppingCart: newShoppingCart }
+    }, { new: true, useFindAndModify: true });
+    res.status(200).send(new ApiResponse(200, 'success', user.shoppingCart));
+};
+
+exports.removeFromCart = async (req, res, next) => {
+    const { error } = validateRemoveShoppingCart(req.body);
+    if (error) return res.status(400).send(new ErrorResponse('400', error.details[0].message));
+    const user = await User.findByIdAndUpdate(req.body.userId, {
+        $pull: { shoppingCart:  {_id: req.body.shoppingCartId}}
     }, { new: true, useFindAndModify: true });
     res.status(200).send(new ApiResponse(200, 'success', user.shoppingCart));
 };

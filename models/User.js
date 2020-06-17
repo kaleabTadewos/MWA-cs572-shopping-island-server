@@ -26,8 +26,9 @@ const userSchema = new mongoose.Schema({
         type: String,
         enum: ['ADMIN', 'SELLER', 'BUYER']
     },
-    shoppingCart: [{
-        _id: {
+    shoppingCart: [{ 
+        item : {
+            _id: {
             type: mongoose.Types.ObjectId,
             required: true
         },
@@ -109,7 +110,8 @@ const userSchema = new mongoose.Schema({
         stockQuantity: {
             type: Number,
             required: true
-        }
+        }}
+        
     }],
     order: [{
         orderDetail: [{
