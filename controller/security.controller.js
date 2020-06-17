@@ -10,7 +10,6 @@ const ApiResponse = require('../models/apiResponse');
 const ErrorResponse = require('../models/errorResponse');
 const { validateId, validateWithOutId, validateWithId, validateShoppingCart, validateOrderPlacement } = require('../models/request/user.request');
 
-
 exports.insert = async(req, res, next) => {
     const { error } = validateWithOutId(req.body);
     if (error) return res.status(400).send(new ErrorResponse('400', error.details[0].message));
@@ -47,6 +46,6 @@ exports.insert = async(req, res, next) => {
     await user.save();
 
     const token = user.generateAuthToken();
-    res.header('x-auth-token', token).send(_.pick(user, ['email', 'role', 'status']));
-    res.status(201).send(new ApiResponse(201, 'success', user));
+    res.header('x-auth-token', token).status(201).send(_.pick(user, ['email', 'role', 'status']));
+    //res.status(201).send(new ApiResponse(201, 'success', user));
 };

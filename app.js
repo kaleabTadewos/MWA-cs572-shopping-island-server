@@ -24,9 +24,9 @@ app.use(express.json())
 app.use(cors());
 app.use(bodyParser.json());
 //app.use('/user', [auth, admin], userRoutes);
-//app.use('/users', userRoutes);
-app.use(loginRoutes);
-app.use('/admin', adminRoutes);
+app.use('/users', userRoutes);
+//app.use(loginRoutes);
+app.use('/admin', [auth, admin], adminRoutes);
 
 app.get('/', (req, res, next) => {
     res.sendFile(__dirname + '/views/index.html');

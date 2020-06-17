@@ -207,9 +207,8 @@ const userSchema = new mongoose.Schema({
                     type: String,
                     enum: ['PENDING', 'PAYED', 'VOID'],
                     defualt: 'PENDING'
-                } 
-            } 
-            ,
+                }
+            },
             required: false
         }],
         orderDate: {

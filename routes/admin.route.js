@@ -64,15 +64,12 @@ router.delete('/point-calculator/:id', pointCalculatorControler.removeById);
 
 //user Routes
 router.get('/users', userController.findAll);
-router.post('/users', userController.insert);
+//router.post('/users', userController.insert);
 router.get('/users/:id', userController.findById);
 router.delete('/users/:id', userController.removeById);
 router.put('/users', userController.updateById);
 router.put('/users/addCart', userController.addToCart);
 router.put('/users/placeOrder', userController.placeOrder);
 router.put('/users/placeSingleOrder', userController.placeSingleOrder);
-
-
-
 
 module.exports = router;
