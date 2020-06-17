@@ -9,7 +9,13 @@ const adminRoutes = require('./routes/admin.route')
 
 const userRoutes = require('./routes/user.route');
 const loginRoutes = require('./routes/login.route');
+const adminOnlyRoutes = require('./routes/adminOnly');
+const allUsersRoutes = require('./routes/allRoles');
+const adminSellerRoutes = require('./routes/admin-seller');
 const admin = require('./middleware/admin');
+const adminSeller = require('./middleware/admin-seller');
+const adminOnly = require('./middleware/adminOnly');
+const allRoles = require('./middleware/allRoles');
 const auth = require('./middleware/auth');
 const config = require('config');
 const app = express();
@@ -26,7 +32,10 @@ app.use(bodyParser.json());
 //app.use('/user', [auth, admin], userRoutes);
 app.use('/users', userRoutes);
 //app.use(loginRoutes);
-app.use('/admin', [auth, admin], adminRoutes);
+app.use('/admin', adminRoutes);
+app.use('/all-users', [auth, allRoles], allUsersRoutes);
+app.use('/admin-seller', [auth, adminSeller], adminSellerRoutes);
+app.use('/admin-only', [auth, adminOnly], adminOnlyRoutes);
 
 app.get('/', (req, res, next) => {
     res.sendFile(__dirname + '/views/index.html');
