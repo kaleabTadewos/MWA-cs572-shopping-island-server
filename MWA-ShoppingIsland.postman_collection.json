@@ -883,7 +883,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/admin/items/5ee86d91e1d1b52e0c7fb10b",
+							"raw": "http://localhost:3000/admin/items/5eea33bd76ac9d27c04ff8ac",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -892,7 +892,7 @@
 							"path": [
 								"admin",
 								"items",
-								"5ee86d91e1d1b52e0c7fb10b"
+								"5eea33bd76ac9d27c04ff8ac"
 							]
 						}
 					},
@@ -1096,7 +1096,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/admin/users/5eea388b64ba39271088e9ae",
+							"raw": "http://localhost:3000/admin/users/5eeaa61565e84f0220a760da",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1105,7 +1105,7 @@
 							"path": [
 								"admin",
 								"users",
-								"5eea388b64ba39271088e9ae"
+								"5eeaa61565e84f0220a760da"
 							]
 						}
 					},
@@ -1178,7 +1178,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"itemId\": \"5eea33bd76ac9d27c04ff8ac\",\r\n     \"userId\": \"5eea41141319223a801187a4\" ,\r\n     \"addressId\": \"5eea345d76ac9d27c04ff8ae\"\r\n}\r\n",
+							"raw": "{\r\n    \"itemId\": \"5eea33bd76ac9d27c04ff8ac\",\r\n     \"userId\": \"5eea7bd245cf001e2c12f130\" ,\r\n     \"addressId\": \"5eea345d76ac9d27c04ff8ae\" ,\r\n     \"shoppingCartId\": \"5eea7c85013d703d9c254911\"\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1226,6 +1226,40 @@
 								"admin",
 								"users",
 								"removeCart"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get user shopping carts",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"itemId\": \"5ee979e3bb6923095c812f02\",\r\n\"userId\": \"5ee96072dae5b439bcec8fff\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/admin/users/shoppingCarts/5eea7bd245cf001e2c12f130",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"admin",
+								"users",
+								"shoppingCarts",
+								"5eea7bd245cf001e2c12f130"
 							]
 						}
 					},
