@@ -302,7 +302,7 @@ const userSchema = new mongoose.Schema({
         },
         zipCode: {
             type: String,
-            required: true,
+            required: true//,
            // minlength: 5,
             //maxlength: 5
         },
@@ -312,6 +312,7 @@ const userSchema = new mongoose.Schema({
         },
         expiryDate: {
           //  type: Date,
+          type: String,
             required: true
         },
         nameOntheCard: {
@@ -351,7 +352,7 @@ const userSchema = new mongoose.Schema({
         },
         zipCode: {
             type: String,
-            required: true,
+            required: true//,
           //  minlength: 5,
            // maxlength: 5
         },
