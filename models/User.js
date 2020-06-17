@@ -19,7 +19,7 @@ const userSchema = new mongoose.Schema({
     },
     status: {
         type: String,
-        enum: ['ACTIVE ', 'PENDING', 'INACTIVE'],
+        enum: ['ACTIVE', 'PENDING', 'INACTIVE'],
         default: 'PENDING'
     },
     role: {
