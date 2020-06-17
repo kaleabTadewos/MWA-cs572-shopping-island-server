@@ -210,7 +210,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"NewSubCatogry-6\",\r\n    \"categoryId\": \"5ee6a66eaac52f3ef4dc4310\"\r\n}",
+							"raw": "{\r\n    \"name\": \"NewSubCatogry-6\",\r\n    \"categoryId\": \"5ee9193c5edacd33a4c0e759\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -321,40 +321,6 @@
 								"admin",
 								"sub-categories",
 								"5ee7f06ccdd5eb0e3ca0e9b4"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "1. get subcategory by categoryId",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"NewSubCatogry-2\",\r\n    \"categoryId\": \"5ee6a66eaac52f3ef4dc4310\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:3000/admin/sub-categories/category/5ee6a66eaac52f3ef4dc4310",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"admin",
-								"sub-categories",
-								"category",
-								"5ee6a66eaac52f3ef4dc4310"
 							]
 						}
 					},
@@ -568,7 +534,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Anker Soundcore 4\",\r\n    \"userId\": \"5ee8029163abd363779e7a09\",\r\n    \"description\": \"Anker Soundcore 2 Portable Bluetooth Speaker with 12W Stereo Sound\",\r\n    \"imageUrl\": \"https://image.shutterstock.com/image-photo/white-transparent-leaf-on-mirror-260nw-1029171697.jpg\" ,\r\n    \"subCategoryId\": \"5ee7e26f1b2e862b9c896ad6\"\r\n}",
+							"raw": "{\r\n    \"name\": \"Anker Soundcore 4\",\r\n    \"userId\": \"5ee71a8cc1e2b132dcf48610\",\r\n    \"description\": \"Anker Soundcore 2 Portable Bluetooth Speaker with 12W Stereo Sound\",\r\n    \"imageUrl\": \"https://image.shutterstock.com/image-photo/white-transparent-leaf-on-mirror-260nw-1029171697.jpg\" ,\r\n    \"subCategoryId\": \"5ee9784cbb6923095c812f00\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -852,9 +818,19 @@
 			"item": [
 				{
 					"name": "get all items",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {}
+							}
+						},
 						"url": {
 							"raw": "http://localhost:3000/admin/items/",
 							"protocol": "http",
@@ -872,12 +848,21 @@
 					"response": []
 				},
 				{
-					"name": "get item by productId",
+					"name": "create item",
 					"request": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productId\": \"5ee919695edacd33a4c0e75b\" , \r\n    \"unitId\": \"5ee91a25a63db53fb8785c1d\" , \r\n    \"price\": 45 , \r\n    \"stockQuantity\": 20\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "http://localhost:3000/admin/items/product/5ee878032f953807d87279f4",
+							"raw": "http://localhost:3000/admin/items/",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -886,8 +871,7 @@
 							"path": [
 								"admin",
 								"items",
-								"product",
-								"5ee878032f953807d87279f4"
+								""
 							]
 						}
 					},
@@ -909,36 +893,6 @@
 								"admin",
 								"items",
 								"5ee86d91e1d1b52e0c7fb10b"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "create item",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"productId\": \"5ee83fb17e12ea22b87b7d46\" , \r\n    \"unitId\": \"5ee7f2eee219ec29ccaffb6d\" , \r\n    \"price\": 45 , \r\n    \"stockQuantity\": 20\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:3000/admin/items/",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"admin",
-								"items",
-								""
 							]
 						}
 					},
@@ -990,6 +944,198 @@
 								"admin",
 								"items",
 								"5ee86d91e1d1b52e0c7fb10b"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "user add to cart",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"itemId\": \"5ee979e3bb6923095c812f02\",\r\n\"userId\": \"5ee96072dae5b439bcec8fff\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/admin/users/addCart",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"admin",
+								"users",
+								"addCart"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get users",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"itemId\": \"5ee979e3bb6923095c812f02\",\r\n\"userId\": \"5ee96072dae5b439bcec8fff\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/admin/users/5ee96072dae5b439bcec8fff",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"admin",
+								"users",
+								"5ee96072dae5b439bcec8fff"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get user by Id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"itemId\": \"5ee979e3bb6923095c812f02\",\r\n\"userId\": \"5ee96072dae5b439bcec8fff\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/admin/users/5ee96072dae5b439bcec8fff",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"admin",
+								"users",
+								"5ee96072dae5b439bcec8fff"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"email\": \"test13@gmail.com\",\r\n\t\"password\": \"alemu\",\r\n    \"role\": \"ADMIN\",\r\n    \"status\": \"PENDING\",\r\n    \"firstName\": \"Ashenafi\",\r\n    \"lastName\": \"Gemechu\",\r\n    \"state\": \"Iowa\",\r\n    \"city\": \"Fairfield\",\r\n    \"street\": \"1000 N 4th St.\",\r\n    \"zipCode\": \"52557\",\r\n    \"phoneNumber\": \"3333333333\",\r\n    \"accountNumber\": \"3333333333\",\r\n    \"expiryDate\": \"3333333333\",\r\n    \"nameOntheCard\": \"Ashenafi A. Gemechu\",\r\n    \"ccv\": \"333\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/admin/users/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"admin",
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete user",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"email\": \"test13@gmail.com\",\r\n\t\"password\": \"alemu\",\r\n    \"role\": \"ADMIN\",\r\n    \"status\": \"PENDING\",\r\n    \"firstName\": \"Ashenafi\",\r\n    \"lastName\": \"Gemechu\",\r\n    \"state\": \"Iowa\",\r\n    \"city\": \"Fairfield\",\r\n    \"street\": \"1000 N 4th St.\",\r\n    \"zipCode\": \"52557\",\r\n    \"phoneNumber\": \"3333333333\",\r\n    \"accountNumber\": \"3333333333\",\r\n    \"expiryDate\": \"3333333333\",\r\n    \"nameOntheCard\": \"Ashenafi A. Gemechu\",\r\n    \"ccv\": \"333\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/admin/users/5ee9817e6a939735084a8c73",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"admin",
+								"users",
+								"5ee9817e6a939735084a8c73"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update user",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"_id\": \"5ee96072dae5b439bcec8fff\",\r\n\t\"password\": \"alemu\",\r\n    \"role\": \"ADMIN\",\r\n    \"status\": \"PENDING\",\r\n    \"firstName\": \"Ashenafi\",\r\n    \"lastName\": \"Alemu\",\r\n    \"state\": \"Iowa\",\r\n    \"city\": \"Fairfield\",\r\n    \"street\": \"1000 N 4th St.\",\r\n    \"zipCode\": \"52557\",\r\n    \"phoneNumber\": \"3333333333\",\r\n    \"accountNumber\": \"3333333333\",\r\n    \"expiryDate\": \"3333333333\",\r\n    \"nameOntheCard\": \"Ashenafi A. Gemechu\",\r\n    \"ccv\": \"333\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/admin/users/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"admin",
+								"users",
+								""
 							]
 						}
 					},
