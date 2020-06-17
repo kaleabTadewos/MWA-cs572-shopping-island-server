@@ -26,64 +26,38 @@ const userSchema = new mongoose.Schema({
         type: String,
         enum: ['ADMIN', 'SELLER', 'BUYER']
     },
-    shoppingCart: {
-        items: [{
+    shoppingCart: [{
+        _id: {
+            type: mongoose.Types.ObjectId,
+            required: true
+        },
+        product: {
             _id: {
                 type: mongoose.Types.ObjectId,
                 required: true
             },
-            product: {
-                _id: {
-                    type: mongoose.Types.ObjectId,
-                    required: true
-                },
-                name: {
-                    type: String,
-                    required: true,
-                    minlength: 2,
-                    maxlength: 255,
-                    required: true
-                },
-                userId: {
-                    type: mongoose.Types.ObjectId,
-                    ref: 'User',
-                    required: true
-                },
-                description: {
-                    type: String,
-                    required: true,
-                    minlength: 10,
-                    maxlength: 500
-                },
-                imageUrl: {
-                    type: String
-                },
-                subCategory: {
-                    _id: {
-                        type: mongoose.Types.ObjectId,
-                        required: true
-                    },
-                    name: {
-                        type: String,
-                        required: true,
-                        minlength: 2,
-                        maxlength: 255
-                    },
-                    category: {
-                        _id: {
-                            type: mongoose.Types.ObjectId,
-                            required: true
-                        },
-                        name: {
-                            type: String,
-                            required: true,
-                            minlength: 2,
-                            maxlength: 255
-                        }
-                    }
-                }
+            name: {
+                type: String,
+                required: true,
+                minlength: 2,
+                maxlength: 255,
+                required: true
             },
-            unit: {
+            userId: {
+                type: mongoose.Types.ObjectId,
+                ref: 'User',
+                required: true
+            },
+            description: {
+                type: String,
+                required: true,
+                minlength: 10,
+                maxlength: 500
+            },
+            imageUrl: {
+                type: String
+            },
+            subCategory: {
                 _id: {
                     type: mongoose.Types.ObjectId,
                     required: true
@@ -94,25 +68,49 @@ const userSchema = new mongoose.Schema({
                     minlength: 2,
                     maxlength: 255
                 },
-                quantity: {
-                    type: Number,
-                    required: true
+                category: {
+                    _id: {
+                        type: mongoose.Types.ObjectId,
+                        required: true
+                    },
+                    name: {
+                        type: String,
+                        required: true,
+                        minlength: 2,
+                        maxlength: 255
+                    }
                 }
-            },
-            price: {
-                type: Number,
+            }
+        },
+        unit: {
+            _id: {
+                type: mongoose.Types.ObjectId,
                 required: true
             },
-            isPurchased: {
-                type: Boolean,
+            name: {
+                type: String,
                 required: true,
+                minlength: 2,
+                maxlength: 255
             },
-            stockQuantity: {
+            quantity: {
                 type: Number,
                 required: true
             }
-        }]
-    },
+        },
+        price: {
+            type: Number,
+            required: true
+        },
+        isPurchased: {
+            type: Boolean,
+            required: true,
+        },
+        stockQuantity: {
+            type: Number,
+            required: true
+        }
+    }],
     order: {
         orderDetail: [{
             items: {
