@@ -67,7 +67,7 @@ function validateUserNewShppingCart(userShoppingCart) {
 function validateUserOrderPlacement(userShoppingCart) {
     const schema = {
         userId: Joi.objectId().required(),
-        itemId: [Joi.objectId().required()],
+        itemIds: [Joi.objectId().required()],
         addressId: Joi.objectId().required()
     };
 

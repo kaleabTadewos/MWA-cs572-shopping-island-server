@@ -108,23 +108,50 @@ exports.addToCart = async(req, res, next) => {
 };
 
 exports.placeOrder = async(req, res, next) => {
-    const { error } = validateOrderPlacement(req.body);
-    if (error) return res.status(400).send(new ErrorResponse('400', error.details[0].message));
-    let items = [];
-    req.body.itemIds.forEach(async(itemId) => {
-        const item = await Item.findById(itemId);
-        if (!item) res.status(400).send(new ErrorResponse('400', 'no content found!'));
-        items.push(item);
-    });
+    console.log("Negative");
+    // const { error } = validateOrderPlacement(req.body);
+    // if (error) return res.status(400).send(new ErrorResponse('400', error.details[0].message));
+    console.log("one");
+
+    let fncc = async function(reqItems) {
+        let items = [];
+        for (let h = 0; h < reqItems.length; h++) {
+            const item = await Item.findById(reqItems[h]);
+            console.log('e');
+            if (!item) res.status(400).send(new ErrorResponse('400', 'no content found!'));
+            items.push(item);
+        }
+        return items;
+    };
+
+    const items = await fncc(req.body.itemIds);
+
+    // await req.body.itemIds.forEach(async(itemId) => {
+    //     const item = await Item.findById(itemId);
+    //     console.log("One inside");
+    //     if (!item) res.status(400).send(new ErrorResponse('400', 'no content found!'));
+    //     console.log("One inside");
+    //     items.push(item);
+    //     console.log("One inside");
+    //     console.log(items);
+    // });
+    console.log("two");
     let newAddress = Address.findById(req.body.addressId);
+    let newAddresss = Address.findById(req.body.addressId);
+    // //console.log(items);
     const user = await User.findByIdAndUpdate(req.body.userId, {
-        'order.orderDetail.items': items,
+        'order.orderDetail': items,
         'order.orderDate': Date.now(),
         $addToSet: { addresses: newAddress },
-        'order.shippingAddress': newAddress
+        'order.shippingAddress.state': newAddresss.state,
+        'order.shippingAddress.city': newAddresss.city,
+        'order.shippingAddress.zipCode': newAddresss.zipCode,
+        'order.shippingAddress.street': newAddresss.street,
+        'order.shippingAddress._id': newAddresss._id,
+        'order.shippingAddress.addressString': newAddresss.addressString
 
     }, { new: true, useFindAndModify: true });
-    res.status(200).send(new ApiResponse(200, 'success', user.shoppingCart));
+    res.status(200).send(new ApiResponse(200, 'success', items));
 
 }
 

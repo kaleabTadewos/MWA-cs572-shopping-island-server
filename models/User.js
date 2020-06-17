@@ -214,6 +214,10 @@ const userSchema = new mongoose.Schema({
             type: Date,
         },
         shippingAddress: {
+            _id: {
+                type: mongoose.Types.ObjectId,
+                required: true
+            },
             state: {
                 type: String,
                 minlength: 2,
@@ -233,6 +237,10 @@ const userSchema = new mongoose.Schema({
                 type: String,
                 minlength: 5,
                 maxlength: 5
+            },
+            addressString: {
+                type: String,
+                required: true
             }
         }
     },
