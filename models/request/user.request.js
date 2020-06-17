@@ -5,7 +5,6 @@ function validateUserWithId(user) {
         _id: Joi.objectId().required(),
         //email: Joi.string().min(5).max(255).required().email(),
         password: Joi.string().min(5).max(1024).required(),
-        status: Joi.string(),
         role: Joi.string(),
         addressId: Joi.objectId().required(),
         state: Joi.string().min(2).max(255).required(),
@@ -36,7 +35,6 @@ function validateUserWithOutId(user) {
     const schema = {
         email: Joi.string().min(5).max(255).required().email(),
         password: Joi.string().min(5).max(1024).required(),
-        status: Joi.string(),
         role: Joi.string(),
         addressId: Joi.objectId().required(),
         state: Joi.string().min(2).max(255).required(),
@@ -62,6 +60,15 @@ function validateUserNewShppingCart(userShoppingCart) {
     };
 
     return Joi.validate(userShoppingCart, schema);
+}
+
+function validateUserRemoveShoppingCart(canceledShoppingCart) {
+    const schema = {
+        userId: Joi.objectId().required(),
+        shoppingCartId: Joi.objectId().required()
+    };
+
+    return Joi.validate(canceledShoppingCart, schema);
 }
 
 function validateUserOrderPlacement(userPlaceOrder) {
@@ -90,3 +97,4 @@ exports.validateWithOutId = validateUserWithOutId;
 exports.validateShoppingCart = validateUserNewShppingCart;
 exports.validateOrderPlacement = validateUserOrderPlacement;
 exports.validateSingleOrderPlacement = validateUserSingleOrderPlacement;
+exports.validateRemoveShoppingCart = validateUserRemoveShoppingCart;

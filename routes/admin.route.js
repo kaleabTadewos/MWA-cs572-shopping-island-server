@@ -69,6 +69,7 @@ router.get('/users/:id', userController.findById);
 router.delete('/users/:id', userController.removeById);
 router.put('/users', userController.updateById);
 router.put('/users/addCart', userController.addToCart);
+router.put('/users/removeCart', userController.removeFromCart);
 router.put('/users/placeOrder', userController.placeOrder);
 router.put('/users/placeSingleOrder', userController.placeSingleOrder);
 
