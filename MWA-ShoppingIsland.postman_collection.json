@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "f082e8d0-fa6f-40a2-8770-511efb5581aa",
+		"_postman_id": "4816a76a-1d48-434d-9ca3-e628c167948a",
 		"name": "MWA-ShoppingIsland",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -975,7 +975,7 @@
 			"protocolProfileBehavior": {}
 		},
 		{
-			"name": "user",
+			"name": "7.user",
 			"item": [
 				{
 					"name": "user add to cart",
@@ -1286,12 +1286,68 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "get users orders",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/admin/users/orders/5eeac7b95ac0d41ec06778ec",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"admin",
+								"users",
+								"orders",
+								"5eeac7b95ac0d41ec06778ec"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get seller orders",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/admin/users/sellerOrders/5ee9906c51c8f942582bac05",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"admin",
+								"users",
+								"sellerOrders",
+								"5ee9906c51c8f942582bac05"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"protocolProfileBehavior": {}
 		},
 		{
-			"name": "9.security Copy",
+			"name": "8.security",
 			"item": [
 				{
 					"name": "create user",
