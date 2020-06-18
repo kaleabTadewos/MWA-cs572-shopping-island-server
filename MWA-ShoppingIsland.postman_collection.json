@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "4816a76a-1d48-434d-9ca3-e628c167948a",
+		"_postman_id": "c7c1501a-3d44-4386-b0c0-e6d18f8bb1f5",
 		"name": "MWA-ShoppingIsland",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -1433,6 +1433,72 @@
 							"path": [
 								"users",
 								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "product review",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productId\":\"5ee991af51c8f942582bac06\",\r\n    \"userId\":\"5ee8029163abd363779e7a09\",\r\n    \"text\": \"bla bla bla bla and bla\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/admin/products/review",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"admin",
+								"products",
+								"review"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update review status",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productId\":\"5ee991af51c8f942582bac06\",\r\n    \"reviewId\":\"5eeafe454ff0a22a440e18ea\",\r\n    \"reviewStatus\": \"APPROVED\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/admin/products/reviewStatus",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"admin",
+								"products",
+								"reviewStatus"
 							]
 						}
 					},

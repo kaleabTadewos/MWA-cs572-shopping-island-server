@@ -40,6 +40,11 @@ exports.insert = async(req, res, next) => {
         'billingInformation.ccv': req.body.ccv
     });
 
+    const bank = await Bank.create({
+        userId: user._id,
+        balance: 5000
+    });
+
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(user.password, salt);
 
