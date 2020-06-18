@@ -153,7 +153,11 @@ exports.findOrdersOfSeller = async(req, res, next) => {
     const usersList = await User.find({ 'order.item.product.userId': req.params.id });
     if (!usersList) return res.status(404).send(new ErrorResponse('400', 'no content found!'));
     usersList.forEach((user) => {
-        orders.push(user.order);
+        user.order.forEach((o) => {
+            if(o.item.product.userId == req.params.id){
+                orders.push(o);
+            }
+        });
     });
 
     res.status(200).send(new ApiResponse(200, 'success', orders));
