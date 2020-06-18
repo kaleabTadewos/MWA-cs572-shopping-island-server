@@ -192,7 +192,7 @@ exports.updateOrderStatus = async(req, res, next) => {
                 $push: { order: newOrder }
             }, { new: true, useFindAndModify: true });
 
-            res.status(200).send(new ApiResponse(200, 'success', updateUser));
+            res.status(200).send(new ApiResponse(200, 'success', newOrder));
         }
     } else if (user.role != "BUYER" && newOrder.orderStatus != "CANCELLED") {
         if (req.body.orderStatus == "CANCELLED") {
@@ -215,7 +215,7 @@ exports.updateOrderStatus = async(req, res, next) => {
             $push: { order: newOrder }
         }, { new: true, useFindAndModify: true });
 
-        res.status(200).send(new ApiResponse(200, 'success', updateUser));
+        res.status(200).send(new ApiResponse(200, 'success', newOrder));
     }
     else {
         return res.status(403).send(new ErrorResponse('403', 'Access Denied!'))
