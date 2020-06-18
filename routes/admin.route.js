@@ -17,6 +17,7 @@ router.put('/products/', productController.updateById);
 router.get('/products/:id', productController.findById);
 router.get('/products/seller/:id', productController.findBySellerId);
 router.delete('/products/:id', productController.removeById);
+router.put('/products/product-review', productController.reviewProduct);
 
 /* items Routes */
 router.get('/items', itemController.findAll);

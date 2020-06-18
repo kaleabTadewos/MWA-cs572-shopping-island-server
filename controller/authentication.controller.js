@@ -4,6 +4,7 @@ const _ = require('lodash');
 const Joi = require('joi');
 const mongoose = require('mongoose');
 const { User, validate } = require('../models/user');
+const ApiResponse = require('../models/apiResponse');
 
 /* GET users listing. */
 exports.login = async function(req, res) {
@@ -14,7 +15,7 @@ exports.login = async function(req, res) {
     const isvalid = await bcrypt.compare(req.body.password, user.password);
     if (!isvalid) return res.status(400).send('not authorized');
     const token = user.generateAuthToken();
-    res.header('x-auth-token', token).send(token);
+    res.header('x-auth-token', token).send(new ApiResponse(200, 'success', token));
 }
 
 function validateLogin(user) {

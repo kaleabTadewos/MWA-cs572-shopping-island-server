@@ -3,6 +3,8 @@ const ApiResponse = require('../models/apiResponse');
 const { validateId, validateWithOutId, validateWithId } = require('../models/request/product.request');
 const ErrorResponse = require('../models/errorResponse');
 const { SubCategory } = require('../models/subCategory');
+const User = require('../models/user');
+//const { User } = require('../models/User');
 
 //CRUD Operations
 //Create Operation
@@ -82,21 +84,20 @@ exports.reviewProduct = async(req, res, next) => {
     const product = await Product.findById(req.body.productId);
     if (!product) res.status(400).send(new ErrorResponse('400', 'no content found!'));
 
-    const newAddress = await Address.findById(req.body.addressId);
+    //const user = await User.find(req.body.userId, { fullName: { $concat: ["$firstName", " ", "$lastName"] } })
+
+    const user = await User.findById(req.body.userId)
+
     let review = {};
 
-    review.fullName = firstName + " " + lastName;
+    review.fullName = user.firstName + ' ' + user.lastName;
     review.userId = req.body.userId
     review.text = req.body.text;
 
-    await Product.findByIdAndUpdate(req.body.productId, {
+    const reviewedproduct = await Product.findByIdAndUpdate(req.body.productId, {
         $push: { productReviews: review }
 
     }, { new: true, useFindAndModify: true });
 
-    //removing shopping carts from the user object
-    const user = await User.findByIdAndUpdate(req.body.userId, {
-        $pull: { shoppingCart: { _id: req.body.shoppingCartId } }
-    }, { new: true, useFindAndModify: true });
-    res.status(200).send(new ApiResponse(200, 'success', user));
-}
+    res.status(200).send(new ApiResponse(200, 'success', reviewedproduct));
+};
