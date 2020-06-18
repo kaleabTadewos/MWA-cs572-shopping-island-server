@@ -166,12 +166,15 @@ exports.findOrdersOfSeller = async(req, res, next) => {
 exports.updateOrderStatus = async(req, res, next) => {
     const { error } = validateUpdateOrderStatus(req.body);
     if (error) return res.status(400).send(new ErrorResponse('400', error.details[0].message));
+    
+    let orders = [];
+    const updatedBy = await User.findById(req.params.userId);
+    const orderedBy = await User.findOne({ 'order._id': req.body.orderId });
+    if (!updatedBy || !orderedBy) return res.status(404).send(new ErrorResponse('400', 'no content found!'));
 
-    const user = await User.findById(req.body.userId);
-    if (!user) return res.status(400).send(new ErrorResponse('400', 'user not found!'));
     let newOrder = {};
     
-    user.order.forEach((o) => {
+    orderedBy.order.forEach((o) => {
         if (o._id == req.body.orderId) {
             newOrder = o;
         }
@@ -179,22 +182,22 @@ exports.updateOrderStatus = async(req, res, next) => {
 
     if (!newOrder) return res.status(400).send(new ErrorResponse('400', 'no content found!'));
 
-    if (user.role == "BUYER") {
+    if (updatedBy.role == "BUYER") {
         if (newOrder.orderStatus == "ORDERED" && req.body.orderStatus == "CANCELLED") {
             newOrder.orderStatus = "CANCELLED";
             newOrder.payment = "VOID"
 
-            await User.findByIdAndUpdate(req.body.userId, {
+            await User.findByIdAndUpdate(orderedBy._id, {
                 $pull: { order: { _id: req.body.orderId } },
             }, { new: true, useFindAndModify: true });
 
-            const updateUser = await User.findByIdAndUpdate(req.body.userId, {
+            const updateUser = await User.findByIdAndUpdate(orderedBy._id, {
                 $push: { order: newOrder }
             }, { new: true, useFindAndModify: true });
 
             res.status(200).send(new ApiResponse(200, 'success', newOrder));
         }
-    } else if (user.role != "BUYER" && newOrder.orderStatus != "CANCELLED") {
+    } else if (updatedBy.role != "BUYER" && newOrder.orderStatus != "CANCELLED") {
         if (req.body.orderStatus == "CANCELLED") {
             newOrder.payment = "VOID"
         }
@@ -202,16 +205,16 @@ exports.updateOrderStatus = async(req, res, next) => {
         newOrder.orderStatus = req.body.orderStatus;
 
         if (newOrder.orderStatus == "DELIVERED") {
-            user.coupon.point += (newOrder.item.price * config.get('pointPerPerchaseAmount'));
-            console.log(`user got : ${user.coupon.point}!!!`);
-            user.save();
+            orderedBy.coupon.point += (newOrder.item.price * config.get('pointPerPerchaseAmount'));
+            console.log(`user got : ${orderedBy.coupon.point}!!!`);
+            orderedBy.save();
         }
 
-        await User.findByIdAndUpdate(req.body.userId, {
+        await User.findByIdAndUpdate(orderedBy._id, {
             $pull: { order: { _id: req.body.orderId } },
         }, { new: true, useFindAndModify: true });
 
-        const updateUser = await User.findByIdAndUpdate(req.body.userId, {
+        const updateUser = await User.findByIdAndUpdate(orderedBy._id, {
             $push: { order: newOrder }
         }, { new: true, useFindAndModify: true });
 
