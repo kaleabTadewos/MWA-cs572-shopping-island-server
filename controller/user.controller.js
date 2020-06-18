@@ -129,6 +129,20 @@ exports.findOrders = async (req, res, next) => {
     res.status(200).send(new ApiResponse(200, 'success', orders));
 };
 
+exports.findOrdersOfSeller = async (req, res, next) => {
+    const { error } = validateId({ _id: req.params.id });
+    if (error) return res.status(400).send(new ErrorResponse('400', error.details[0].message));
+    let orders = [];
+
+    const usersList = await User.find({'order.item.product.userId': req.params.id});
+    if (!usersList) return res.status(404).send(new ErrorResponse('400', 'no content found!'));
+    usersList.forEach((user) => {
+        orders.push(user.order);
+    });
+
+    res.status(200).send(new ApiResponse(200, 'success', orders));
+};
+
 exports.removeFromCart = async (req, res, next) => {
     const { error } = validateRemoveShoppingCart(req.body);
     if (error) return res.status(400).send(new ErrorResponse('400', error.details[0].message));
