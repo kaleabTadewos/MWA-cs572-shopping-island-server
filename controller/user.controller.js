@@ -12,6 +12,7 @@ const { validateId, validateWithOutId, validateWithId, validateShoppingCart,
     validateOrderPlacement, validateSingleOrderPlacement, validateRemoveShoppingCart 
     , validateBuyNow , validateUpdateOrderStatus
 } = require('../models/request/user.request');
+const config = require('config');
 
 
 exports.insert = async(req, res, next) => {
@@ -181,7 +182,9 @@ exports.updateOrderStatus = async (req, res, next) => {
         }
 
         if(newOrder.orderStatus == "DELIVERED"){
-            user.coupon.point += 0.5;
+            user.coupon.point += (newOrder.item.price + config.get('pointPerPerchaseAmount'));
+            console.log(`user got : ${user.coupon.point}!!!`);
+            user.save();
         }
 
         await User.findByIdAndUpdate(req.body.userId, {
@@ -258,6 +261,16 @@ exports.placeSingleOrder = async (req, res, next) => {
     newOrder.shippingAddress = newAddress;
     newOrder.orderStatus = "ORDERED";
     newOrder.payment = "PAYED";
+    if(user.coupon.point * config.get('dollarPerPoint') > newOrder.item.price) {
+        let discardedCost = user.coupon.point * config.get('dollarPerPoint') - newOrder.item.price;
+        user.coupon.point -= (discardedCost / config.get('dollarPerPoint'));
+        user.save();
+        console.log(`${discardedCost} is taken from your coupon!!!`);
+    }
+    if(newOrder.orderStatus == "DELIVERED"){
+        user.coupon.point += (newOrder.item.price + config.get('pointPerPerchaseAmount'));
+        user.save();
+    }
 
     await User.findByIdAndUpdate(req.body.userId, {
         $addToSet: { addresses: newAddress },
