@@ -79,21 +79,18 @@ exports.reviewProduct = async(req, res, next) => {
     // const { error } = validateSingleOrderPlacement(req.body);
     // if (error) return res.status(400).send(new ErrorResponse('400', error.details[0].message));
 
-    const product = await Product.findById(req.body.itemId);
+    const product = await Product.findById(req.body.productId);
     if (!product) res.status(400).send(new ErrorResponse('400', 'no content found!'));
 
     const newAddress = await Address.findById(req.body.addressId);
-    let newOrder = {};
+    let review = {};
 
-    newOrder.item = item;
-    newOrder.orderDate = Date.now();
-    newOrder.shippingAddress = newAddress;
-    newOrder.orderStatus = "ORDERED";
-    newOrder.payment = "PAYED";
+    review.fullName = firstName + " " + lastName;
+    review.userId = req.body.userId
+    review.text = req.body.text;
 
-    await User.findByIdAndUpdate(req.body.userId, {
-        $addToSet: { addresses: newAddress },
-        $push: { order: newOrder }
+    await Product.findByIdAndUpdate(req.body.productId, {
+        $push: { productReviews: review }
 
     }, { new: true, useFindAndModify: true });
 

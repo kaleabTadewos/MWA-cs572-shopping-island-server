@@ -8,10 +8,10 @@ const { OrderDetail } = require('../models/orderDetail');
 const { Item } = require('../models/item');
 const ApiResponse = require('../models/apiResponse');
 const ErrorResponse = require('../models/errorResponse');
-const { validateId, validateWithOutId, validateWithId, validateShoppingCart, validateOrderPlacement , validateSingleOrderPlacement , validateRemoveShoppingCart} = require('../models/request/user.request');
+const { validateId, validateWithOutId, validateWithId, validateShoppingCart, validateOrderPlacement, validateSingleOrderPlacement, validateRemoveShoppingCart } = require('../models/request/user.request');
 
 
-exports.insert = async (req, res, next) => {
+exports.insert = async(req, res, next) => {
     const { error } = validateWithOutId(req.body);
     if (error) return res.status(400).send(new ErrorResponse('400', error.details[0].message));
     let userExist = await User.findOne({ email: req.body.email });
@@ -45,7 +45,7 @@ exports.insert = async (req, res, next) => {
 };
 
 //Retrive Operations
-exports.findById = async (req, res, next) => {
+exports.findById = async(req, res, next) => {
     const { error } = validateId({ _id: req.params.id });
     if (error) return res.status(400).send(new ErrorResponse('400', error.details[0].message));
     const user = await User.findById(req.params.id);
@@ -53,14 +53,14 @@ exports.findById = async (req, res, next) => {
     res.status(200).send(new ApiResponse(200, 'success', user));
 };
 
-exports.findAll = async (req, res, next) => {
+exports.findAll = async(req, res, next) => {
     const user = await User.find();
     if (!user) return res.status(404).send(new ErrorResponse('400', 'no content found!'));
     res.status(200).send(new ApiResponse(200, 'success', user));
 }
 
 //Update Operation
-exports.updateById = async (req, res, next) => {
+exports.updateById = async(req, res, next) => {
     const { error } = validateWithId(req.body);
     if (error) return res.status(400).send(new ErrorResponse('400', error.details[0].message));
     //const subCategory = await SubCategory.findById(req.body.subCategoryId);
@@ -87,7 +87,7 @@ exports.updateById = async (req, res, next) => {
 };
 
 //Delete Operation
-exports.removeById = async (req, res, next) => {
+exports.removeById = async(req, res, next) => {
     const { error } = validateId({ _id: req.params.id });
     if (error) return res.status(400).send(new ErrorResponse('400', error.details[0].message));
     const user = await User.findByIdAndRemove(req.params.id);
@@ -95,12 +95,12 @@ exports.removeById = async (req, res, next) => {
     res.status(200).send(new ApiResponse(200, 'success', user));
 };
 
-exports.addToCart = async (req, res, next) => {
+exports.addToCart = async(req, res, next) => {
     const { error } = validateShoppingCart(req.body);
     if (error) return res.status(400).send(new ErrorResponse('400', error.details[0].message));
     const item = await Item.findById(req.body.itemId);
     console.log()
-    const newShoppingCart = {item: item};
+    const newShoppingCart = { item: item };
     if (!item) res.status(400).send(new ErrorResponse('400', 'no content found!'));
     const user = await User.findByIdAndUpdate(req.body.userId, {
         $push: { shoppingCart: newShoppingCart }
@@ -109,7 +109,7 @@ exports.addToCart = async (req, res, next) => {
 };
 
 //Retrive Operations
-exports.findShoppingCarts = async (req, res, next) => {
+exports.findShoppingCarts = async(req, res, next) => {
     const { error } = validateId({ _id: req.params.id });
     if (error) return res.status(400).send(new ErrorResponse('400', error.details[0].message));
     const user = await User.findById(req.params.id);
@@ -118,20 +118,20 @@ exports.findShoppingCarts = async (req, res, next) => {
     res.status(200).send(new ApiResponse(200, 'success', shoppingCarts));
 };
 
-exports.removeFromCart = async (req, res, next) => {
+exports.removeFromCart = async(req, res, next) => {
     const { error } = validateRemoveShoppingCart(req.body);
     if (error) return res.status(400).send(new ErrorResponse('400', error.details[0].message));
     const user = await User.findByIdAndUpdate(req.body.userId, {
-        $pull: { shoppingCart:  {_id: req.body.shoppingCartId}}
+        $pull: { shoppingCart: { _id: req.body.shoppingCartId } }
     }, { new: true, useFindAndModify: true });
     res.status(200).send(new ApiResponse(200, 'success', user.shoppingCart));
 };
 
-exports.placeOrder = async (req, res, next) => {
+exports.placeOrder = async(req, res, next) => {
     const { error } = validateOrderPlacement(req.body);
     if (error) return res.status(400).send(new ErrorResponse('400', error.details[0].message));
 
-    let fncc = async function (reqItems) {
+    let fncc = async function(reqItems) {
         let items = [];
         for (let h = 0; h < reqItems.length; h++) {
             const item = await Item.findById(reqItems[h]);
@@ -145,14 +145,14 @@ exports.placeOrder = async (req, res, next) => {
     const items = await fncc(req.body.itemIds);
 
     const newAddress = await Address.findById(req.body.addressId);
-   // let newOrderDetail = items; 
-    const newOrder = {orderDetail : items , shippingAddress : newAddress , orderDate : Date.now()};
+    // let newOrderDetail = items; 
+    const newOrder = { orderDetail: items, shippingAddress: newAddress, orderDate: Date.now() };
     console.log(newOrder);
 
     //placing an order inside user object.
     const user = await User.findByIdAndUpdate(req.body.userId, {
         $addToSet: { addresses: newAddress },
-        $push: {order: newOrder}
+        $push: { order: newOrder }
 
     }, { new: true, useFindAndModify: true });
 
@@ -161,44 +161,43 @@ exports.placeOrder = async (req, res, next) => {
 
 }
 
-exports.placeSingleOrder = async (req, res, next) => {
-    const { error } = validateSingleOrderPlacement(req.body);
-    if (error) return res.status(400).send(new ErrorResponse('400', error.details[0].message));
+exports.placeSingleOrder = async(req, res, next) => {
+        const { error } = validateSingleOrderPlacement(req.body);
+        if (error) return res.status(400).send(new ErrorResponse('400', error.details[0].message));
 
-    const item = await Item.findById(req.body.itemId);
-    if (!item) res.status(400).send(new ErrorResponse('400', 'no content found!'));
+        const item = await Item.findById(req.body.itemId);
+        if (!item) res.status(400).send(new ErrorResponse('400', 'no content found!'));
 
-    const newAddress = await Address.findById(req.body.addressId);
-    let newOrder = {};
+        const newAddress = await Address.findById(req.body.addressId);
+        let newOrder = {};
 
-    newOrder.item = item;
-    newOrder.orderDate = Date.now();
-    newOrder.shippingAddress = newAddress;
-    newOrder.orderStatus = "ORDERED";
-    newOrder.payment = "PAYED";
+        newOrder.item = item;
+        newOrder.orderDate = Date.now();
+        newOrder.shippingAddress = newAddress;
+        newOrder.orderStatus = "ORDERED";
+        newOrder.payment = "PAYED";
 
-   await User.findByIdAndUpdate(req.body.userId, {
-        $addToSet: { addresses: newAddress },
-        $push: {order: newOrder}
+        await User.findByIdAndUpdate(req.body.userId, {
+            $addToSet: { addresses: newAddress },
+            $push: { order: newOrder }
 
-    }, { new: true, useFindAndModify: true });
+        }, { new: true, useFindAndModify: true });
 
-    //removing shopping carts from the user object
-    const user = await User.findByIdAndUpdate(req.body.userId, {
-        $pull: { shoppingCart:  {_id: req.body.shoppingCartId}}
-    }, { new: true, useFindAndModify: true });
-    res.status(200).send(new ApiResponse(200, 'success', user));
-
-}
-/* get a user. */
-// exports.getUser = async function(request, response) {
-//         const user = await User.findById(request.user._id).select('-password');
-//         response.send(user);
-//     }
-//     /* register users. */
-// exports.registerUser = async function(request, response) {
-//     const { error } = validate(request.body);
-//     if (error) return response.status(400).send(error.details[0].message);
+        //removing shopping carts from the user object
+        const user = await User.findByIdAndUpdate(req.body.userId, {
+            $pull: { shoppingCart: { _id: req.body.shoppingCartId } }
+        }, { new: true, useFindAndModify: true });
+        res.status(200).send(new ApiResponse(200, 'success', user));
+    }
+    /* get a user. */
+    // exports.getUser = async function(request, response) {
+    //         const user = await User.findById(request.user._id).select('-password');
+    //         response.send(user);
+    //     }
+    //     /* register users. */
+    // exports.registerUser = async function(request, response) {
+    //     const { error } = validate(request.body);
+    //     if (error) return response.status(400).send(error.details[0].message);
 
 
 //     let user = await User.findOne({ email: request.body.email });
