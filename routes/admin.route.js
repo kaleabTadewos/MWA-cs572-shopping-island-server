@@ -70,6 +70,7 @@ router.get('/users/:id', userController.findById);
 router.get('/users/shoppingCarts/:id', userController.findShoppingCarts);
 router.get('/users/orders/:id', userController.findOrders);
 router.get('/users/sellerOrders/:id', userController.findOrdersOfSeller);
+router.put('/users/updateOrderStatus/', userController.updateOrderStatus);
 router.delete('/users/:id', userController.removeById);
 router.put('/users', userController.updateById);
 router.put('/users/addCart', userController.addToCart);

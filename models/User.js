@@ -233,13 +233,12 @@ const userSchema = new mongoose.Schema({
         },
         orderStatus: {
             type: String,
-            enum: ['CANCELLED', 'APPROVED', 'DELIVERED', 'SHIPPED', 'ON THE WAY', 'ORDERED'],
-            defualt: 'ORDERED'
+            enum: ['CANCELLED', 'DELIVERED', 'SHIPPED', 'ON THE WAY', 'ORDERED'],
+            default: 'ORDERED'
         },
         payment: {
             type: String,
-            enum: ['PAYED', 'VOID'],
-            defualt: 'PENDING'
+            enum: ['PAYED', 'VOID']
         }
     }],
     firstName: {
