@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const config = require('config');
+const { string } = require('joi');
 
 const productSchema = new mongoose.Schema({
     name: {
@@ -63,8 +64,25 @@ const productSchema = new mongoose.Schema({
     searchCriteria: {
         type: String,
         required: true
-    }
+    },
 
+    productReviews: [{
+        review: {
+            fullName: {
+                type: String,
+            },
+            userId: {
+                type: mongoose.Types.ObjectId,
+            },
+            text: {
+                type: String
+            },
+            reviewStatus: {
+                type: String,
+                enum: ['PENDING', 'APPROVED', 'DISAPPROVED']
+            }
+        }
+    }]
 });
 
 exports.Product = mongoose.model('Product', productSchema);
