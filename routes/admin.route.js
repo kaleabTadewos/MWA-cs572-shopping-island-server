@@ -13,6 +13,7 @@ const securityController = require('../controller/security.controller');
 
 /* products Routes */
 router.get('/products', productController.findAll);
+router.get('/productsWithItem', productController.findAllWithItem);
 router.post('/products', productController.insert);
 router.put('/products/', productController.updateById);
 router.get('/products/:id', productController.findById);

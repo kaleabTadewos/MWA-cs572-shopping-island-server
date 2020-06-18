@@ -50,6 +50,12 @@ exports.findAll = async(req, res, next) => {
     res.status(200).send(new ApiResponse(200, 'success', products));
 }
 
+exports.findAllWithItem = async(req, res, next) => {
+    const products = await Product.find({itemCount: {$gt : 0}});
+    if (!products) return res.status(404).send(new ErrorResponse('400', 'no content found!'));
+    res.status(200).send(new ApiResponse(200, 'success', products));
+}
+
 //Update Operation
 exports.updateById = async(req, res, next) => {
     const { error } = validateWithId(req.body);
