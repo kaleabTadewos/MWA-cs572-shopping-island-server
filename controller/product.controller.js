@@ -108,16 +108,26 @@ exports.changeReviewStatus = async(req, res, next) => {
     const product = await Product.findById(req.body.productId);
     if (!product) res.status(400).send(new ErrorResponse('400', 'no content found!'));
 
-    let id = req.body.reviewId;
-    let productReview = await Product.findOne({ _id: req.body.productId }, function(e, data) {
-        if (e) console.log(e);
-        data.productReviews.id.reviewStatus = "APPROVED";
-        data.save
+    const prod = await Product.findById(req.body.productId);
+    let newReview = {};
+    prod.productReviews.forEach((rev) => {
+        if (rev._id == req.body.reviewId) {
+            newReview = rev;
+            newReview.review.reviewStatus = req.body.reviewStatus;
+            console.log('www', newReview.reviewStatus);
+        }
     });
-    console.log(productReview.id.reviewStatus);
 
-    // const reviewedproduct = await Product.findByIdAndUpdate(req.body.productId, 
-    //     {productReviews:req.body.reviewId: {'review.reviewStatus': req.body.reviewStatus}}
-    // );
-    res.status(200).send(new ApiResponse(200, 'success', productReview));
+    if (!newReview) return res.status(400).send(new ErrorResponse('400', 'no content found!'));
+    console.log(newReview);
+
+    await Product.findByIdAndUpdate(req.body.productId, {
+        $pull: { productReviews: { _id: req.body.reviewId } },
+    }, { new: true, useFindAndModify: true });
+
+    const updateProduct = await Product.findByIdAndUpdate(req.body.productId, {
+        $push: { productReviews: newReview }
+    }, { new: true, useFindAndModify: true });
+
+    res.status(200).send(new ApiResponse(200, 'success', updateProduct));
 };

@@ -46,8 +46,9 @@ exports.insert = async(req, res, next) => {
     await user.save();
 
     const token = user.generateAuthToken();
-    res.header('x-auth-token', token).status(201).send(_.pick(user, ['email', 'role', 'status']));
+    res.header('x-auth-token', token).status(201).send(new ApiResponse(201, 'success', token));
     //res.status(201).send(new ApiResponse(201, 'success', user));
+    //_.pick(user, ['email', 'role', 'status'])
 };
 
 exports.getUserById = async function(request, response) {

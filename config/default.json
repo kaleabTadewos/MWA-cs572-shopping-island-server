@@ -1,3 +1,5 @@
 {
-    "jwtPrivateKey": "private"
+    "jwtPrivateKey": "private",
+    "dollarPerPoint": 0.25,
+    "pointPerPerchaseAmount": 0.1
 }
