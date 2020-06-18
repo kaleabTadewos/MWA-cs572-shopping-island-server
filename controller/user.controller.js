@@ -175,7 +175,7 @@ exports.updateOrderStatus = async (req, res, next) => {
             res.status(200).send(new ApiResponse(200, 'success', updateUser));
         }
     }
-    else if(user.role != "BUYER" && req.body.orderStatus == "CANCELLED") {
+    else if(user.role != "BUYER" && req.body.orderStatus != "CANCELLED") {
         newOrder.orderStatus = req.body.orderStatus;
         if(newOrder.orderStatus == "CANCELLED"){
             newOrder.payment = "VOID"
@@ -261,15 +261,16 @@ exports.placeSingleOrder = async (req, res, next) => {
     newOrder.shippingAddress = newAddress;
     newOrder.orderStatus = "ORDERED";
     newOrder.payment = "PAYED";
+
     if(user.coupon.point * config.get('dollarPerPoint') > newOrder.item.price) {
         let discardedCost = user.coupon.point * config.get('dollarPerPoint') - newOrder.item.price;
-        user.coupon.point -= (discardedCost / config.get('dollarPerPoint'));
-        user.save();
+        let updatedPoint = user.coupon.point - (discardedCost / config.get('dollarPerPoint'));
+
+        await User.findByIdAndUpdate(req.body.userId, {
+            'coupon.point': updatedPoint
+        }, { new: true, useFindAndModify: true });
+
         console.log(`${discardedCost} is taken from your coupon!!!`);
-    }
-    if(newOrder.orderStatus == "DELIVERED"){
-        user.coupon.point += (newOrder.item.price + config.get('pointPerPerchaseAmount'));
-        user.save();
     }
 
     await User.findByIdAndUpdate(req.body.userId, {
@@ -279,10 +280,11 @@ exports.placeSingleOrder = async (req, res, next) => {
     }, { new: true, useFindAndModify: true });
 
     //removing shopping carts from the user object
-    const user = await User.findByIdAndUpdate(req.body.userId, {
+    const updatedUser = await User.findByIdAndUpdate(req.body.userId, {
         $pull: { shoppingCart: { _id: req.body.shoppingCartId } }
     }, { new: true, useFindAndModify: true });
-    res.status(200).send(new ApiResponse(200, 'success', user));
+
+    res.status(200).send(new ApiResponse(200, 'success', updatedUser));
 
 }
 

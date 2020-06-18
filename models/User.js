@@ -259,10 +259,6 @@ const userSchema = new mongoose.Schema({
         minlength: 2,
         maxlength: 255
     },
-    point: {
-        type: Number,
-        default: 0
-    },
     coupon: {
         grade: {
             type: String,
@@ -272,6 +268,7 @@ const userSchema = new mongoose.Schema({
         },
         point: {
             type: Number,
+            default: 0
         }
     },
 
