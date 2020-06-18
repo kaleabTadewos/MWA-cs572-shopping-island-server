@@ -1342,6 +1342,36 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "update order status",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n     \"orderId\": \"5eead29ea843eb4124942ec1\",\r\n     \"userId\": \"5eeac7b95ac0d41ec06778ec\" ,\r\n     \"orderStatus\": \"CANCELLED\" \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/admin/users/updateOrderStatus",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"admin",
+								"users",
+								"updateOrderStatus"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"protocolProfileBehavior": {}
