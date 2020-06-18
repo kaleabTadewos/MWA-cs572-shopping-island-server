@@ -93,7 +93,8 @@ function validateUserOrderPlacement(userPlaceOrder) {
     const schema = {
         userId: Joi.objectId().required(),
         itemIds: Joi.array().items(Joi.objectId()) ,
-        addressId: Joi.objectId().required()
+        addressId: Joi.objectId().required() , 
+        shoppingCartId: Joi.array().items(Joi.objectId())
     };
 
     return Joi.validate(userPlaceOrder, schema);
@@ -103,7 +104,8 @@ function validateUserSingleOrderPlacement(userPlaceSingleOrder) {
     const schema = {
         userId: Joi.objectId().required(),
         itemId: Joi.objectId().required() ,
-        addressId: Joi.objectId().required()
+        addressId: Joi.objectId().required() ,
+        shoppingCartId: Joi.objectId().required()
     };
 
     return Joi.validate(userPlaceSingleOrder, schema);

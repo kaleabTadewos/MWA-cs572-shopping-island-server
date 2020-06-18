@@ -146,14 +146,17 @@ exports.placeOrder = async (req, res, next) => {
 
     const newAddress = await Address.findById(req.body.addressId);
    // let newOrderDetail = items; 
-    let newOrder = {orderDetail : items , shippingAddress : newAddress , orderDate : Date.now()};
+    const newOrder = {orderDetail : items , shippingAddress : newAddress , orderDate : Date.now()};
+    console.log(newOrder);
 
-    // //console.log(items);
+    //placing an order inside user object.
     const user = await User.findByIdAndUpdate(req.body.userId, {
         $addToSet: { addresses: newAddress },
         $push: {order: newOrder}
 
     }, { new: true, useFindAndModify: true });
+
+    //return item list inside order
     res.status(200).send(new ApiResponse(200, 'success', items));
 
 }
@@ -162,19 +165,29 @@ exports.placeSingleOrder = async (req, res, next) => {
     const { error } = validateSingleOrderPlacement(req.body);
     if (error) return res.status(400).send(new ErrorResponse('400', error.details[0].message));
 
-    const item = [];
-    item[0] = await Item.findById(req.body.itemId);
+    const item = await Item.findById(req.body.itemId);
     if (!item) res.status(400).send(new ErrorResponse('400', 'no content found!'));
 
     const newAddress = await Address.findById(req.body.addressId);
-    let newOrder = {orderDetail : item , shippingAddress : newAddress , orderDate : Date.now()};
+    let newOrder = {};
 
-   const user = await User.findByIdAndUpdate(req.body.userId, {
+    newOrder.item = item;
+    newOrder.orderDate = Date.now();
+    newOrder.shippingAddress = newAddress;
+    newOrder.orderStatus = "ORDERED";
+    newOrder.payment = "PAYED";
+
+   await User.findByIdAndUpdate(req.body.userId, {
         $addToSet: { addresses: newAddress },
         $push: {order: newOrder}
 
     }, { new: true, useFindAndModify: true });
-    res.status(200).send(new ApiResponse(200, 'success', item));
+
+    //removing shopping carts from the user object
+    const user = await User.findByIdAndUpdate(req.body.userId, {
+        $pull: { shoppingCart:  {_id: req.body.shoppingCartId}}
+    }, { new: true, useFindAndModify: true });
+    res.status(200).send(new ApiResponse(200, 'success', user));
 
 }
 /* get a user. */
