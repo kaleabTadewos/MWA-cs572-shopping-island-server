@@ -8,7 +8,7 @@ const { OrderDetail } = require('../models/orderDetail');
 const { Item } = require('../models/item');
 const ApiResponse = require('../models/apiResponse');
 const ErrorResponse = require('../models/errorResponse');
-const { validateId, validateWithOutId, validateWithId, validateShoppingCart, validateOrderPlacement } = require('../models/request/user.request');
+const { validateId, validateWithOutId, validateWithId, validateUpdateStatus } = require('../models/request/user.request');
 
 exports.insert = async(req, res, next) => {
     const { error } = validateWithOutId(req.body);
@@ -55,3 +55,14 @@ exports.getUserById = async function(request, response) {
     const user = await User.findById(request.user._id).select('-password');
     response.send(new ApiResponse(201, 'success', user));
 }
+
+exports.updateUserById = async(req, res, next) => {
+    const { error } = validateUpdateStatus(req.body);
+    if (error) return res.status(400).send(new ErrorResponse('400', error.details[0].message));
+    const user = await User.findOneAndUpdate(req.body.userId, {
+        status: req.body.userStatus
+    }, { new: true, useFindAndModify: true });
+    user.save();
+
+    res.status(200).send(new ApiResponse(200, 'success', {userId: user._id , newStatus: user.status}));
+};

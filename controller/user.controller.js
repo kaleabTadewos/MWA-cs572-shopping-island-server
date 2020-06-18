@@ -9,7 +9,8 @@ const { Item } = require('../models/item');
 const ApiResponse = require('../models/apiResponse');
 const ErrorResponse = require('../models/errorResponse');
 const { validateId, validateWithOutId, validateWithId, validateShoppingCart,
-    validateOrderPlacement, validateSingleOrderPlacement, validateRemoveShoppingCart , validateBuyNow
+    validateOrderPlacement, validateSingleOrderPlacement, validateRemoveShoppingCart 
+    , validateBuyNow , validateUpdateOrderStatus
 } = require('../models/request/user.request');
 
 
@@ -143,6 +144,56 @@ exports.findOrdersOfSeller = async (req, res, next) => {
     res.status(200).send(new ApiResponse(200, 'success', orders));
 };
 
+exports.updateOrderStatus = async (req, res, next) => {
+    const { error } = validateUpdateOrderStatus(req.body);
+    if (error) return res.status(400).send(new ErrorResponse('400', error.details[0].message));
+
+    const user = await User.findById(req.body.userId);
+    let newOrder = {};
+    user.order.forEach((o) => {
+        if(o._id == req.body.orderId){
+            newOrder = o;
+        }
+    }); 
+    
+    if(!newOrder) return res.status(400).send(new ErrorResponse('400', 'no content found!'));
+
+    if(user.role == "BUYER"){
+        if(newOrder.orderStatus == "ORDERED" && req.body.orderStatus == "CANCELLED"){
+            newOrder.orderStatus = "CANCELLED";
+            newOrder.payment = "VOID"
+
+            await User.findByIdAndUpdate(req.body.userId, {
+                $pull: { order: { _id: req.body.orderId } } , 
+            }, { new: true, useFindAndModify: true });
+        
+            const updateUser = await User.findByIdAndUpdate(req.body.userId, {
+                $push: { order: newOrder }
+            }, { new: true, useFindAndModify: true });
+        
+            res.status(200).send(new ApiResponse(200, 'success', updateUser));
+        }
+    }
+    else if(user.role != "BUYER" && req.body.orderStatus == "CANCELLED") {
+        newOrder.orderStatus = req.body.orderStatus;
+        if(newOrder.orderStatus == "CANCELLED"){
+            newOrder.payment = "VOID"
+        }
+
+        await User.findByIdAndUpdate(req.body.userId, {
+            $pull: { order: { _id: req.body.orderId } } , 
+        }, { new: true, useFindAndModify: true });
+    
+        const updateUser = await User.findByIdAndUpdate(req.body.userId, {
+            $push: { order: newOrder }
+        }, { new: true, useFindAndModify: true });
+    
+        res.status(200).send(new ApiResponse(200, 'success', updateUser));
+    }
+
+    return res.status(403).send(new ErrorResponse('403', 'Access Denied!'))
+};
+
 exports.removeFromCart = async (req, res, next) => {
     const { error } = validateRemoveShoppingCart(req.body);
     if (error) return res.status(400).send(new ErrorResponse('400', error.details[0].message));
@@ -240,32 +291,3 @@ exports.buyNow = async (req, res, next) => {
 
     res.status(200).send(new ApiResponse(200, 'success', user));
 }
-/* get a user. */
-// exports.getUser = async function(request, response) {
-//         const user = await User.findById(request.user._id).select('-password');
-//         response.send(user);
-//     }
-//     /* register users. */
-// exports.registerUser = async function(request, response) {
-//     const { error } = validate(request.body);
-//     if (error) return response.status(400).send(error.details[0].message);
-
-
-//     let user = await User.findOne({ email: request.body.email });
-//     if (user) return response.status(400).send('user already exist')
-
-//     user = new User({
-//         email: request.body.email,
-//         password: request.body.password,
-//         status: request.body.status,
-//         role: request.body.role
-//     })
-
-//     const salt = await bcrypt.genSalt(10);
-//     user.password = await bcrypt.hash(user.password, salt);
-
-//     await user.save();
-
-//     const token = user.generateAuthToken();
-//     response.header('x-auth-token', token).send(_.pick(user, ['email', 'role', 'status']));
-// }
