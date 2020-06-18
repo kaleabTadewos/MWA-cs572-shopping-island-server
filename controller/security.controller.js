@@ -64,10 +64,10 @@ exports.getUserById = async function(request, response) {
 exports.updateUserById = async(req, res, next) => {
     const { error } = validateUpdateStatus(req.body);
     if (error) return res.status(400).send(new ErrorResponse('400', error.details[0].message));
-    console.log("check")
-    const user = await User.findOneAndUpdate(req.body.userId, {
+    const user = await User.findByIdAndUpdate(req.body.userId, {
         status: req.body.userStatus
     }, { new: true, useFindAndModify: true });
+   //user.save();
 
     res.status(200).send(new ApiResponse(200, 'success', { userId: user._id, newStatus: user.status }));
 };
