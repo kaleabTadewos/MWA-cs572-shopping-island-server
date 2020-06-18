@@ -33,6 +33,15 @@ exports.findById = async(req, res, next) => {
     res.status(200).send(new ApiResponse(200, 'success', product));
 };
 
+//Retrive Operations
+exports.findBySellerId = async(req, res, next) => {
+    const { error } = validateId({ _id: req.params.id });
+    if (error) return res.status(400).send(new ErrorResponse('400', error.details[0].message));
+    const product = await Product.find({userId:req.params.id});
+    if (!product) return res.status(404).send(new ErrorResponse('400', 'no content found!'));
+    res.status(200).send(new ApiResponse(200, 'success', product));
+};
+
 exports.findAll = async(req, res, next) => {
     const products = await Product.find();
     if (!products) return res.status(404).send(new ErrorResponse('400', 'no content found!'));
