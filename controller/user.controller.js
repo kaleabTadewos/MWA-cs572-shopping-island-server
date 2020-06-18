@@ -180,6 +180,10 @@ exports.updateOrderStatus = async (req, res, next) => {
             newOrder.payment = "VOID"
         }
 
+        if(newOrder.orderStatus == "DELIVERED"){
+            user.coupon.point += 0.5;
+        }
+
         await User.findByIdAndUpdate(req.body.userId, {
             $pull: { order: { _id: req.body.orderId } } , 
         }, { new: true, useFindAndModify: true });
@@ -240,6 +244,8 @@ exports.placeOrder = async(req, res, next) => {
 exports.placeSingleOrder = async (req, res, next) => {
     const { error } = validateSingleOrderPlacement(req.body);
     if (error) return res.status(400).send(new ErrorResponse('400', error.details[0].message));
+
+    const user = await User.findById(req.body.userId);
 
     const item = await Item.findById(req.body.itemId);
     if (!item) res.status(400).send(new ErrorResponse('400', 'no content found!'));

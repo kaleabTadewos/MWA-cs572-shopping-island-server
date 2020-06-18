@@ -270,7 +270,7 @@ const userSchema = new mongoose.Schema({
             maxlength: 255,
             default: 'YELLOW'
         },
-        value: {
+        point: {
             type: Number,
         }
     },
