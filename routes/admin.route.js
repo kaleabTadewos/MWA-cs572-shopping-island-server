@@ -15,6 +15,7 @@ router.get('/products', productController.findAll);
 router.post('/products', productController.insert);
 router.put('/products/', productController.updateById);
 router.get('/products/:id', productController.findById);
+router.get('/products/seller/:id', productController.findBySellerId);
 router.delete('/products/:id', productController.removeById);
 
 /* items Routes */
