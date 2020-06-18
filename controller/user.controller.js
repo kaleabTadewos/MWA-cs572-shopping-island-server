@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt');
 const _ = require('lodash');
 const mongoose = require('mongoose');
 const { User } = require('../models/user');
+const { Bank } = require('../models/bank');
 const { Address } = require('../models/address');
 const { OrderDetail } = require('../models/orderDetail');
 const { Item } = require('../models/item');
@@ -52,6 +53,12 @@ exports.insert = async(req, res, next) => {
         'billingInformation.nameOntheCard': req.body.nameOntheCard,
         'billingInformation.ccv': req.body.ccv
     });
+
+    const bank = await Bank.create({
+        userId: user._id,
+        balance: 5000
+    });
+
     res.status(201).send(new ApiResponse(201, 'success', user));
 };
 
@@ -181,11 +188,12 @@ exports.updateOrderStatus = async(req, res, next) => {
 
             res.status(200).send(new ApiResponse(200, 'success', updateUser));
         }
-    } else if (user.role != "BUYER" && req.body.orderStatus != "CANCELLED") {
-        newOrder.orderStatus = req.body.orderStatus;
-        if (newOrder.orderStatus == "CANCELLED") {
+    } else if (user.role != "BUYER" && newOrder.orderStatus != "CANCELLED") {
+        if (req.body.orderStatus == "CANCELLED") {
             newOrder.payment = "VOID"
         }
+
+        newOrder.orderStatus = req.body.orderStatus;
 
         if (newOrder.orderStatus == "DELIVERED") {
             user.coupon.point += (newOrder.item.price * config.get('pointPerPerchaseAmount'));
@@ -267,6 +275,7 @@ exports.placeSingleOrder = async(req, res, next) => {
     newOrder.shippingAddress = newAddress;
     newOrder.orderStatus = "ORDERED";
     newOrder.payment = "PAYED";
+    let costOfPurchase = newOrder.item.price;
 
     if (user.coupon.point * config.get('dollarPerPoint') > newOrder.item.price) {
         let discardedCost = user.coupon.point * config.get('dollarPerPoint') - newOrder.item.price;
@@ -275,6 +284,8 @@ exports.placeSingleOrder = async(req, res, next) => {
         await User.findByIdAndUpdate(req.body.userId, {
             'coupon.point': updatedPoint
         }, { new: true, useFindAndModify: true });
+
+        costOfPurchase -= (newOrder.item.price - discardedCost);
 
         console.log(`${discardedCost} is taken from your coupon!!!`);
     }
@@ -288,6 +299,10 @@ exports.placeSingleOrder = async(req, res, next) => {
     //removing shopping carts from the user object
     const updatedUser = await User.findByIdAndUpdate(req.body.userId, {
         $pull: { shoppingCart: { _id: req.body.shoppingCartId } }
+    }, { new: true, useFindAndModify: true });
+
+    await Bank.findByIdAndUpdate(req.body.userId, {
+        $inc: {balance: -1 * costOfPurchase}
     }, { new: true, useFindAndModify: true });
 
     res.status(200).send(new ApiResponse(200, 'success', updatedUser));
