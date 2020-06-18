@@ -8,9 +8,16 @@ const { OrderDetail } = require('../models/orderDetail');
 const { Item } = require('../models/item');
 const ApiResponse = require('../models/apiResponse');
 const ErrorResponse = require('../models/errorResponse');
-const { validateId, validateWithOutId, validateWithId, validateShoppingCart,
-    validateOrderPlacement, validateSingleOrderPlacement, validateRemoveShoppingCart 
-    , validateBuyNow , validateUpdateOrderStatus
+const {
+    validateId,
+    validateWithOutId,
+    validateWithId,
+    validateShoppingCart,
+    validateOrderPlacement,
+    validateSingleOrderPlacement,
+    validateRemoveShoppingCart,
+    validateBuyNow,
+    validateUpdateOrderStatus
 } = require('../models/request/user.request');
 const config = require('config');
 
@@ -122,7 +129,7 @@ exports.findShoppingCarts = async(req, res, next) => {
     res.status(200).send(new ApiResponse(200, 'success', shoppingCarts));
 };
 
-exports.findOrders = async (req, res, next) => {
+exports.findOrders = async(req, res, next) => {
     const { error } = validateId({ _id: req.params.id });
     if (error) return res.status(400).send(new ErrorResponse('400', error.details[0].message));
     const user = await User.findById(req.params.id);
@@ -131,12 +138,12 @@ exports.findOrders = async (req, res, next) => {
     res.status(200).send(new ApiResponse(200, 'success', orders));
 };
 
-exports.findOrdersOfSeller = async (req, res, next) => {
+exports.findOrdersOfSeller = async(req, res, next) => {
     const { error } = validateId({ _id: req.params.id });
     if (error) return res.status(400).send(new ErrorResponse('400', error.details[0].message));
     let orders = [];
 
-    const usersList = await User.find({'order.item.product.userId': req.params.id});
+    const usersList = await User.find({ 'order.item.product.userId': req.params.id });
     if (!usersList) return res.status(404).send(new ErrorResponse('400', 'no content found!'));
     usersList.forEach((user) => {
         orders.push(user.order);
@@ -145,63 +152,62 @@ exports.findOrdersOfSeller = async (req, res, next) => {
     res.status(200).send(new ApiResponse(200, 'success', orders));
 };
 
-exports.updateOrderStatus = async (req, res, next) => {
+exports.updateOrderStatus = async(req, res, next) => {
     const { error } = validateUpdateOrderStatus(req.body);
     if (error) return res.status(400).send(new ErrorResponse('400', error.details[0].message));
 
     const user = await User.findById(req.body.userId);
     let newOrder = {};
     user.order.forEach((o) => {
-        if(o._id == req.body.orderId){
+        if (o._id == req.body.orderId) {
             newOrder = o;
         }
-    }); 
-    
-    if(!newOrder) return res.status(400).send(new ErrorResponse('400', 'no content found!'));
+    });
 
-    if(user.role == "BUYER"){
-        if(newOrder.orderStatus == "ORDERED" && req.body.orderStatus == "CANCELLED"){
+    if (!newOrder) return res.status(400).send(new ErrorResponse('400', 'no content found!'));
+
+    if (user.role == "BUYER") {
+        if (newOrder.orderStatus == "ORDERED" && req.body.orderStatus == "CANCELLED") {
             newOrder.orderStatus = "CANCELLED";
             newOrder.payment = "VOID"
 
             await User.findByIdAndUpdate(req.body.userId, {
-                $pull: { order: { _id: req.body.orderId } } , 
+                $pull: { order: { _id: req.body.orderId } },
             }, { new: true, useFindAndModify: true });
-        
+
             const updateUser = await User.findByIdAndUpdate(req.body.userId, {
                 $push: { order: newOrder }
             }, { new: true, useFindAndModify: true });
-        
+
             res.status(200).send(new ApiResponse(200, 'success', updateUser));
         }
-    }
-    else if(user.role != "BUYER" && req.body.orderStatus == "CANCELLED") {
+    } else if (user.role != "BUYER" && req.body.orderStatus == "CANCELLED") {
         newOrder.orderStatus = req.body.orderStatus;
-        if(newOrder.orderStatus == "CANCELLED"){
+        if (newOrder.orderStatus == "CANCELLED") {
             newOrder.payment = "VOID"
         }
 
-        if(newOrder.orderStatus == "DELIVERED"){
-            user.coupon.point += (newOrder.item.price + config.get('pointPerPerchaseAmount'));
+        if (newOrder.orderStatus == "DELIVERED") {
+            user.coupon.point += (newOrder.item.price * config.get('pointPerPerchaseAmount'));
             console.log(`user got : ${user.coupon.point}!!!`);
             user.save();
         }
 
         await User.findByIdAndUpdate(req.body.userId, {
-            $pull: { order: { _id: req.body.orderId } } , 
+            $pull: { order: { _id: req.body.orderId } },
         }, { new: true, useFindAndModify: true });
-    
+
         const updateUser = await User.findByIdAndUpdate(req.body.userId, {
             $push: { order: newOrder }
         }, { new: true, useFindAndModify: true });
-    
+
         res.status(200).send(new ApiResponse(200, 'success', updateUser));
     }
 
     return res.status(403).send(new ErrorResponse('403', 'Access Denied!'))
 };
 
-exports.removeFromCart = async (req, res, next) => {
+exports.removeFromCart = async(req, res, next) => {
     const { error } = validateRemoveShoppingCart(req.body);
     if (error) return res.status(400).send(new ErrorResponse('400', error.details[0].message));
     const user = await User.findByIdAndUpdate(req.body.userId, {
@@ -244,7 +250,7 @@ exports.placeOrder = async(req, res, next) => {
 
 }
 
-exports.placeSingleOrder = async (req, res, next) => {
+exports.placeSingleOrder = async(req, res, next) => {
     const { error } = validateSingleOrderPlacement(req.body);
     if (error) return res.status(400).send(new ErrorResponse('400', error.details[0].message));
 
@@ -261,16 +267,16 @@ exports.placeSingleOrder = async (req, res, next) => {
     newOrder.shippingAddress = newAddress;
     newOrder.orderStatus = "ORDERED";
     newOrder.payment = "PAYED";
-    if(user.coupon.point * config.get('dollarPerPoint') > newOrder.item.price) {
+    if (user.coupon.point * config.get('dollarPerPoint') > newOrder.item.price) {
         let discardedCost = user.coupon.point * config.get('dollarPerPoint') - newOrder.item.price;
         user.coupon.point -= (discardedCost / config.get('dollarPerPoint'));
         user.save();
         console.log(`${discardedCost} is taken from your coupon!!!`);
     }
-    if(newOrder.orderStatus == "DELIVERED"){
-        user.coupon.point += (newOrder.item.price + config.get('pointPerPerchaseAmount'));
-        user.save();
-    }
+    // if(newOrder.orderStatus == "DELIVERED"){
+    //     user.coupon.point += (newOrder.item.price + config.get('pointPerPerchaseAmount'));
+    //     user.save();
+    // }
 
     await User.findByIdAndUpdate(req.body.userId, {
         $addToSet: { addresses: newAddress },
@@ -286,7 +292,7 @@ exports.placeSingleOrder = async (req, res, next) => {
 
 }
 
-exports.buyNow = async (req, res, next) => {
+exports.buyNow = async(req, res, next) => {
     const { error } = validateBuyNow(req.body);
     if (error) return res.status(400).send(new ErrorResponse('400', error.details[0].message));
 
