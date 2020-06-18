@@ -5,6 +5,7 @@ const Joi = require('joi');
 const mongoose = require('mongoose');
 const { User, validate } = require('../models/user');
 const ApiResponse = require('../models/apiResponse');
+const config = require('config');
 
 /* GET users listing. */
 exports.login = async function(req, res) {
