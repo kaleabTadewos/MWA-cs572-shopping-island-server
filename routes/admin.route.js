@@ -8,6 +8,7 @@ const categoryController = require('../controller/category.controller');
 const productController = require('../controller/product.controller');
 const itemController = require('../controller/item.controller');
 const userController = require('../controller/user.controller');
+const securityController = require('../controller/security.controller');
 
 
 /* products Routes */
@@ -81,9 +82,7 @@ router.put('/users/placeOrder', userController.placeOrder);
 router.put('/users/placeSingleOrder', userController.placeSingleOrder);
 router.put('/users/buyNow', userController.buyNow);
 
-
-
-
-
+//exclusive to admin
+router.put('/change-user-status', securityController.updateUserById);
 
 module.exports = router;
