@@ -3,6 +3,8 @@ const ApiResponse = require('../models/apiResponse');
 const { validateId, validateWithOutId, validateWithId } = require('../models/request/product.request');
 const ErrorResponse = require('../models/errorResponse');
 const { SubCategory } = require('../models/subCategory');
+const { User } = require('../models/user');
+//const { User } = require('../models/User');
 
 //CRUD Operations
 //Create Operation
@@ -82,21 +84,40 @@ exports.reviewProduct = async(req, res, next) => {
     const product = await Product.findById(req.body.productId);
     if (!product) res.status(400).send(new ErrorResponse('400', 'no content found!'));
 
-    const newAddress = await Address.findById(req.body.addressId);
-    let review = {};
+    //const user = await User.find(req.body.userId, { fullName: { $concat: ["$firstName", " ", "$lastName"] } })
 
-    review.fullName = firstName + " " + lastName;
-    review.userId = req.body.userId
-    review.text = req.body.text;
+    const user = await User.findById(req.body.userId);
+    if (!user) res.status(400).send(new ErrorResponse('400', 'user not found!'));
 
-    await Product.findByIdAndUpdate(req.body.productId, {
+    let review = {
+        //console.log(user.firstName + ' ' + user.lastName);
+        'review.fullName': user.firstName + ' ' + user.lastName,
+        'review.userId': req.body.userId,
+        'review.text': req.body.text,
+        //'review.reviewStatus': "PENDING",
+    };
+
+    const reviewedproduct = await Product.findByIdAndUpdate(req.body.productId, {
         $push: { productReviews: review }
 
     }, { new: true, useFindAndModify: true });
+    res.status(200).send(new ApiResponse(200, 'success', reviewedproduct));
+};
 
-    //removing shopping carts from the user object
-    const user = await User.findByIdAndUpdate(req.body.userId, {
-        $pull: { shoppingCart: { _id: req.body.shoppingCartId } }
-    }, { new: true, useFindAndModify: true });
-    res.status(200).send(new ApiResponse(200, 'success', user));
-}
+exports.changeReviewStatus = async(req, res, next) => {
+    const product = await Product.findById(req.body.productId);
+    if (!product) res.status(400).send(new ErrorResponse('400', 'no content found!'));
+
+    let id = req.body.reviewId;
+    let productReview = await Product.findOne({ _id: req.body.productId }, function(e, data) {
+        if (e) console.log(e);
+        data.productReviews.id.reviewStatus = "APPROVED";
+        data.save
+    });
+    console.log(productReview.id.reviewStatus);
+
+    // const reviewedproduct = await Product.findByIdAndUpdate(req.body.productId, 
+    //     {productReviews:req.body.reviewId: {'review.reviewStatus': req.body.reviewStatus}}
+    // );
+    res.status(200).send(new ApiResponse(200, 'success', productReview));
+};

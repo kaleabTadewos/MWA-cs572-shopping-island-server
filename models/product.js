@@ -79,7 +79,8 @@ const productSchema = new mongoose.Schema({
             },
             reviewStatus: {
                 type: String,
-                enum: ['PENDING', 'APPROVED', 'DISAPPROVED']
+                enum: ['PENDING', 'APPROVED', 'DISAPPROVED'],
+                default: 'PENDING'
             }
         }
     }]
