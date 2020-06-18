@@ -37,7 +37,7 @@ exports.findById = async(req, res, next) => {
 exports.findBySellerId = async(req, res, next) => {
     const { error } = validateId({ _id: req.params.id });
     if (error) return res.status(400).send(new ErrorResponse('400', error.details[0].message));
-    const product = await Product.find({userId:req.params.id});
+    const product = await Product.find({ userId: req.params.id });
     if (!product) return res.status(404).send(new ErrorResponse('400', 'no content found!'));
     res.status(200).send(new ApiResponse(200, 'success', product));
 };
@@ -74,3 +74,29 @@ exports.removeById = async(req, res, next) => {
     if (!product) return res.status(404).send(new ErrorResponse('400', 'no content found!'));
     res.status(200).send(new ApiResponse(200, 'success', product));
 };
+
+exports.reviewProduct = async(req, res, next) => {
+    // const { error } = validateSingleOrderPlacement(req.body);
+    // if (error) return res.status(400).send(new ErrorResponse('400', error.details[0].message));
+
+    const product = await Product.findById(req.body.productId);
+    if (!product) res.status(400).send(new ErrorResponse('400', 'no content found!'));
+
+    const newAddress = await Address.findById(req.body.addressId);
+    let review = {};
+
+    review.fullName = firstName + " " + lastName;
+    review.userId = req.body.userId
+    review.text = req.body.text;
+
+    await Product.findByIdAndUpdate(req.body.productId, {
+        $push: { productReviews: review }
+
+    }, { new: true, useFindAndModify: true });
+
+    //removing shopping carts from the user object
+    const user = await User.findByIdAndUpdate(req.body.userId, {
+        $pull: { shoppingCart: { _id: req.body.shoppingCartId } }
+    }, { new: true, useFindAndModify: true });
+    res.status(200).send(new ApiResponse(200, 'success', user));
+}

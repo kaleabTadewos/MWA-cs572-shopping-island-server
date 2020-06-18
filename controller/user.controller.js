@@ -13,7 +13,7 @@ const { validateId, validateWithOutId, validateWithId, validateShoppingCart,
 } = require('../models/request/user.request');
 
 
-exports.insert = async (req, res, next) => {
+exports.insert = async(req, res, next) => {
     const { error } = validateWithOutId(req.body);
     if (error) return res.status(400).send(new ErrorResponse('400', error.details[0].message));
     let userExist = await User.findOne({ email: req.body.email });
@@ -47,7 +47,7 @@ exports.insert = async (req, res, next) => {
 };
 
 //Retrive Operations
-exports.findById = async (req, res, next) => {
+exports.findById = async(req, res, next) => {
     const { error } = validateId({ _id: req.params.id });
     if (error) return res.status(400).send(new ErrorResponse('400', error.details[0].message));
     const user = await User.findById(req.params.id);
@@ -55,14 +55,14 @@ exports.findById = async (req, res, next) => {
     res.status(200).send(new ApiResponse(200, 'success', user));
 };
 
-exports.findAll = async (req, res, next) => {
+exports.findAll = async(req, res, next) => {
     const user = await User.find();
     if (!user) return res.status(404).send(new ErrorResponse('400', 'no content found!'));
     res.status(200).send(new ApiResponse(200, 'success', user));
 }
 
 //Update Operation
-exports.updateById = async (req, res, next) => {
+exports.updateById = async(req, res, next) => {
     const { error } = validateWithId(req.body);
     if (error) return res.status(400).send(new ErrorResponse('400', error.details[0].message));
     //const subCategory = await SubCategory.findById(req.body.subCategoryId);
@@ -89,7 +89,7 @@ exports.updateById = async (req, res, next) => {
 };
 
 //Delete Operation
-exports.removeById = async (req, res, next) => {
+exports.removeById = async(req, res, next) => {
     const { error } = validateId({ _id: req.params.id });
     if (error) return res.status(400).send(new ErrorResponse('400', error.details[0].message));
     const user = await User.findByIdAndRemove(req.params.id);
@@ -97,7 +97,7 @@ exports.removeById = async (req, res, next) => {
     res.status(200).send(new ApiResponse(200, 'success', user));
 };
 
-exports.addToCart = async (req, res, next) => {
+exports.addToCart = async(req, res, next) => {
     const { error } = validateShoppingCart(req.body);
     if (error) return res.status(400).send(new ErrorResponse('400', error.details[0].message));
     const item = await Item.findById(req.body.itemId);
@@ -111,7 +111,7 @@ exports.addToCart = async (req, res, next) => {
 };
 
 //Retrive Operations
-exports.findShoppingCarts = async (req, res, next) => {
+exports.findShoppingCarts = async(req, res, next) => {
     const { error } = validateId({ _id: req.params.id });
     if (error) return res.status(400).send(new ErrorResponse('400', error.details[0].message));
     const user = await User.findById(req.params.id);
@@ -138,11 +138,11 @@ exports.removeFromCart = async (req, res, next) => {
     res.status(200).send(new ApiResponse(200, 'success', user.shoppingCart));
 };
 
-exports.placeOrder = async (req, res, next) => {
+exports.placeOrder = async(req, res, next) => {
     const { error } = validateOrderPlacement(req.body);
     if (error) return res.status(400).send(new ErrorResponse('400', error.details[0].message));
 
-    let fncc = async function (reqItems) {
+    let fncc = async function(reqItems) {
         let items = [];
         for (let h = 0; h < reqItems.length; h++) {
             const item = await Item.findById(reqItems[h]);
