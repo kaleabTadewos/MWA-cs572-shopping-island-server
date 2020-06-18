@@ -12,6 +12,7 @@ const { validateId, validateWithOutId, validateWithId, validateShoppingCart,
     validateOrderPlacement, validateSingleOrderPlacement, validateRemoveShoppingCart 
     , validateBuyNow , validateUpdateOrderStatus
 } = require('../models/request/user.request');
+const config = require('config');
 
 
 exports.insert = async(req, res, next) => {
@@ -180,6 +181,12 @@ exports.updateOrderStatus = async (req, res, next) => {
             newOrder.payment = "VOID"
         }
 
+        if(newOrder.orderStatus == "DELIVERED"){
+            user.coupon.point += (newOrder.item.price + config.get('pointPerPerchaseAmount'));
+            console.log(`user got : ${user.coupon.point}!!!`);
+            user.save();
+        }
+
         await User.findByIdAndUpdate(req.body.userId, {
             $pull: { order: { _id: req.body.orderId } } , 
         }, { new: true, useFindAndModify: true });
@@ -241,6 +248,8 @@ exports.placeSingleOrder = async (req, res, next) => {
     const { error } = validateSingleOrderPlacement(req.body);
     if (error) return res.status(400).send(new ErrorResponse('400', error.details[0].message));
 
+    const user = await User.findById(req.body.userId);
+
     const item = await Item.findById(req.body.itemId);
     if (!item) res.status(400).send(new ErrorResponse('400', 'no content found!'));
 
@@ -252,6 +261,16 @@ exports.placeSingleOrder = async (req, res, next) => {
     newOrder.shippingAddress = newAddress;
     newOrder.orderStatus = "ORDERED";
     newOrder.payment = "PAYED";
+    if(user.coupon.point * config.get('dollarPerPoint') > newOrder.item.price) {
+        let discardedCost = user.coupon.point * config.get('dollarPerPoint') - newOrder.item.price;
+        user.coupon.point -= (discardedCost / config.get('dollarPerPoint'));
+        user.save();
+        console.log(`${discardedCost} is taken from your coupon!!!`);
+    }
+    if(newOrder.orderStatus == "DELIVERED"){
+        user.coupon.point += (newOrder.item.price + config.get('pointPerPerchaseAmount'));
+        user.save();
+    }
 
     await User.findByIdAndUpdate(req.body.userId, {
         $addToSet: { addresses: newAddress },
