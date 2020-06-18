@@ -83,6 +83,6 @@ router.put('/users/placeSingleOrder', userController.placeSingleOrder);
 router.put('/users/buyNow', userController.buyNow);
 
 //exclusive to admin
-router.put('/change-user-status', securityController.updateUserById);
+router.put('/users/userStatus', securityController.updateUserById);
 
 module.exports = router;

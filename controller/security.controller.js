@@ -63,7 +63,6 @@ exports.updateUserById = async(req, res, next) => {
     const user = await User.findOneAndUpdate(req.body.userId, {
         status: req.body.userStatus
     }, { new: true, useFindAndModify: true });
-    user.save();
 
     res.status(200).send(new ApiResponse(200, 'success', { userId: user._id, newStatus: user.status }));
 };
