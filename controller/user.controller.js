@@ -217,8 +217,9 @@ exports.updateOrderStatus = async(req, res, next) => {
 
         res.status(200).send(new ApiResponse(200, 'success', updateUser));
     }
-
-    return res.status(403).send(new ErrorResponse('403', 'Access Denied!'))
+    else {
+        return res.status(403).send(new ErrorResponse('403', 'Access Denied!'))
+    }
 };
 
 exports.removeFromCart = async(req, res, next) => {
