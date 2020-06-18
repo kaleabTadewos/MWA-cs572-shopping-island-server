@@ -168,7 +168,9 @@ exports.updateOrderStatus = async(req, res, next) => {
     if (error) return res.status(400).send(new ErrorResponse('400', error.details[0].message));
 
     const user = await User.findById(req.body.userId);
+    if (!user) return res.status(400).send(new ErrorResponse('400', 'user not found!'));
     let newOrder = {};
+    
     user.order.forEach((o) => {
         if (o._id == req.body.orderId) {
             newOrder = o;
