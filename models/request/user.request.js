@@ -111,6 +111,16 @@ function validateUserSingleOrderPlacement(userPlaceSingleOrder) {
     return Joi.validate(userPlaceSingleOrder, schema);
 }
 
+function validateUserBuyNow(userBuyNow) {
+    const schema = {
+        userId: Joi.objectId().required(),
+        itemId: Joi.objectId().required() ,
+        addressId: Joi.objectId().required() 
+    };
+
+    return Joi.validate(userBuyNow, schema);
+}
+
 exports.validateWithId = validateUserWithId;
 exports.validateId = validateUserId;
 exports.validateWithOutId = validateUserWithOutId;
@@ -118,3 +128,4 @@ exports.validateShoppingCart = validateUserNewShppingCart;
 exports.validateOrderPlacement = validateUserOrderPlacement;
 exports.validateSingleOrderPlacement = validateUserSingleOrderPlacement;
 exports.validateRemoveShoppingCart = validateUserRemoveShoppingCart;
+exports.validateBuyNow = validateUserBuyNow;

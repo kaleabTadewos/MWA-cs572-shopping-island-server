@@ -8,7 +8,9 @@ const { OrderDetail } = require('../models/orderDetail');
 const { Item } = require('../models/item');
 const ApiResponse = require('../models/apiResponse');
 const ErrorResponse = require('../models/errorResponse');
-const { validateId, validateWithOutId, validateWithId, validateShoppingCart, validateOrderPlacement , validateSingleOrderPlacement , validateRemoveShoppingCart} = require('../models/request/user.request');
+const { validateId, validateWithOutId, validateWithId, validateShoppingCart,
+    validateOrderPlacement, validateSingleOrderPlacement, validateRemoveShoppingCart , validateBuyNow
+} = require('../models/request/user.request');
 
 
 exports.insert = async (req, res, next) => {
@@ -100,7 +102,7 @@ exports.addToCart = async (req, res, next) => {
     if (error) return res.status(400).send(new ErrorResponse('400', error.details[0].message));
     const item = await Item.findById(req.body.itemId);
     console.log()
-    const newShoppingCart = {item: item};
+    const newShoppingCart = { item: item };
     if (!item) res.status(400).send(new ErrorResponse('400', 'no content found!'));
     const user = await User.findByIdAndUpdate(req.body.userId, {
         $push: { shoppingCart: newShoppingCart }
@@ -118,11 +120,20 @@ exports.findShoppingCarts = async (req, res, next) => {
     res.status(200).send(new ApiResponse(200, 'success', shoppingCarts));
 };
 
+exports.findOrders = async (req, res, next) => {
+    const { error } = validateId({ _id: req.params.id });
+    if (error) return res.status(400).send(new ErrorResponse('400', error.details[0].message));
+    const user = await User.findById(req.params.id);
+    if (!user) return res.status(404).send(new ErrorResponse('400', 'no content found!'));
+    const orders = user.order;
+    res.status(200).send(new ApiResponse(200, 'success', orders));
+};
+
 exports.removeFromCart = async (req, res, next) => {
     const { error } = validateRemoveShoppingCart(req.body);
     if (error) return res.status(400).send(new ErrorResponse('400', error.details[0].message));
     const user = await User.findByIdAndUpdate(req.body.userId, {
-        $pull: { shoppingCart:  {_id: req.body.shoppingCartId}}
+        $pull: { shoppingCart: { _id: req.body.shoppingCartId } }
     }, { new: true, useFindAndModify: true });
     res.status(200).send(new ApiResponse(200, 'success', user.shoppingCart));
 };
@@ -145,14 +156,14 @@ exports.placeOrder = async (req, res, next) => {
     const items = await fncc(req.body.itemIds);
 
     const newAddress = await Address.findById(req.body.addressId);
-   // let newOrderDetail = items; 
-    const newOrder = {orderDetail : items , shippingAddress : newAddress , orderDate : Date.now()};
+    // let newOrderDetail = items; 
+    const newOrder = { orderDetail: items, shippingAddress: newAddress, orderDate: Date.now() };
     console.log(newOrder);
 
     //placing an order inside user object.
     const user = await User.findByIdAndUpdate(req.body.userId, {
         $addToSet: { addresses: newAddress },
-        $push: {order: newOrder}
+        $push: { order: newOrder }
 
     }, { new: true, useFindAndModify: true });
 
@@ -177,18 +188,43 @@ exports.placeSingleOrder = async (req, res, next) => {
     newOrder.orderStatus = "ORDERED";
     newOrder.payment = "PAYED";
 
-   await User.findByIdAndUpdate(req.body.userId, {
+    await User.findByIdAndUpdate(req.body.userId, {
         $addToSet: { addresses: newAddress },
-        $push: {order: newOrder}
+        $push: { order: newOrder }
 
     }, { new: true, useFindAndModify: true });
 
     //removing shopping carts from the user object
     const user = await User.findByIdAndUpdate(req.body.userId, {
-        $pull: { shoppingCart:  {_id: req.body.shoppingCartId}}
+        $pull: { shoppingCart: { _id: req.body.shoppingCartId } }
     }, { new: true, useFindAndModify: true });
     res.status(200).send(new ApiResponse(200, 'success', user));
 
+}
+
+exports.buyNow = async (req, res, next) => {
+    const { error } = validateBuyNow(req.body);
+    if (error) return res.status(400).send(new ErrorResponse('400', error.details[0].message));
+
+    const item = await Item.findById(req.body.itemId);
+    if (!item) res.status(400).send(new ErrorResponse('400', 'no content found!'));
+
+    const newAddress = await Address.findById(req.body.addressId);
+    let newOrder = {};
+
+    newOrder.item = item;
+    newOrder.orderDate = Date.now();
+    newOrder.shippingAddress = newAddress;
+    newOrder.orderStatus = "ORDERED";
+    newOrder.payment = "PAYED";
+
+    const user = await User.findByIdAndUpdate(req.body.userId, {
+        $addToSet: { addresses: newAddress },
+        $push: { order: newOrder }
+
+    }, { new: true, useFindAndModify: true });
+
+    res.status(200).send(new ApiResponse(200, 'success', user));
 }
 /* get a user. */
 // exports.getUser = async function(request, response) {
