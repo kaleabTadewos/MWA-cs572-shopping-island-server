@@ -57,7 +57,6 @@ exports.getUserById = async function(request, response) {
 }
 
 exports.updateUserById = async(req, res, next) => {
-    console.log("check")
     const { error } = validateUpdateStatus(req.body);
     if (error) return res.status(400).send(new ErrorResponse('400', error.details[0].message));
     console.log("check")
