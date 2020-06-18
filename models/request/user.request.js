@@ -131,6 +131,15 @@ function validateUserUpdateOrderStatus(userOrderStatus) {
     return Joi.validate(userOrderStatus, schema);
 }
 
+function validateUserUpdateStatus(userStatus) {
+    const schema = {
+        userId: Joi.objectId().required(),
+        userStatus: Joi.string().required()
+    };
+
+    return Joi.validate(userStatus, schema);
+}
+
 exports.validateWithId = validateUserWithId;
 exports.validateId = validateUserId;
 exports.validateWithOutId = validateUserWithOutId;
@@ -140,3 +149,4 @@ exports.validateSingleOrderPlacement = validateUserSingleOrderPlacement;
 exports.validateRemoveShoppingCart = validateUserRemoveShoppingCart;
 exports.validateBuyNow = validateUserBuyNow;
 exports.validateUpdateOrderStatus = validateUserUpdateOrderStatus;
+exports.validateUpdateStatus = validateUserUpdateStatus;
