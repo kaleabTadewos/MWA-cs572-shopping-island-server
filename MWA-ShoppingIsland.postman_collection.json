@@ -647,6 +647,28 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "get product by seller id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/admin/products/seller/5ee9906c51c8f942582bac05",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"admin",
+								"products",
+								"seller",
+								"5ee9906c51c8f942582bac05"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"protocolProfileBehavior": {}
@@ -962,7 +984,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\"itemId\": \"5eea33bd76ac9d27c04ff8ac\",\r\n\"userId\": \"5eea41141319223a801187a4\"}",
+							"raw": "{\"itemId\": \"5eea33bd76ac9d27c04ff8ac\",\r\n\"userId\": \"5eeac7b95ac0d41ec06778ec\"}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -995,7 +1017,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\"itemId\": \"5ee979e3bb6923095c812f02\",\r\n\"userId\": \"5ee96072dae5b439bcec8fff\"}",
+							"raw": "",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1028,7 +1050,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\"itemId\": \"5ee979e3bb6923095c812f02\",\r\n\"userId\": \"5ee96072dae5b439bcec8fff\"}",
+							"raw": "",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1036,7 +1058,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/admin/users/5ee96072dae5b439bcec8fff",
+							"raw": "http://localhost:3000/admin/users/",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1045,7 +1067,7 @@
 							"path": [
 								"admin",
 								"users",
-								"5ee96072dae5b439bcec8fff"
+								""
 							]
 						}
 					},
@@ -1058,7 +1080,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n\t\"email\": \"test@gmail.com\",\r\n\t\"password\": \"alemu\",\r\n    \"role\": \"ADMIN\",\r\n    \"status\": \"PENDING\",\r\n    \"firstName\": \"Ashenafi\",\r\n    \"lastName\": \"Gemechu\",\r\n    \"state\": \"Iowa\",\r\n    \"city\": \"Fairfield\",\r\n    \"street\": \"1000 N 4th St.\",\r\n    \"zipCode\": \"52557\",\r\n    \"phoneNumber\": \"3333333333\",\r\n    \"accountNumber\": \"3333333333\",\r\n    \"expiryDate\": \"3333333333\",\r\n    \"nameOntheCard\": \"Ashenafi A. Gemechu\",\r\n    \"ccv\": \"333\",\r\n    \"addressId\": \"5eea345d76ac9d27c04ff8ae\"\r\n}",
+							"raw": "{\r\n\t\"email\": \"kal4@gmail.com\",\r\n\t\"password\": \"alemu\",\r\n    \"role\": \"ADMIN\",\r\n    \"firstName\": \"Ashenafi\",\r\n    \"lastName\": \"Gemechu\",\r\n    \"state\": \"Iowa\",\r\n    \"city\": \"Fairfield\",\r\n    \"street\": \"1000 N 4th St.\",\r\n    \"zipCode\": \"52557\",\r\n    \"phoneNumber\": \"3333333333\",\r\n    \"accountNumber\": \"3333333333\",\r\n    \"expiryDate\": \"3333333333\",\r\n    \"nameOntheCard\": \"Ashenafi A. Gemechu\",\r\n    \"ccv\": \"333\",\r\n    \"addressId\": \"5eea345d76ac9d27c04ff8ae\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1088,7 +1110,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n\t\"email\": \"test13@gmail.com\",\r\n\t\"password\": \"alemu\",\r\n    \"role\": \"ADMIN\",\r\n    \"status\": \"PENDING\",\r\n    \"firstName\": \"Ashenafi\",\r\n    \"lastName\": \"Gemechu\",\r\n    \"state\": \"Iowa\",\r\n    \"city\": \"Fairfield\",\r\n    \"street\": \"1000 N 4th St.\",\r\n    \"zipCode\": \"52557\",\r\n    \"phoneNumber\": \"3333333333\",\r\n    \"accountNumber\": \"3333333333\",\r\n    \"expiryDate\": \"3333333333\",\r\n    \"nameOntheCard\": \"Ashenafi A. Gemechu\",\r\n    \"ccv\": \"333\"\r\n}",
+							"raw": "",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1118,7 +1140,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n\t\"_id\": \"5ee96072dae5b439bcec8fff\",\r\n\t\"password\": \"alemu\",\r\n    \"role\": \"ADMIN\",\r\n    \"status\": \"PENDING\",\r\n    \"firstName\": \"Ashenafi\",\r\n    \"lastName\": \"Alemu\",\r\n    \"state\": \"Iowa\",\r\n    \"city\": \"Fairfield\",\r\n    \"street\": \"1000 N 4th St.\",\r\n    \"zipCode\": \"52557\",\r\n    \"phoneNumber\": \"3333333333\",\r\n    \"accountNumber\": \"3333333333\",\r\n    \"expiryDate\": \"3333333333\",\r\n    \"nameOntheCard\": \"Ashenafi A. Gemechu\",\r\n    \"ccv\": \"333\"\r\n}",
+							"raw": "{\r\n\t\"_id\": \"5eeac7b95ac0d41ec06778ec\",\r\n    \"email\": \"kaleab@gmail.com\",\r\n\t\"password\": \"alemu\",\r\n    \"role\": \"ADMIN\",\r\n    \"firstName\": \"Ashenafi\",\r\n    \"lastName\": \"Alemu\",\r\n    \"state\": \"Iowa\",\r\n    \"city\": \"Fairfield\",\r\n    \"street\": \"1000 N 4th St.\",\r\n    \"zipCode\": \"52557\",\r\n    \"phoneNumber\": \"3333333333\",\r\n    \"accountNumber\": \"3333333333\",\r\n    \"expiryDate\": \"3333333333\",\r\n    \"nameOntheCard\": \"Ashenafi A. Gemechu\",\r\n    \"ccv\": \"333\" ,\r\n    \"addressId\": \"5eea345d76ac9d27c04ff8ae\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1178,7 +1200,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"itemId\": \"5eea33bd76ac9d27c04ff8ac\",\r\n     \"userId\": \"5eea7bd245cf001e2c12f130\" ,\r\n     \"addressId\": \"5eea345d76ac9d27c04ff8ae\" ,\r\n     \"shoppingCartId\": \"5eea7c85013d703d9c254911\"\r\n}\r\n",
+							"raw": "{\r\n    \"itemId\": \"5eea33bd76ac9d27c04ff8ac\",\r\n     \"userId\": \"5eeac7b95ac0d41ec06778ec\" ,\r\n     \"addressId\": \"5eea345d76ac9d27c04ff8ae\" ,\r\n     \"shoppingCartId\": \"5eeac86dfb1b4a27c4fe2844\"\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
