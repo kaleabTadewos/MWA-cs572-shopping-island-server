@@ -32,10 +32,11 @@ app.use(bodyParser.json());
 //app.use('/user', [auth, admin], userRoutes);
 app.use('/users', userRoutes);
 //app.use(loginRoutes);
-app.use('/admin', adminRoutes);
+//app.use('/admin', adminRoutes);
 app.use('/all-users', [auth, allRoles], allUsersRoutes);
 app.use('/admin-seller', [auth, adminSeller], adminSellerRoutes);
-app.use('/admin-only', [auth, adminOnly], adminOnlyRoutes);
+//app.use('/admin-only', [auth, adminOnly], adminOnlyRoutes);
+app.use('/admin', [auth, adminOnly], adminOnlyRoutes);
 
 app.get('/', (req, res, next) => {
     res.sendFile(__dirname + '/views/index.html');

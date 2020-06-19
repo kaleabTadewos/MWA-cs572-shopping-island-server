@@ -6,4 +6,6 @@ const securityController = require('../controller/security.controller');
 /* GET a user. */
 router.get('/users', userController.findAll);
 router.get('/me', securityController.getUserById);
+
+
 module.exports = router;
