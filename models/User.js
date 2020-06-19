@@ -8,13 +8,13 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
         unique: true,
-        // minlength: 5,
+        minlength: 5,
         maxlength: 255
     },
     password: {
         type: String,
         required: true,
-        // minlength: 5,
+        minlength: 5,
         maxlength: 1024
     },
     status: {
@@ -293,16 +293,16 @@ const userSchema = new mongoose.Schema({
         },
         zipCode: {
             type: String,
-            required: true //,
-                // minlength: 5,
-                //maxlength: 5
+            required: true,
+            minlength: 5,
+            maxlength: 5
         },
         accountNumber: {
             type: String,
             required: true
         },
         expiryDate: {
-            //  type: Date,
+            type: Date,
             type: String,
             required: true
         },
@@ -314,8 +314,8 @@ const userSchema = new mongoose.Schema({
         },
         ccv: {
             type: Number,
-            required: true //,
-                // maxlength: 3
+            required: true,
+            maxlength: 3
         }
     },
     addresses: [{
@@ -343,9 +343,9 @@ const userSchema = new mongoose.Schema({
         },
         zipCode: {
             type: String,
-            required: true //,
-                //  minlength: 5,
-                // maxlength: 5
+            required: true,
+            minlength: 5,
+            maxlength: 5
         },
         addressString: {
             type: String,
@@ -356,7 +356,7 @@ const userSchema = new mongoose.Schema({
 
 });
 
-userSchema.methods.generateAuthToken = function() {
+userSchema.methods.generateAuthToken = function () {
     const token = jwt.sign({ _id: this._id, role: this.role }, config.get('jwtPrivateKey'))
     return token;
 }
