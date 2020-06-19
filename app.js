@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const ApiResponse = require('./models/apiResponse');
 const ErrorResponse = require('./models/errorResponse');
-const adminRoutes = require('./routes/admin.route')
+const adminRoutes = require('./routes/admin.route');
 
 const userRoutes = require('./routes/user.route');
 const loginRoutes = require('./routes/login.route');

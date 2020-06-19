@@ -329,7 +329,7 @@ exports.placeSingleOrder = async(req, res, next) => {
     });
     console.log('this is log' , orderInformation);
 
-    res.status(200).send(new ApiResponse(200, 'success', newOrder));
+    res.status(200).send(new ApiResponse(200, 'success', updatedUser.order._id));
 
 }
 
