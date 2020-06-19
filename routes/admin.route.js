@@ -9,6 +9,7 @@ const productController = require('../controller/product.controller');
 const itemController = require('../controller/item.controller');
 const userController = require('../controller/user.controller');
 const securityController = require('../controller/security.controller');
+const reviewController = require('../controller/review.controller');
 
 
 /* products Routes */
@@ -19,7 +20,8 @@ router.put('/products/', productController.updateById);
 router.get('/products/:id', productController.findById);
 router.get('/products/seller/:id', productController.findBySellerId);
 router.delete('/products/:id', productController.removeById);
-router.put('/products/review', productController.reviewProduct);
+//router.put('/products/review', productController.reviewProduct);
+router.put('/products/review', reviewController.insert);
 router.put('/products/reviewStatus', productController.changeReviewStatus);
 
 /* items Routes */

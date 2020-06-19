@@ -7,18 +7,18 @@ const bankSchema = new mongoose.Schema({
         type: mongoose.Types.ObjectId,
         required: true
     },
-    balance : {
-        type: Number , 
-        required : true
+    balance: {
+        type: Number,
+        required: true
     }
 });
 
-const Bank =  mongoose.model('Bank' , bankSchema); 
+const Bank = mongoose.model('Bank', bankSchema);
 
 function validateBankWithId(bank) {
     const schema = {
-        _id: Joi.objectId().required() ,
-        userId: Joi.objectId().required() ,
+        _id: Joi.objectId().required(),
+        userId: Joi.objectId().required(),
         balance: Joi.number().required()
     };
 
@@ -35,7 +35,7 @@ function validateBankId(bank) {
 
 function validateBankWithOutId(bank) {
     const schema = {
-        userId: Joi.objectId().required() ,
+        userId: Joi.objectId().required(),
         balance: Joi.number().required()
     };
 
