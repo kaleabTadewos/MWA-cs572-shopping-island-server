@@ -14,7 +14,7 @@ const reviewSchema = new mongoose.Schema({
     review: [{
         reviewText: {
             type: String
-        } , 
+        },
         reviewStatus: {
             type: String,
             enum: ['PENDING', 'APPROVED', 'DISAPPROVED'],

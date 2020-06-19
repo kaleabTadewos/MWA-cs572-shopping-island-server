@@ -62,3 +62,22 @@ exports.reviewStatus = async(req, res, next) => {
     }, { new: true, useFindAndModify: true });
     res.status(200).send(new ApiResponse(200, 'success', re));
 };
+
+exports.findByProductId = async(req, res, next) => {
+    // const { error } = validateWithOutId(req.body);
+    // if (error) return res.status(400).send(new ErrorResponse('400', error.details[0].message));
+    let reviews = [];
+
+    review = await Review.find({ productId: req.body.productId });
+    let rev = [];
+    rev = review;
+
+    rev.forEach((re) => {
+        re.review.forEach((r) => {
+            if (r.reviewStatus == "APPROVED") {
+                reviews.push(r);
+            }
+        });
+    });
+    res.status(200).send(new ApiResponse(200, 'success', reviews));
+}
