@@ -21,7 +21,7 @@ router.get('/products/:id', productController.findById);
 router.get('/products/seller/:id', productController.findBySellerId);
 router.delete('/products/:id', productController.removeById);
 //router.put('/products/review', productController.reviewProduct);
-router.put('/products/review', reviewController.insert);
+router.post('/products/review', reviewController.insert);
 //router.put('/products/reviewStatus', productController.changeReviewStatus);
 router.put('/products/reviewStatus', reviewController.reviewStatus);
 
