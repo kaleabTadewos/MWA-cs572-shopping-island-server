@@ -27,7 +27,6 @@ exports.insert = async(req, res, next) => {
 exports.reviewStatus = async(req, res, next) => {
     const { error } = validateWithOutId(req.body);
     if (error) return res.status(400).send(new ErrorResponse('400', error.details[0].message));
-<<<<<<< HEAD
     let review = await Review.findById(req.body.reviewId);
     if (!review) return res.status(400).send(new ErrorResponse('400', 'no content found!'));
     let newReview = await Review.findByIdAndUpdate(req.body.reviewId, {
@@ -35,6 +34,4 @@ exports.reviewStatus = async(req, res, next) => {
     }, { new: true, useFindAndModify: true });
     res.status(201).send(new ApiResponse(201, 'success', newReview));
 
-=======
->>>>>>> 96cd965aefb73e984d119f90deaa53f5e836ab64
 }
