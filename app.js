@@ -5,11 +5,17 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const ApiResponse = require('./models/apiResponse');
 const ErrorResponse = require('./models/errorResponse');
-const adminRoutes = require('./routes/admin.route')
+const adminRoutes = require('./routes/admin.route');
 
 const userRoutes = require('./routes/user.route');
 const loginRoutes = require('./routes/login.route');
+const adminOnlyRoutes = require('./routes/adminOnly.route');
+const allUsersRoutes = require('./routes/allRoles.route');
+const adminSellerRoutes = require('./routes/admin-seller.route');
 const admin = require('./middleware/admin');
+const adminSeller = require('./middleware/admin-seller');
+const adminOnly = require('./middleware/adminOnly');
+const allRoles = require('./middleware/allRoles');
 const auth = require('./middleware/auth');
 const config = require('config');
 const app = express();
@@ -24,9 +30,13 @@ app.use(express.json())
 app.use(cors());
 app.use(bodyParser.json());
 //app.use('/user', [auth, admin], userRoutes);
-//app.use('/users', userRoutes);
-app.use(loginRoutes);
+app.use('/users', userRoutes);
+//app.use(loginRoutes);
 app.use('/admin', adminRoutes);
+app.use('/all-users', [auth, allRoles], allUsersRoutes);
+app.use('/admin-seller', [auth, adminSeller], adminSellerRoutes);
+//app.use('/admin-only', [auth, adminOnly], adminOnlyRoutes);
+app.use('/admin-only', [auth, adminOnly], adminOnlyRoutes);
 
 app.get('/', (req, res, next) => {
     res.sendFile(__dirname + '/views/index.html');

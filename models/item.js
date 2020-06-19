@@ -5,7 +5,7 @@ const itemSchema = new mongoose.Schema({
         _id: {
             type: mongoose.Types.ObjectId,
             required: true
-        } ,
+        },
         name: {
             type: String,
             required: true,
@@ -31,7 +31,7 @@ const itemSchema = new mongoose.Schema({
             _id: {
                 type: mongoose.Types.ObjectId,
                 required: true
-            } ,
+            },
             name: {
                 type: String,
                 required: true,
@@ -39,6 +39,10 @@ const itemSchema = new mongoose.Schema({
                 maxlength: 255
             },
             category: {
+                _id: {
+                    type: mongoose.Types.ObjectId,
+                    required: true
+                },
                 name: {
                     type: String,
                     required: true,
@@ -53,7 +57,7 @@ const itemSchema = new mongoose.Schema({
         _id: {
             type: mongoose.Types.ObjectId,
             required: true
-        } ,
+        },
         name: {
             type: String,
             required: true

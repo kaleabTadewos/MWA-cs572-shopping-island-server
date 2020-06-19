@@ -4,19 +4,19 @@ const _ = require('lodash');
 const Joi = require('joi');
 const mongoose = require('mongoose');
 const { User, validate } = require('../models/user');
+const ApiResponse = require('../models/apiResponse');
+const config = require('config');
 
 /* GET users listing. */
 exports.login = async function(req, res) {
     const { error } = validateLogin(req.body);
     if (error) return res.status(400).send(error.details[0].message);
-
-
     let user = await User.findOne({ email: req.body.email });
     if (!user) return res.status(400).send('user or password is not correct');
     const isvalid = await bcrypt.compare(req.body.password, user.password);
     if (!isvalid) return res.status(400).send('not authorized');
     const token = user.generateAuthToken();
-    res.send(token);
+    res.header('x-auth-token', token).send(new ApiResponse(200, 'success', token));
 }
 
 function validateLogin(user) {

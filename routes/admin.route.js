@@ -8,14 +8,26 @@ const categoryController = require('../controller/category.controller');
 const productController = require('../controller/product.controller');
 const itemController = require('../controller/item.controller');
 const userController = require('../controller/user.controller');
+const securityController = require('../controller/security.controller');
+const reviewController = require('../controller/review.controller');
+const orderInformationController = require('../controller/orderInformation.controller');
+
 
 
 /* products Routes */
 router.get('/products', productController.findAll);
+router.get('/productsWithItem', productController.findAllWithItem);
 router.post('/products', productController.insert);
 router.put('/products/', productController.updateById);
 router.get('/products/:id', productController.findById);
+router.get('/products/seller/:id', productController.findBySellerId);
 router.delete('/products/:id', productController.removeById);
+//router.put('/products/review', productController.reviewProduct);
+router.post('/products/review', reviewController.insert);
+//router.put('/products/reviewStatus', productController.changeReviewStatus);
+router.put('/products/reviewStatus', reviewController.reviewStatus);
+router.post('/products/productReview', reviewController.findByProductId);
+// 
 
 /* items Routes */
 router.get('/items', itemController.findAll);
@@ -62,15 +74,25 @@ router.put('/point-calculator', pointCalculatorControler.updateById);
 router.get('/point-calculator/:id', pointCalculatorControler.findById);
 router.delete('/point-calculator/:id', pointCalculatorControler.removeById);
 
+router.get('/orders/findByOrderInformationId/:id' , orderInformationController.findByOrderInformationId);
+
 //user Routes
 router.get('/users', userController.findAll);
 router.post('/users', userController.insert);
 router.get('/users/:id', userController.findById);
+router.get('/users/shoppingCarts/:id', userController.findShoppingCarts);
+router.get('/users/orders/:id', userController.findOrders);
+router.get('/users/sellerOrders/:id', userController.findOrdersOfSeller);
+router.put('/users/updateOrderStatus/', userController.updateOrderStatus);
 router.delete('/users/:id', userController.removeById);
 router.put('/users', userController.updateById);
 router.put('/users/addCart', userController.addToCart);
+router.put('/users/removeCart', userController.removeFromCart);
+router.put('/users/placeOrder', userController.placeOrder);
+router.put('/users/placeSingleOrder', userController.placeSingleOrder);
+router.put('/users/buyNow', userController.buyNow);
 
-
-
+//exclusive to admin
+router.put('/users/userStatus', securityController.updateUserById);
 
 module.exports = router;

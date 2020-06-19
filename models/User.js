@@ -8,18 +8,18 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
         unique: true,
-        minlength: 5,
+        // minlength: 5,
         maxlength: 255
     },
     password: {
         type: String,
         required: true,
-        minlength: 5,
+        // minlength: 5,
         maxlength: 1024
     },
     status: {
         type: String,
-        enum: ['ACTIVE ', 'PENDING', 'INACTIVE'],
+        enum: ['ACTIVE', 'PENDING', 'INACTIVE'],
         default: 'PENDING'
     },
     role: {
@@ -27,37 +27,63 @@ const userSchema = new mongoose.Schema({
         enum: ['ADMIN', 'SELLER', 'BUYER']
     },
     shoppingCart: [{
-        _id: {
-            type: mongoose.Types.ObjectId,
-            required: true
-        },
-        product: {
+        item: {
             _id: {
                 type: mongoose.Types.ObjectId,
                 required: true
             },
-            name: {
-                type: String,
-                required: true,
-                minlength: 2,
-                maxlength: 255,
-                required: true
+            product: {
+                _id: {
+                    type: mongoose.Types.ObjectId,
+                    required: true
+                },
+                name: {
+                    type: String,
+                    required: true,
+                    minlength: 2,
+                    maxlength: 255,
+                    required: true
+                },
+                userId: {
+                    type: mongoose.Types.ObjectId,
+                    ref: 'User',
+                    required: true
+                },
+                description: {
+                    type: String,
+                    required: true,
+                    minlength: 10,
+                    maxlength: 500
+                },
+                imageUrl: {
+                    type: String
+                },
+                subCategory: {
+                    _id: {
+                        type: mongoose.Types.ObjectId,
+                        required: true
+                    },
+                    name: {
+                        type: String,
+                        required: true,
+                        minlength: 2,
+                        maxlength: 255
+                    },
+                    category: {
+                        _id: {
+                            type: mongoose.Types.ObjectId,
+                            required: true
+                        },
+                        name: {
+                            type: String,
+                            required: true,
+                            minlength: 2,
+                            maxlength: 255
+                        }
+                    }
+                }
             },
-            userId: {
-                type: mongoose.Types.ObjectId,
-                ref: 'User',
-                required: true
-            },
-            description: {
-                type: String,
-                required: true,
-                minlength: 10,
-                maxlength: 500
-            },
-            imageUrl: {
-                type: String
-            },
-            subCategory: {
+            unit: {
                 _id: {
                     type: mongoose.Types.ObjectId,
                     required: true
@@ -68,7 +94,59 @@ const userSchema = new mongoose.Schema({
                     minlength: 2,
                     maxlength: 255
                 },
-                category: {
+                quantity: {
+                    type: Number,
+                    required: true
+                }
+            },
+            price: {
+                type: Number,
+                required: true
+            },
+            isPurchased: {
+                type: Boolean,
+                required: true,
+            },
+            stockQuantity: {
+                type: Number,
+                required: true
+            }
+        }
+
+    }],
+    order: [{
+        item: {
+            _id: {
+                type: mongoose.Types.ObjectId,
+                required: true
+            },
+            product: {
+                _id: {
+                    type: mongoose.Types.ObjectId,
+                    required: true
+                },
+                name: {
+                    type: String,
+                    required: true,
+                    minlength: 2,
+                    maxlength: 255,
+                    required: true
+                },
+                userId: {
+                    type: mongoose.Types.ObjectId,
+                    ref: 'User',
+                    required: true
+                },
+                description: {
+                    type: String,
+                    required: true,
+                    minlength: 10,
+                    maxlength: 500
+                },
+                imageUrl: {
+                    type: String
+                },
+                subCategory: {
                     _id: {
                         type: mongoose.Types.ObjectId,
                         required: true
@@ -78,77 +156,8 @@ const userSchema = new mongoose.Schema({
                         required: true,
                         minlength: 2,
                         maxlength: 255
-                    }
-                }
-            }
-        },
-        unit: {
-            _id: {
-                type: mongoose.Types.ObjectId,
-                required: true
-            },
-            name: {
-                type: String,
-                required: true,
-                minlength: 2,
-                maxlength: 255
-            },
-            quantity: {
-                type: Number,
-                required: true
-            }
-        },
-        price: {
-            type: Number,
-            required: true
-        },
-        isPurchased: {
-            type: Boolean,
-            required: true,
-        },
-        stockQuantity: {
-            type: Number,
-            required: true
-        }
-    }],
-    order: {
-        orderDetail: [{
-            items: {
-                _id: {
-                    type: mongoose.Types.ObjectId,
-                    required: true
-                },
-                product: {
-                    _id: {
-                        type: mongoose.Types.ObjectId,
-                        required: true
                     },
-                    _id: {
-                        type: mongoose.Types.ObjectId,
-                        required: true
-                    },
-                    name: {
-                        type: String,
-                        required: true,
-                        minlength: 2,
-                        maxlength: 255,
-                        required: true
-                    },
-                    userId: {
-                        type: mongoose.Types.ObjectId,
-                        ref: 'User',
-                        required: true
-                    },
-                    description: {
-                        type: String,
-                        required: true,
-                        minlength: 10,
-                        maxlength: 500
-                    },
-                    imageUrl: {
-                        type: String
-                    },
-                    subCategory: {
+                    category: {
                         _id: {
                             type: mongoose.Types.ObjectId,
                             required: true
@@ -158,57 +167,45 @@ const userSchema = new mongoose.Schema({
                             required: true,
                             minlength: 2,
                             maxlength: 255
-                        },
-                        category: {
-                            _id: {
-                                type: mongoose.Types.ObjectId,
-                                required: true
-                            },
-                            name: {
-                                type: String,
-                                minlength: 2,
-                                maxlength: 255
-                            }
                         }
                     }
-                },
-                unit: {
-                    _id: {
-                        type: mongoose.Types.ObjectId,
-                        required: true
-                    },
-                    name: {
-                        type: String,
-                        required: true
-                    },
-                    quantity: {
-                        type: Number,
-                        required: true
-                    }
-                },
-                price: {
-                    type: Number,
-                    required: true
-                },
-                isPurchased: {
-                    type: Boolean,
-                    required: true,
-                },
-                stockQuantity: {
-                    type: Number,
-                    required: true
-                },
-                orderStatus: {
-                    type: String,
-                    enum: ['CANCELLED', 'APPROVED', 'DELIVERED', 'SHIPPED', 'ON THE WAY', 'ORDERED'],
-                    defualt: 'ORDERED'
                 }
+
+            },
+            unit: {
+                _id: {
+                    type: mongoose.Types.ObjectId,
+                    required: true
+                },
+                name: {
+                    type: String,
+                    required: true
+                },
+                quantity: {
+                    type: Number,
+                    required: true
+                }
+            },
+            price: {
+                type: Number,
+                required: true
+            },
+            isPurchased: {
+                type: Boolean,
+                default: false,
+            },
+            stockQuantity: {
+                type: Number,
+                required: true
             }
-        }],
+        },
         orderDate: {
             type: Date,
         },
         shippingAddress: {
+            _id: {
+                type: mongoose.Types.ObjectId
+            },
             state: {
                 type: String,
                 minlength: 2,
@@ -228,14 +225,22 @@ const userSchema = new mongoose.Schema({
                 type: String,
                 minlength: 5,
                 maxlength: 5
-            }
+            },
+            addressString: {
+                type: String
+            },
+            required: false
+        },
+        orderStatus: {
+            type: String,
+            enum: ['CANCELLED', 'DELIVERED', 'SHIPPED', 'ON THE WAY', 'ORDERED'],
+            default: 'ORDERED'
         },
         payment: {
             type: String,
-            enum: ['PENDING', 'PAYED', 'VOID'],
-            defualt: 'PENDING'
+            enum: ['PAYED', 'VOID']
         }
-    },
+    }],
     firstName: {
         type: String,
         required: true,
@@ -254,10 +259,6 @@ const userSchema = new mongoose.Schema({
         minlength: 2,
         maxlength: 255
     },
-    point: {
-        type: Number,
-        default: 0
-    },
     coupon: {
         grade: {
             type: String,
@@ -265,8 +266,9 @@ const userSchema = new mongoose.Schema({
             maxlength: 255,
             default: 'YELLOW'
         },
-        value: {
+        point: {
             type: Number,
+            default: 0
         }
     },
 
@@ -291,16 +293,17 @@ const userSchema = new mongoose.Schema({
         },
         zipCode: {
             type: String,
-            required: true,
-            minlength: 5,
-            maxlength: 5
+            required: true //,
+                // minlength: 5,
+                //maxlength: 5
         },
         accountNumber: {
             type: String,
             required: true
         },
         expiryDate: {
-            type: Date,
+            //  type: Date,
+            type: String,
             required: true
         },
         nameOntheCard: {
@@ -311,10 +314,45 @@ const userSchema = new mongoose.Schema({
         },
         ccv: {
             type: Number,
-            required: true,
-            maxlength: 3
+            required: true //,
+                // maxlength: 3
         }
-    }
+    },
+    addresses: [{
+        _id: {
+            type: mongoose.Types.ObjectId,
+            required: true
+        },
+        state: {
+            type: String,
+            required: true,
+            minlength: 2,
+            maxlength: 255
+        },
+        city: {
+            type: String,
+            required: true,
+            minlength: 2,
+            maxlength: 255
+        },
+        street: {
+            type: String,
+            required: true,
+            minlength: 2,
+            maxlength: 255
+        },
+        zipCode: {
+            type: String,
+            required: true //,
+                //  minlength: 5,
+                // maxlength: 5
+        },
+        addressString: {
+            type: String,
+            required: true
+        }
+
+    }]
 
 });
 
