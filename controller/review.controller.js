@@ -14,11 +14,19 @@ exports.insert = async(req, res, next) => {
             $push: { text: req.body.text }
         }, { new: true, useFindAndModify: true })
     } else {
+
+
         let newReview = new Review({
             userId: req.body.userId,
             productId: req.body.productId,
-            text: [req.body.text]
+            $push: {
+                review: {
+                    reviewText: req.body.text,
+                    reviewStatus: 'PENDING'
+                }
+            }
         });
+        console.log(newReview.review);
         review = await Review.create(newReview);
     }
     res.status(201).send(new ApiResponse(201, 'success', review));
@@ -27,4 +35,11 @@ exports.insert = async(req, res, next) => {
 exports.reviewStatus = async(req, res, next) => {
     const { error } = validateWithOutId(req.body);
     if (error) return res.status(400).send(new ErrorResponse('400', error.details[0].message));
+    let review = await Review.findById(req.body.reviewId);
+    if (!review) return res.status(400).send(new ErrorResponse('400', 'no content found!'));
+    let newReview = await Review.findByIdAndUpdate(req.body.reviewId, {
+        reviewStatus: req.body.status
+    }, { new: true, useFindAndModify: true });
+    res.status(201).send(new ApiResponse(201, 'success', newReview));
+
 }
