@@ -5,7 +5,7 @@ const securityController = require('../controller/security.controller');
 const reviewController = require('../controller/review.controller');
 
 /* GET a user. */
-router.post('/users', userController.findById);
+router.get('/users', userController.findAll);
 
 router.put('/products/reviewStatus', reviewController.reviewStatus);
 router.post('/products/productReview', reviewController.findByProductId);

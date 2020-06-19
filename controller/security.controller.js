@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt');
 const _ = require('lodash');
 const mongoose = require('mongoose');
 const { User } = require('../models/user');
+const { Bank } = require('../models/bank');
 const { Address } = require('../models/address');
 const { OrderDetail } = require('../models/orderDetail');
 const { Item } = require('../models/item');

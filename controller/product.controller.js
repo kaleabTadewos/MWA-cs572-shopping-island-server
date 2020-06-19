@@ -45,6 +45,7 @@ exports.findBySellerId = async(req, res, next) => {
 };
 
 exports.findAll = async(req, res, next) => {
+    console.log(req.user);
     const products = await Product.find();
     if (!products) return res.status(404).send(new ErrorResponse('400', 'no content found!'));
     res.status(200).send(new ApiResponse(200, 'success', products));
