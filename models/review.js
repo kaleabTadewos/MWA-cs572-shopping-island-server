@@ -11,14 +11,17 @@ const reviewSchema = new mongoose.Schema({
         type: mongoose.Types.ObjectId,
         required: true
     },
-    text: [{
-        type: String
+    review: [{
+        reviewText: {
+            type: String
+        } , 
+        reviewStatus: {
+            type: String,
+            enum: ['PENDING', 'APPROVED', 'DISAPPROVED'],
+            default: 'PENDING'
+        }
+
     }],
-    reviewStatus: {
-        type: String,
-        enum: ['PENDING', 'APPROVED', 'DISAPPROVED'],
-        default: 'PENDING'
-    }
 });
 
 const Review = mongoose.model('Review', reviewSchema);

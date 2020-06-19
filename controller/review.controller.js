@@ -27,5 +27,4 @@ exports.insert = async(req, res, next) => {
 exports.reviewStatus = async(req, res, next) => {
     const { error } = validateWithOutId(req.body);
     if (error) return res.status(400).send(new ErrorResponse('400', error.details[0].message));
-
 }
