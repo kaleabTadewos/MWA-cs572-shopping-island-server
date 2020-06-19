@@ -171,8 +171,13 @@ exports.updateOrderStatus = async (req, res, next) => {
     const updatedBy = await User.find({'_id':req.params.userId});
     const orderedBy = await User.findOne({ 'order._id': req.body.orderId });
 
-    if (!updatedBy || !orderedBy) return res.status(400).send(new ErrorResponse('400', 'no content found!'));
-
+    if(!updatedBy) {
+        return res.status(400).send(new ErrorResponse('400', 'there is no user with current id!'));
+    }
+    if(!orderedBy) {
+        return res.status(400).send(new ErrorResponse('400', 'order not found!'));
+    }
+    
     let newOrder = {};
     
     orderedBy.order.forEach((o) => {
