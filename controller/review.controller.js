@@ -69,15 +69,13 @@ exports.findByProductId = async(req, res, next) => {
     let reviews = [];
 
     review = await Review.find({ productId: req.body.productId });
-    let rev = [];
-    rev = review;
-
-    rev.forEach((re) => {
-        re.review.forEach((r) => {
-            if (r.reviewStatus == "APPROVED") {
-                reviews.push(r);
-            }
-        });
-    });
-    res.status(200).send(new ApiResponse(200, 'success', reviews));
+  
+    // rev.forEach((re) => {
+    //     re.review.forEach((r) => {
+    //         if (r.reviewStatus == "APPROVED") {
+    //             reviews.push(r);
+    //         }
+    //     });
+    // });
+    res.status(200).send(new ApiResponse(200, 'success', review[0]));
 }
