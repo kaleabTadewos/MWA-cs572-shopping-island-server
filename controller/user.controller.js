@@ -163,14 +163,15 @@ exports.findOrdersOfSeller = async(req, res, next) => {
     res.status(200).send(new ApiResponse(200, 'success', orders));
 };
 
-exports.updateOrderStatus = async(req, res, next) => {
-    const { error } = validateUpdateOrderStatus(req.body);
-    if (error) return res.status(400).send(new ErrorResponse('400', error.details[0].message));
-    
-    let orders = [];
-    const updatedBy = await User.findById(req.params.userId);
+exports.updateOrderStatus = async (req, res, next) => {
+    // const { error } = validateUpdateOrderStatus(req.body);
+    // if (error) return res.status(400).send(new ErrorResponse('400', error.details[0].message));
+    // console.log("HERE IAM ")
+    // let orders = [];
+    const updatedBy = await User.find({'_id':req.params.userId});
     const orderedBy = await User.findOne({ 'order._id': req.body.orderId });
-    if (!updatedBy || !orderedBy) return res.status(404).send(new ErrorResponse('400', 'no content found!'));
+
+    if (!updatedBy || !orderedBy) return res.status(400).send(new ErrorResponse('400', 'no content found!'));
 
     let newOrder = {};
     
@@ -223,6 +224,7 @@ exports.updateOrderStatus = async(req, res, next) => {
     else {
         return res.status(403).send(new ErrorResponse('403', 'Access Denied!'))
     }
+   // return res.status(403).send(new ErrorResponse('403', 'Access Denied!'))
 };
 
 exports.removeFromCart = async(req, res, next) => {
