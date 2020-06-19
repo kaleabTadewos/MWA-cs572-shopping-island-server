@@ -14,11 +14,19 @@ exports.insert = async(req, res, next) => {
             $push: { text: req.body.text }
         }, { new: true, useFindAndModify: true })
     } else {
+
+
         let newReview = new Review({
             userId: req.body.userId,
             productId: req.body.productId,
-            text: [req.body.text]
+            $push: {
+                review: {
+                    reviewText: req.body.text,
+                    reviewStatus: 'PENDING'
+                }
+            }
         });
+        console.log(newReview.review);
         review = await Review.create(newReview);
     }
     res.status(201).send(new ApiResponse(201, 'success', review));
