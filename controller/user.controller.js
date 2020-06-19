@@ -4,6 +4,7 @@ const _ = require('lodash');
 const mongoose = require('mongoose');
 const { User } = require('../models/user');
 const { Bank } = require('../models/bank');
+const { OrderInformation } = require('../models/orderInformation');
 const { Address } = require('../models/address');
 const { OrderDetail } = require('../models/orderDetail');
 const { Item } = require('../models/item');
@@ -177,7 +178,7 @@ exports.updateOrderStatus = async (req, res, next) => {
     if(!orderedBy) {
         return res.status(400).send(new ErrorResponse('400', 'order not found!'));
     }
-    
+
     let newOrder = {};
     
     orderedBy.order.forEach((o) => {
@@ -280,7 +281,6 @@ exports.placeSingleOrder = async(req, res, next) => {
     if (error) return res.status(400).send(new ErrorResponse('400', error.details[0].message));
 
     const user = await User.findById(req.body.userId);
-
     const item = await Item.findById(req.body.itemId);
     if (!item) res.status(400).send(new ErrorResponse('400', 'no content found!'));
 
@@ -292,10 +292,11 @@ exports.placeSingleOrder = async(req, res, next) => {
     newOrder.shippingAddress = newAddress;
     newOrder.orderStatus = "ORDERED";
     newOrder.payment = "PAYED";
+    console.log('new order:' , newOrder.item.price);
     let costOfPurchase = newOrder.item.price;
-
+    let discardedCost = 0;
     if (user.coupon.point * config.get('dollarPerPoint') > newOrder.item.price) {
-        let discardedCost = user.coupon.point * config.get('dollarPerPoint') - newOrder.item.price;
+        discardedCost = user.coupon.point * config.get('dollarPerPoint') - newOrder.item.price;
         let updatedPoint = user.coupon.point - (discardedCost / config.get('dollarPerPoint'));
 
         await User.findByIdAndUpdate(req.body.userId, {
@@ -307,7 +308,7 @@ exports.placeSingleOrder = async(req, res, next) => {
         console.log(`${discardedCost} is taken from your coupon!!!`);
     }
 
-    await User.findByIdAndUpdate(req.body.userId, {
+    const userWithOrder = await User.findByIdAndUpdate(req.body.userId, {
         $addToSet: { addresses: newAddress },
         $push: { order: newOrder }
 
@@ -322,7 +323,13 @@ exports.placeSingleOrder = async(req, res, next) => {
         $inc: {balance: -1 * costOfPurchase}
     }, { new: true, useFindAndModify: true });
 
-    res.status(200).send(new ApiResponse(200, 'success', updatedUser));
+    const orderInformation = await OrderInformation.create({
+        orderId: userWithOrder.order[userWithOrder.order.length - 1]._id,
+        orderInformation: `Payment Status: ${newOrder.payment}  Actual Cost For Order: $${newOrder.item.price} Payed Amount Using Coupon: $${discardedCost}`
+    });
+    console.log('this is log' , orderInformation);
+
+    res.status(200).send(new ApiResponse(200, 'success', newOrder));
 
 }
 

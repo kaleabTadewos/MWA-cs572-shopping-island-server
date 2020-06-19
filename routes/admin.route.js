@@ -10,6 +10,8 @@ const itemController = require('../controller/item.controller');
 const userController = require('../controller/user.controller');
 const securityController = require('../controller/security.controller');
 const reviewController = require('../controller/review.controller');
+const orderInformationController = require('../controller/orderInformation.controller');
+
 
 
 /* products Routes */
@@ -71,6 +73,8 @@ router.post('/point-calculator', pointCalculatorControler.insert);
 router.put('/point-calculator', pointCalculatorControler.updateById);
 router.get('/point-calculator/:id', pointCalculatorControler.findById);
 router.delete('/point-calculator/:id', pointCalculatorControler.removeById);
+
+router.get('/orders/findByOrderInformationId/:id' , orderInformationController.findByOrderInformationId);
 
 //user Routes
 router.get('/users', userController.findAll);
