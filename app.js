@@ -46,9 +46,9 @@ app.use((req, res, next) => {
     return res.status(404).send(new ErrorResponse(400, 'no content found!'));
 });
 
-// app.use((err, req, res, next) => {
-//     return res.status(500).send(new ErrorResponse(500, err));
-// });
+app.use((err, req, res, next) => {
+    return res.status(500).send(new ErrorResponse(500, err));
+});
 
 
 mongoose.connect('mongodb://localhost:27017/Island-shopping', { useUnifiedTopology: true, useNewUrlParser: true })
